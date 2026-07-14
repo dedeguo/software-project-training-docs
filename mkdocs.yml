@@ -1,8 +1,8 @@
 site_name: 软件开发综合项目实训
 site_description: 《软件开发综合项目实训——AI辅助的软件项目开发》电子教程
-site_url: https://dedeguo.github.io/software-project-training-docs/
-repo_url: https://github.com/dedeguo/software-project-training-docs
-repo_name: dedeguo/software-project-training-docs
+site_url: https://project-ai.chende.top/
+# repo_url: https://github.com/dedeguo/software-project-training-docs
+# repo_name: dedeguo/software-project-training-docs
 
 theme:
   name: material
