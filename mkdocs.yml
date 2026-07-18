@@ -20,14 +20,23 @@ theme:
     - content.code.copy
     - toc.follow
 nav:
-  - 课程导读（核心理念与16周全景图）: index.md
-  - 第一篇：带练体验（图书管理系统）:
-    - 1.1 项目全貌与文档导读: phase1/01-intro.md
-    - 1.2 AI 编程利器登场：Trae IDE 与 Superpowers 技能框架: phase1/02-ai-tools.md
-    - 1.3 建立 AI 规则：Trae 规则、Skills 与 AGENTS.md: phase1/03-ai-rules.md
-    - 1.4 分模块开发与 AI 代码审查: phase1/04-development.md
-    - 1.5 测试、修复与项目部署: phase1/05-deployment.md
-    
+  - 课程介绍: 
+     - 课程介绍: index.md
+  - 课程导学:
+    - 课程导学: guide/index.md
+    - 16周项目路线: guide/roadmap.md
+    - 学习与AI协作规范: guide/learning-method.md
+  - 第一篇：体验AI编程（图书管理系统）:
+    - 体验AI编程（图书管理系统）: phase1/index.md
+    - 01 项目全貌与文档导读: phase1/01-intro.md
+    - 02 AI 编程利器登场：Trae IDE 与 Superpowers 技能框架: phase1/02-ai-tools.md
+    - 03 建立 AI 规则：Trae 规则、Skills 与 AGENTS.md: phase1/03-ai-rules.md
+    - 04 分模块开发与 AI 代码审查: phase1/04-development.md
+    - 05 测试、修复与项目部署: phase1/05-deployment.md
+  - 第二篇｜项目选题与需求分析:
+      - 项目选题与需求分析: chapter02/index.md
+  - 项目选题库: projects/index.md
+  - 文档与任务模板: doc-templates/index.md
 # nav:
 #   - 课程首页: index.md
 #   - 课程导学:
