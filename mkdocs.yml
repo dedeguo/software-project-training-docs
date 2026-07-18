@@ -25,14 +25,20 @@ nav:
   - 课程导学:
       - 16周项目路线: guide/roadmap.md
       - 学习与AI协作规范: guide/learning-method.md
-  - 第一篇｜开发准备与AI编程:
+  - 第一篇｜开发准备与AI编程初体验:
       - 本篇导读: chapter01/index.md
-      - 开发环境与项目工具链: chapter01/01-environment.md
+      - 开发环境与工具: chapter01/01-environment.md
       - AI辅助编程工作流: chapter01/02-ai-coding.md
+      - 认识并运行示例项目: chapter01/03-example-project.md
+      - 使用AI完成功能迭代: chapter01/04-ai-iteration.md
   - 第二篇｜项目选题与需求分析:
       - 本篇导读: chapter02/index.md
-      - 项目选题与范围控制: chapter02/01-topic-selection.md
-      - 用户需求与业务流程: chapter02/02-requirements.md
+      - 项目选题、调研与范围控制: chapter02/01-topic-research.md
+      - 项目申报、计划与立项评审: chapter02/02-proposal-review.md
+      - 用户需求与使用场景: chapter02/03-user-needs.md
+      - 功能需求、业务规则与流程: chapter02/04-functions.md
+      - 非功能需求与验收标准: chapter02/05-non-functional.md
+      - 需求说明书与评审: chapter02/06-document-review.md
   - 第三篇｜原型与系统设计:
       - 本篇导读: chapter03/index.md
   - 第四篇｜项目骨架与工程规范:
