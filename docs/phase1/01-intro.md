@@ -73,7 +73,7 @@
 
 ![用户首页](../assets/imgs/intro/index-user.png){ width="100%" .shadow }
 
-点击图书卡片进入详情页，可查看封面、书名、作者、出版社、简介、总复本数与可借复本数，并发起借阅。图书详情页原型可参考 [`doc/UI/user/book_detail.html`](../assets/imgs/intro/UI/user/book_detail.html)。
+点击图书卡片进入详情页，可查看封面、书名、作者、出版社、简介、总复本数与可借复本数，并发起借阅。图书详情页原型可参考 [`doc/UI/user/book_detail.html`](https://gitee.com/javaweb-dev-tech/lab2_2/blob/master/book_template/doc/UI/user/book_detail.html)。
 
 "我的借阅"页面顶部显示统计卡片，下方通过表格区分"当前借阅"和"历史借阅"，超期记录使用红色标签突出显示：
 
