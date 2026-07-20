@@ -26,13 +26,13 @@ nav:
     - 课程导学: guide/index.md
     - 16周项目路线: guide/roadmap.md
     - 学习与AI协作规范: guide/learning-method.md
-  - 第一篇：体验AI编程（图书管理系统）:
-    - 体验AI编程（图书管理系统）: phase1/index.md
-    - 01 项目全貌与文档导读: phase1/01-intro.md
-    - 02 AI 编程利器登场：Trae IDE 与 Superpowers 技能框架: phase1/02-ai-tools.md
-    - 03 建立 AI 规则：Trae 规则、Skills 与 AGENTS.md: phase1/03-ai-rules.md
-    - 04 分模块开发与 AI 代码审查: phase1/04-development.md
-    - 05 测试、修复与项目部署: phase1/05-deployment.md
+  - 第一篇｜AI 协同开发实战:
+    - 本篇导读：图书管理系统带练: phase1/index.md
+    - 01 认识项目：体验系统与阅读文档: phase1/01-intro.md
+    - 02 准备工具：Trae 与 Superpowers-zh: phase1/02-ai-tools.md
+    - 03 建立规则：Rules、Skills 与 AGENTS.md: phase1/03-ai-rules.md
+    - 04 分步开发：从模板到功能闭环: phase1/04-development.md
+    - 05 测试部署：验证并交付项目: phase1/05-deployment.md
   - 第二篇｜项目选题与需求分析:
       - 项目选题与需求分析: chapter02/index.md
   - 项目选题库: projects/index.md
