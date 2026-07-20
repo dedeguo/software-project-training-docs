@@ -1,146 +1,201 @@
 # 1.2 AI 编程利器登场：Trae IDE 与 Superpowers 技能框架
 
-在 1.1 中，我们已经让 Trae 打开过项目、跑起来过初始系统。但你可能会疑惑：同样是用 AI 写代码，为什么有人写出来的代码又快又稳，有人却越写越乱、Bug 满天飞？
+## 让 AI 不只会写代码，更能按工程方法完成任务
 
-答案往往不在于“用不用 AI”，而在于**你给 AI 配了什么工具、立了什么规矩**。本节正式介绍本课程贯穿始终的两件利器：**Trae IDE**（AI 原生开发环境）与 **Superpowers-zh**（给 AI 装上工程方法论的技能框架）。
+!!! quote "为什么同样使用 AI，结果却差别很大"
+    如果把 AI 编程比作组建一支开发团队：
 
-## 一、 Trae IDE：为 AI 协作而生的开发环境
+    * **只有 AI 模型**：像请来一位写代码很快、但不了解项目规则的新成员；
+    * **Trae IDE**：为它准备好编辑器、终端、项目文件和调试工具；
+    * **Superpowers-zh**：再教会它先分析、后计划，边实现、边测试，完成后必须验证。
 
-**Trae** 是字节跳动推出的 AI 原生 IDE。与传统的“编辑器 + AI 插件”模式不同，它从底层就把 AI 当作一等公民来设计，让 AI 既能辅助你写代码，也能独立承担完整的开发任务。
+    真正稳定的 AI 协作，不只是“让 AI 生成代码”，而是让它在合适的工具和规则下完成任务。
 
-### 1. 核心特性一览
+!!! tip "本节学习目标"
+    认识 Trae IDE 与 Superpowers-zh 的作用，完成技能框架安装，并理解它们在后续项目开发中的分工。
 
-| 特性 | 说明 | 在本课程中的用途 |
-|---|---|---|
-| **IDE 模式** | 在你熟悉的编码流程中嵌入 Agent 能力，边写边协作 | 日常开发、代码补全、对话问答 |
-| **SOLO 模式** | 全自动编码 Agent，从需求到部署端到端交付 | 复杂模块的整体生成与迭代 |
-| **多代理框架** | 内置可定制 Agent，支持子代理分工协作 | 分模块开发时的任务拆分与并行 |
-| **MCP 工具集成** | 通过 Model Context Protocol 按需接入外部资源 | 读取数据库、调用接口、浏览器调试 |
-| **CUE 智能补全** | 一个 Tab 预测你的下一步编辑，跨多行建议 | 提升手写代码的效率 |
-| **内置预览** | 浏览器变成开发工具，Agent 可读取控制台、交互元素 | 实时验证生成页面是否符合预期 |
+---
 
-### 2. 在本课程中的定位
+## 🛠️ Trae IDE：AI 协作的开发环境
 
-在本课程的“校园图书管理系统”带练中，你将主要使用 Trae 完成三件事：
+**Trae** 是面向 AI 协作设计的开发环境。它不只是给传统编辑器增加一个聊天窗口，而是让 AI 能够读取项目、修改文件、运行命令、分析错误，并协助完成较完整的开发任务。
 
-1. **阅读与理解项目**：用 `@` 提及 `docs/` 下的需求与设计文档，让 Trae 在生成代码前先“读懂”规范。
-2. **生成与修改代码**：通过对话或 Builder/SOLO 模式，让 Trae 按文档要求生成前后端代码。
-3. **审查与验证**：借助内置预览与 MCP，实时检查 Trae 产出的代码是否符合预期。
+### Trae 能帮助你做什么
 
-> **🔍 一个关键观念：**
-> Trae 是“手”，但它不会自己思考工程纪律。如果不加约束，它可能跳过测试、擅改表结构、生成游离于设计文档之外的接口。这就是为什么我们需要 **Superpowers** 来给它装上“方法论大脑”，再用 **AGENTS.md** 给它立下“红线规矩”。
+| 能力 | 你会看到什么 | 在本课程中的用途 |
+| :--- | :--- | :--- |
+| **IDE 模式** | 在编码过程中进行补全、问答和局部修改 | 日常编写与理解代码 |
+| **SOLO 模式** | Agent 根据任务自主读取、修改和验证项目 | 完成较复杂的模块开发 |
+| **多代理协作** | 不同 Agent 分工搜索、实现或审查 | 拆分并行任务，降低复杂度 |
+| **MCP 工具集成** | AI 按需连接外部工具和资源 | 访问接口、仓库或其他服务 |
+| **CUE 智能补全** | 按下 Tab 接受单行或多行编辑建议 | 提高手写代码效率 |
+| **内置预览** | 在 IDE 中查看页面与运行结果 | 验证前端页面和交互效果 |
 
-## 二、 Superpowers-zh：给 AI 装上工程方法论
+在“校园图书管理系统”带练中，你将主要用 Trae 完成三类任务：
 
-### 1. 它解决什么问题？
+1. **阅读项目**：通过 `@` 提及需求、设计和任务文档，让 AI 先理解上下文；
+2. **实现功能**：通过对话或 Agent 模式生成、修改前后端代码；
+3. **运行验证**：查看页面、终端和报错信息，检查实现是否满足要求。
 
-先看一组对比，你就能直观感受到 Superpowers 的价值：
+!!! warning "Trae 能执行任务，但不会天然遵守你的工程纪律"
+    如果没有明确约束，AI 可能跳过测试、擅自修改表结构，或者生成与设计文档不一致的接口。因此，我们还需要 Superpowers-zh 提供工作方法，并在下一节使用 `AGENTS.md` 写清项目规则。
 
-**没装 Superpowers：**
+---
+
+## 🧠 Superpowers-zh：AI 的工程方法框架
+
+### 它解决什么问题
+
+只告诉 AI“给用户模块增加批量导出”，它可能立即开始写代码，却没有确认导出格式、数据规模和权限要求。代码虽然生成得快，却可能很快返工。
+
+引入 Superpowers-zh 后，AI 会更倾向于先确认关键问题：
 
 ```text
-你：给用户模块加个批量导出功能
-AI：好的，我来实现...（直接开始写代码）
-export async function exportUsers() { ... }
-你：等等，格式不对，没分页，大数据量会 OOM...
+你：给用户模块增加批量导出功能。
+
+AI：开始实现前，需要先确认：
+1. 导出 CSV 还是 Excel？
+2. 预计数据量有多大，是否需要异步处理？
+3. 哪些角色有导出权限？
+4. 我会先给出方案，确认后再实现并测试。
 ```
 
-**装了 Superpowers：**
+**Superpowers-zh** 是开源项目 [Superpowers](https://github.com/obra/superpowers) 的中文增强版，项目地址为 [jnMetaCode/superpowers-zh](https://github.com/jnMetaCode/superpowers-zh)。它将常用的软件工程方法整理成 AI 可以按需加载的 Skills，并适配 Trae 等主流 AI 编程工具。
 
-```text
-你：给用户模块加个批量导出功能
-AI：在开始实现之前，我需要了解几个关键问题：
- 1. 导出格式是 CSV 还是 Excel？
- 2. 预计数据量多大？需要异步处理吗？
- 3. 有权限要求吗？
- → 给出 2-3 个方案，确认后再动手
-```
+一句话概括：
 
-**Superpowers-zh** 是开源项目 [superpowers](https://github.com/obra/superpowers)（233k+ stars）的**中文增强版**（[github.com/jnMetaCode/superpowers-zh](https://github.com/jnMetaCode/superpowers-zh)）。它在完整翻译上游 14 个 skills 的基础上，新增了 6 个面向中国开发者的特色 skills，并一键适配 **18 款主流 AI 编程工具**（包括 Trae、Claude Code、Cursor、通义灵码、Qoder 等）。
+> **Trae 让 AI 有能力操作项目，Superpowers-zh 让 AI 按更可靠的方法操作项目。**
 
-一句话：**它把“先想清楚再动手、写完必验证、出 Bug 按流程排错”这套资深工程师的工作习惯，固化成 AI 可加载的技能包。**
+---
 
-### 2. 核心工作流（7 个阶段自动触发）
+## 🔄 一次开发任务如何推进
 
-Superpowers 把一次完整的开发任务拆成 7 个阶段，每个阶段对应一个 skill，在合适的时机自动激活：
+Superpowers 将常见开发任务组织为一套连续工作流。不同任务不一定机械地经过所有阶段，但核心原则是一致的：**先想清楚，再动手；完成实现后，用证据验证。**
 
-| 阶段 | Skill | 作用 |
-|---|---|---|
-| 1 | `brainstorming`（头脑风暴） | 动手前先提问，搞清楚需求与边界 |
-| 2 | `using-git-worktrees` | 用 git worktree 创建隔离开发环境 |
-| 3 | `writing-plans`（编写计划） | 把大任务拆成 2–5 分钟可完成的小块 |
-| 4 | `subagent-driven-development` | 子代理并行执行，两阶段审查 |
-| 5 | `test-driven-development` | 强制 RED-GREEN-REFACTOR 循环 |
-| 6 | `requesting-code-review` | 任务之间自动进行代码审查 |
-| 7 | `finishing-a-development-branch` | 完成后验证测试并清理分支 |
+| 阶段 | 对应 Skill | 主要作用 |
+| :--- | :--- | :--- |
+| 1. 明确需求 | `brainstorming` | 提问并确认目标、边界和验收标准 |
+| 2. 隔离环境 | `using-git-worktrees` | 使用 Git Worktree 创建独立工作区 |
+| 3. 拆分任务 | `writing-plans` | 将复杂任务拆成可执行的小步骤 |
+| 4. 分步实现 | `subagent-driven-development` | 通过子 Agent 分工执行与审查 |
+| 5. 测试驱动 | `test-driven-development` | 按 RED–GREEN–REFACTOR 循环开发 |
+| 6. 代码审查 | `requesting-code-review` | 检查正确性、质量和规范 |
+| 7. 完成收尾 | `finishing-a-development-branch` | 运行验证并整理开发分支 |
 
-### 3. 四大原则
+### 需要记住的四条原则
 
-- **TDD 优先** —— 先写测试，再写代码
-- **系统化调试** —— 不靠猜，按流程排错
-- **简化复杂性** —— 能简单就不复杂
-- **证据优于声明** —— 做完要验证，不能嘴上说成功
+| 原则 | 对开发的要求 |
+| :--- | :--- |
+| **TDD 优先** | 尽可能先写测试，再实现功能 |
+| **系统化调试** | 根据报错和运行证据定位问题，不靠猜测修改 |
+| **保持简单** | 只实现当前需要的内容，避免过度设计 |
+| **证据优于声明** | 必须通过测试、构建或运行结果证明任务完成 |
 
-### 4. Skills 一览（20 个）
+!!! failure "AI 说“已经完成”不等于真的完成"
+    没有运行、没有测试、没有检查结果的代码，只能算“生成了内容”，不能算“完成了任务”。
 
-**14 个翻译 skills（覆盖通用工程方法论）：**
+---
 
-头脑风暴、编写计划、执行计划、测试驱动开发、系统化调试、请求代码审查、接收代码审查、完成前验证、派遣并行 Agent、子 Agent 驱动开发、Git Worktree 使用、完成开发分支、编写 Skills、使用 Superpowers。
+## 🧰 Superpowers-zh 包含哪些 Skills
 
-**6 个中国特色 skills（适配国内开发场景）：**
+Superpowers-zh 包含通用工程 Skills，也提供面向中文开发场景的扩展能力。
+
+### 通用工程 Skills
+
+包括头脑风暴、编写计划、执行计划、测试驱动开发、系统化调试、请求与接收代码审查、完成前验证、并行 Agent、子 Agent 驱动开发、Git Worktree、开发分支收尾、编写 Skills 和使用 Superpowers 等。
+
+### 中文开发场景 Skills
 
 | Skill | 用途 | 调用方式 |
-|---|---|---|
-| `chinese-code-review` | 符合国内团队文化的代码审查规范 | `/chinese-code-review`（手动） |
-| `chinese-git-workflow` | 适配 Gitee/Coding/极狐 GitLab/CNB | `/chinese-git-workflow`（手动） |
-| `chinese-documentation` | 中文排版、中英混排、告别机翻味 | `/chinese-documentation`（手动） |
-| `chinese-commit-conventions` | 适配国内团队的 commit message 规范 | `/chinese-commit-conventions`（手动） |
-| `mcp-builder` | 构建生产级 MCP 工具，扩展 AI 能力边界 | 自动 |
-| `workflow-runner` | 在 AI 工具内运行多角色 YAML 工作流 | 自动 |
+| :--- | :--- | :--- |
+| `chinese-code-review` | 按中文团队习惯开展代码审查 | 手动调用 |
+| `chinese-git-workflow` | 适配 Gitee、Coding、极狐 GitLab、CNB 等平台 | 手动调用 |
+| `chinese-documentation` | 优化中文排版与中英混排 | 手动调用 |
+| `chinese-commit-conventions` | 生成符合国内团队习惯的提交信息 | 手动调用 |
+| `mcp-builder` | 构建 MCP 工具，扩展 AI 能力 | 按任务触发 |
+| `workflow-runner` | 在 AI 工具中运行多角色 YAML 工作流 | 按任务触发 |
 
-## 三、 在 Trae 中安装 Superpowers-zh
+---
 
-Superpowers-zh 原生支持 Trae，安装后 skills 会落到 `.trae/skills/` 与 `.trae/rules/` 目录下。
+## 📦 在 Trae 中安装 Superpowers-zh
+
+Superpowers-zh 原生支持 Trae。安装后，相关 Skills 和规则会写入项目的 `.trae/` 目录。
 
 ### 方式一：一键安装（推荐）
 
-在项目根目录下执行：
+先进入你的项目根目录，再执行安装命令：
 
 ```bash
-cd /your/project          # 进入你的项目根目录
-npx superpowers-zh --tool trae        # 自动识别项目里的工具并安装
+cd /your/project
+npx superpowers-zh --tool trae
 ```
 
-> **⚠️ 注意：**
-> - **不要在主目录（`~`）下运行**，否则会把 skills 写到 home 目录，污染所有项目。
-> - 如果自动识别不到 Trae，可用 `npx superpowers-zh --tool trae` 显式指定。
-> - 想卸载时执行 `npx superpowers-zh@latest --uninstall`，会按哨兵精确切除，不会误删你自己的内容。
+!!! warning "请在项目根目录中执行"
+    不要直接在用户主目录 `~` 中安装，否则配置可能影响其他项目。如果自动识别不到 Trae，可以继续使用 `--tool trae` 显式指定。
 
-### 方式二：手动安装（仅作备选）
-
-仅当无网络或 npx 不可用时使用。注意：手动 `cp -r skills` 是低保版安装，**不会配置 hooks 和 bootstrap 引导**，AI 不会在合适时机自动调用 skills，需要你每次手动喊“use brainstorming skill”。
+需要卸载时执行：
 
 ```bash
-# 克隆仓库
-git clone https://github.com/jnMetaCode/superpowers-zh.git
+npx superpowers-zh@latest --uninstall
+```
 
-# 复制 skills 到 Trae 的规则目录
+### 方式二：手动安装（备用）
+
+仅在无法使用 `npx` 时考虑手动安装：
+
+```bash
+git clone https://github.com/jnMetaCode/superpowers-zh.git
 cp -r superpowers-zh/skills /your/project/.trae/rules
 ```
 
-### 验证是否生效
+!!! info "手动复制不等于完整安装"
+    手动方式可能不会配置 hooks 和启动引导，因此 AI 未必能在合适的时机自动加载 Skills。能够使用网络和 `npx` 时，应优先选择一键安装。
 
-安装完成后重启 Trae，在对话窗口输入：
+---
 
-> *"你有 superpowers 吗？"*
+## ✅ 验证安装结果
 
-如果安装成功，AI 会回复关于 superpowers 技能体系的相关内容，并在后续任务中主动按 7 阶段工作流推进。
+安装完成后，重启 Trae，并在项目对话窗口中输入：
 
-## 四、 小结与下一步
+```text
+你有 superpowers 吗？
+```
 
-到这一步，你已经认识了本课程的两大生产力底座：
+如果安装成功，AI 应能说明 Superpowers 技能体系，并在后续开发任务中根据场景加载相应 Skill。
 
-- **Trae IDE** —— 提供 AI 协作的开发环境（手）
-- **Superpowers-zh** —— 提供 AI 应遵循的工程方法论（脑）
+你还可以通过一个小任务观察它是否会先确认需求，例如：
 
-但只有工具还不够。工具再强，也得有规矩约束它别“自由发挥”。下一节，我们将通过 `AGENTS.md` 给 Trae 立下项目级的红线规矩，让它严格按照需求与设计文档生成代码。
+```text
+请为当前项目增加用户批量导出功能。
+```
+
+不要急着让 AI 实现，先观察它是否会询问格式、数据量、权限和验收标准。
+
+---
+
+## 🤝 两件工具如何配合
+
+| 工具 | 核心定位 | 类比 |
+| :--- | :--- | :--- |
+| **Trae IDE** | 提供读取、编辑、运行和预览项目的能力 | AI 的“手” |
+| **Superpowers-zh** | 提供分析、计划、测试、调试和审查方法 | AI 的“工程方法” |
+| **AGENTS.md** | 声明当前项目必须遵守的具体规则 | 项目的“红线” |
+
+三者共同构成后续课程的 AI 协作基础：
+
+> Trae 负责执行 → Superpowers-zh 规范过程 → `AGENTS.md` 约束项目边界 → 你负责审核与最终决策
+
+---
+
+## 📝 本节小结
+
+* **Trae 是 AI 协作环境**：帮助 AI 阅读、修改、运行和验证项目；
+* **Superpowers-zh 是工程方法框架**：让 AI 先分析和计划，再实现、测试与审查；
+* **安装应以项目为单位**：优先在项目根目录使用 `npx superpowers-zh --tool trae`；
+* **完成必须有证据**：AI 的文字回复不能代替真实的测试和运行结果；
+* **人始终对结果负责**：你需要审核方案、理解代码，并确认最终实现符合项目要求。
+
+下一节，我们将通过 `AGENTS.md` 为 Trae 写下项目级规则，让 AI 明确哪些文档必须先读、哪些技术约束不能违反，以及完成任务后必须进行哪些验证。
+
+[返回阶段一目录](index.md){ .md-button }
+[进入下一节：用 AGENTS.md 立下项目规则](03-ai-rules.md){ .md-button .md-button--primary }
