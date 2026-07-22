@@ -38,16 +38,12 @@ nav:
     - 01 选好项目：问题、调研与范围: chapter02/01-topic-research.md
     - 02 项目立项：目标、计划与可行性: chapter02/02-proposal-review.md
     - 03 梳理需求：用户、功能与业务规则: chapter02/03-user-needs.md
-    - 04 完成文档：需求说明书与检查: chapter02/06-document-review.md
+    - 04 完成文档：需求说明书与检查: chapter02/04-document-review.md
   - 第三篇｜原型与系统设计:
     - 本篇导读：原型与系统设计: chapter03/index.md
   - 项目选题库: projects/index.md
   - 文档与任务模板: doc-templates/index.md
-# nav:
-#   - 课程首页: index.md
-#   - 课程导学:
-#       - 16周项目路线: guide/roadmap.md
-#       - 学习与AI协作规范: guide/learning-method.md
+
 #   - 第二篇｜项目选题与需求分析:
     # - 本篇导读：从想法到需求文档: chapter02/index.md
     # - 01 选好项目：问题、调研与范围: chapter02/01-topic-research.md

@@ -123,7 +123,7 @@
 
 !!! failure "不能运行、不能解释、没有经过验证的 AI 生成内容，不算有效项目成果。"
 
-[学习 AI 辅助编程方法](chapter01/02-ai-coding.md){ .md-button }
+[学习 AI 辅助编程方法](chapter01/03-ai-rules.md){ .md-button }
 [查看学习与 AI 协作规范](guide/learning-method.md){ .md-button }
 
 ---
@@ -145,7 +145,7 @@
 ## 🚦 从这里开始
 
 1. 🗺️ 阅读 [16 周项目路线](guide/roadmap.md)，了解完整学习安排；
-2. 🤖 学习 [AI 辅助编程工作流](chapter01/02-ai-coding.md)，建立正确的 AI 协作方式；
+2. 🤖 学习 [AI 辅助编程工作流](chapter01/02-ai-tools.md)，建立正确的 AI 协作方式；
 3. 💡 进入 [项目选题库](projects/index.md)，寻找自己愿意完成的项目；
 4. 📋 使用 [文档与任务模板](doc-templates/index.md)，记录每一个阶段的真实成果。
 
@@ -164,4 +164,4 @@
 * **挑战分层**：保底能运行、标准做闭环、进阶加 AI，人人有合适目标。
 * **成果可带走**：一个能运行的项目 + 一套文档 + 一段可讲清的经历。
 
-[开始第一篇：带练体验 🚀](phase1/01-intro.md){ .md-button .md-button--primary }
+[开始第一篇：带练体验 🚀](chapter01/01-intro.md){ .md-button .md-button--primary }
