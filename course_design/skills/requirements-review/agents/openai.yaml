@@ -1,0 +1,4 @@
+interface:
+  display_name: "需求文档评审助手"
+  short_description: "评审立项书与需求说明书中的矛盾、遗漏和超范围内容并指导提交前自查"
+  default_prompt: "使用 $requirements-review 评审我的《项目选题立项书》和《需求分析说明书》，列出提交前必须修改的问题。"
