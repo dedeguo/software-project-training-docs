@@ -27,14 +27,20 @@ nav:
     - 16周项目路线: guide/roadmap.md
     - 学习与AI协作规范: guide/learning-method.md
   - 第一篇｜AI 协同开发实战:
-    - 本篇导读：图书管理系统带练: phase1/index.md
-    - 01 认识项目：体验系统与阅读文档: phase1/01-intro.md
-    - 02 准备工具：Trae 与 Superpowers-zh: phase1/02-ai-tools.md
-    - 03 建立规则：Rules、Skills 与 AGENTS.md: phase1/03-ai-rules.md
-    - 04 分步开发：从模板到功能闭环: phase1/04-development.md
-    - 05 测试部署：验证并交付项目: phase1/05-deployment.md
+    - 本篇导读：图书管理系统带练: chapter01/index.md
+    - 01 认识项目：体验系统与阅读文档: chapter01/01-intro.md
+    - 02 准备工具：Trae 与 Superpowers-zh: chapter01/02-ai-tools.md
+    - 03 建立规则：Rules、Skills 与 AGENTS.md: chapter01/03-ai-rules.md
+    - 04 分步开发：从模板到功能闭环: chapter01/04-development.md
+    - 05 测试部署：验证并交付项目: chapter01/05-deployment.md
   - 第二篇｜项目选题与需求分析:
-      - 项目选题与需求分析: chapter02/index.md
+    - 本篇导读：从想法到需求文档: chapter02/index.md
+    - 01 选好项目：问题、调研与范围: chapter02/01-topic-research.md
+    - 02 项目立项：目标、计划与可行性: chapter02/02-proposal-review.md
+    - 03 梳理需求：用户、功能与业务规则: chapter02/03-user-needs.md
+    - 04 完成文档：需求说明书与检查: chapter02/06-document-review.md
+  - 第三篇｜原型与系统设计:
+    - 本篇导读：原型与系统设计: chapter03/index.md
   - 项目选题库: projects/index.md
   - 文档与任务模板: doc-templates/index.md
 # nav:
@@ -42,38 +48,15 @@ nav:
 #   - 课程导学:
 #       - 16周项目路线: guide/roadmap.md
 #       - 学习与AI协作规范: guide/learning-method.md
-#   - 第一篇｜开发准备与AI编程初体验:
-#       - 本篇导读: chapter01/index.md
-#       - 开发环境与工具: chapter01/01-environment.md
-#       - AI辅助编程工作流: chapter01/02-ai-coding.md
-#       - 认识并运行示例项目: chapter01/03-example-project.md
-#       - 使用AI完成功能迭代: chapter01/04-ai-iteration.md
 #   - 第二篇｜项目选题与需求分析:
-#       - 本篇导读: chapter02/index.md
-#       - 项目选题、调研与范围控制: chapter02/01-topic-research.md
-#       - 项目申报、计划与立项评审: chapter02/02-proposal-review.md
-#       - 用户需求与使用场景: chapter02/03-user-needs.md
-#       - 功能需求、业务规则与流程: chapter02/04-functions.md
-#       - 非功能需求与验收标准: chapter02/05-non-functional.md
-#       - 需求说明书与评审: chapter02/06-document-review.md
-#   - 第三篇｜原型与系统设计:
-#       - 本篇导读: chapter03/index.md
-#   - 第四篇｜项目骨架与工程规范:
-#       - 本篇导读: chapter04/index.md
-#   - 第五篇｜核心业务开发:
-#       - 本篇导读: chapter05/index.md
-#   - 第六篇｜AI功能扩展:
-#       - 本篇导读: chapter06/index.md
-#   - 第七篇｜测试与质量改进:
-#       - 本篇导读: chapter07/index.md
-#   - 第八篇｜部署上线:
-#       - 本篇导读: chapter08/index.md
-#   - 第九篇｜成果包装:
-#       - 本篇导读: chapter09/index.md
-#   - 第十篇｜验收与答辩:
-#       - 本篇导读: chapter10/index.md
-#   - 项目选题库: projects/index.md
-#   - 文档与任务模板: templates/index.md
+    # - 本篇导读：从想法到需求文档: chapter02/index.md
+    # - 01 选好项目：问题、调研与范围: chapter02/01-topic-research.md
+    # - 02 项目立项：目标、计划与可行性: chapter02/02-proposal-review.md
+    # - 03 理解用户：角色、场景与需求: chapter02/03-user-needs.md
+    # - 04 明确功能：流程、规则与边界: chapter02/04-functions.md
+    # - 05 定义完成：验收标准与质量要求: chapter02/05-non-functional.md
+    # - 06 完成文档：需求说明书与检查: chapter02/06-document-review.md
+#   
 
 plugins:
   - search:
