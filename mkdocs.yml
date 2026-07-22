@@ -41,18 +41,15 @@ nav:
     - 04 完成文档：需求说明书与检查: chapter02/04-document-review.md
   - 第三篇｜原型与系统设计:
     - 本篇导读：原型与系统设计: chapter03/index.md
+    - 01 明确方案：设计目标、约束与技术选型: chapter03/01-design-selection.md
+    - 02 设计架构：系统架构与功能模块: chapter03/02-architecture.md
+    - 03 设计原型：UI 原型与页面流程: chapter03/03-prototype.md
+    - 04 设计数据：E-R 图与数据表: chapter03/04-database.md
+    - 05 完善规则：接口、权限与业务状态: chapter03/05-api-permission-state.md
+    - 06 编制文档：系统设计说明书: chapter03/06-design-document.md
+    - 07 评审优化：设计检查与迭代改进: chapter03/07-design-review.md
   - 项目选题库: projects/index.md
   - 文档与任务模板: doc-templates/index.md
-
-#   - 第二篇｜项目选题与需求分析:
-    # - 本篇导读：从想法到需求文档: chapter02/index.md
-    # - 01 选好项目：问题、调研与范围: chapter02/01-topic-research.md
-    # - 02 项目立项：目标、计划与可行性: chapter02/02-proposal-review.md
-    # - 03 理解用户：角色、场景与需求: chapter02/03-user-needs.md
-    # - 04 明确功能：流程、规则与边界: chapter02/04-functions.md
-    # - 05 定义完成：验收标准与质量要求: chapter02/05-non-functional.md
-    # - 06 完成文档：需求说明书与检查: chapter02/06-document-review.md
-#   
 
 plugins:
   - search:
