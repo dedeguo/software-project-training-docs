@@ -1,0 +1,28 @@
+{
+  "name": "@dedeguo/software-project-training-skills",
+  "version": "0.1.0",
+  "description": "《软件开发综合项目实训》课程 TRAE Skills 技能包",
+  "type": "module",
+  "bin": {
+    "software-project-training-skills": "bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "trae",
+    "skills",
+    "software-project-training",
+    "ai-coding",
+    "education"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
