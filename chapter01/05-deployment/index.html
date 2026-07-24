@@ -1,0 +1,2380 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="《软件开发综合项目实训——AI辅助的软件项目开发》电子教程">
+      
+      
+      
+        <link rel="canonical" href="https://project-ai.chende.top/chapter01/05-deployment/">
+      
+      
+        <link rel="prev" href="../04-development/">
+      
+      
+        <link rel="next" href="../../chapter02/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>05 测试部署：验证并交付项目 - 软件开发综合项目实训</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#15" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件开发综合项目实训" class="md-header__button md-logo" aria-label="软件开发综合项目实训" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件开发综合项目实训
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              05 测试部署：验证并交付项目
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件开发综合项目实训" class="md-nav__button md-logo" aria-label="软件开发综合项目实训" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件开发综合项目实训
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程介绍
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程介绍
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程导学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程导学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16周项目路线
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/learning-method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    学习与AI协作规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一篇｜AI 协同开发实战
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第一篇｜AI 协同开发实战
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 认识项目：体验系统与阅读文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-ai-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 准备工具：Trae 与 Superpowers-zh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-ai-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 建立规则：Rules、Skills 与 AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 分步开发：从模板到功能闭环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 测试部署：验证并交付项目
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 测试部署：验证并交付项目
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代码写完之后，才是项目交付的开始
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节要交付什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 先确定测试依据和顺序
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 第一步：准备测试环境
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 第二步：导入 Postman 集合并配置环境
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 第二步：导入 Postman 集合并配置环境">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        环境变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 第三步：按业务流程完成 API 测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 第三步：按业务流程完成 API 测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        借阅模块必须覆盖的业务规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API 测试时如何判断通过
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖥️ 第四步：在浏览器中测试真实页面
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🖥️ 第四步：在浏览器中测试真实页面">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用户端检查清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        管理端检查清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        保存测试证据
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐛 第五步：发现问题后按流程修复
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 第六步：如实填写测试报告
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tomcat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 第七步：打包并部署到 Tomcat
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 第七步：打包并部署到 Tomcat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-war" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先构建 WAR 包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tomcat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 部署到 Tomcat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 部署后最小验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚦 本节完成后，你应该能够回答
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 本节小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter02/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二篇｜项目选题与需求分析
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第二篇｜项目选题与需求分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/01-topic-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 选好项目：问题、调研与范围
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/02-proposal-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 项目立项：目标、计划与可行性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/03-user-needs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 梳理需求：用户、功能与业务规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/04-document-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成文档：需求说明书与检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter03/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三篇｜原型与系统设计
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第三篇｜原型与系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/01-design-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 明确方案：设计目标、约束与技术选型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 设计架构：系统架构与功能模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/03-prototype/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 设计原型：UI 原型与页面流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/04-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 设计数据：E-R 图与数据表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/05-api-permission-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完善规则：接口、权限与业务状态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/06-design-document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 编制文档：系统设计说明书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/07-design-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 评审优化：设计检查与迭代改进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目选题库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc-templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档与任务模板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代码写完之后，才是项目交付的开始
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节要交付什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 先确定测试依据和顺序
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 第一步：准备测试环境
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 第二步：导入 Postman 集合并配置环境
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 第二步：导入 Postman 集合并配置环境">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        环境变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 第三步：按业务流程完成 API 测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 第三步：按业务流程完成 API 测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        借阅模块必须覆盖的业务规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API 测试时如何判断通过
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖥️ 第四步：在浏览器中测试真实页面
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🖥️ 第四步：在浏览器中测试真实页面">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用户端检查清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        管理端检查清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        保存测试证据
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐛 第五步：发现问题后按流程修复
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 第六步：如实填写测试报告
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tomcat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 第七步：打包并部署到 Tomcat
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 第七步：打包并部署到 Tomcat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-war" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先构建 WAR 包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tomcat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 部署到 Tomcat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 部署后最小验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚦 本节完成后，你应该能够回答
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 本节小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="15">1.5 测试与部署：让图书管理系统真正可用<a class="headerlink" href="#15" title="Permanent link">&para;</a></h1>
+<h2 id="_1">代码写完之后，才是项目交付的开始<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">为什么功能看起来能用，仍然不能算完成</p>
+<p>你在浏览器里点了一次“借阅成功”，并不代表系统已经可靠：接口参数可能有问题，普通用户可能仍能访问管理功能，重复点击可能让库存变成负数，换一台电脑也可能无法启动。</p>
+<ul>
+<li><strong>接口测试</strong>：确认前后端通信和业务规则是否正确；</li>
+<li><strong>界面测试</strong>：确认用户能否按照真实流程完成操作；</li>
+<li><strong>部署验证</strong>：确认系统不是只能在开发环境运行；</li>
+<li><strong>测试报告</strong>：记录证据，说明你测了什么、发现了什么、结果如何。</li>
+</ul>
+<p>只有“能运行、能验证、能说明”的项目，才是可以展示的项目。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">本节学习目标</p>
+<p>导入 Postman 集合完成 API 测试，使用浏览器完成界面功能测试，填写测试报告，并将系统打包部署到 Tomcat。</p>
+</div>
+<hr />
+<h2 id="_2">🎯 本节要交付什么<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>完成本节后，你至少应拥有以下成果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">成果</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">已执行的 Postman 测试</td>
+<td style="text-align: left;">已导入集合，并保存关键接口的请求和响应证据</td>
+</tr>
+<tr>
+<td style="text-align: left;">已完成的 Web 功能检查</td>
+<td style="text-align: left;">用户端与管理端主流程均经过浏览器实际操作</td>
+</tr>
+<tr>
+<td style="text-align: left;">已填写的测试报告</td>
+<td style="text-align: left;">记录实际结果、缺陷和测试结论</td>
+</tr>
+<tr>
+<td style="text-align: left;">可部署的 WAR 包</td>
+<td style="text-align: left;">通过 Maven 构建，并部署到 Tomcat</td>
+</tr>
+<tr>
+<td style="text-align: left;">可访问的系统</td>
+<td style="text-align: left;">在部署地址完成一次登录、查询和借阅验证</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition failure">
+<p class="admonition-title">不能运行、没有测试证据的功能，不算完成</p>
+<p>不要只把 AI 的文字回复、代码截图或“构建成功”当成结果。测试必须有真实请求、页面操作、日志或截图等可复查证据。</p>
+</div>
+<hr />
+<h2 id="_3">🧭 先确定测试依据和顺序<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>本节基于图书管理系统模板中的现有资料开展测试：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">资料</th>
+<th style="text-align: left;">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="https://gitee.com/javaweb-dev-tech/lab2_2/blob/master/book_template/doc/%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90%E8%AF%B4%E6%98%8E%E4%B9%A6.md">需求分析说明书</a></td>
+<td style="text-align: left;">确认功能、业务规则和验收标准</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://gitee.com/javaweb-dev-tech/lab2_2/blob/master/book_template/doc/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%AF%B4%E6%98%8E%E4%B9%A6.md">系统设计说明书</a></td>
+<td style="text-align: left;">确认接口、权限、数据库与部署设计</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://gitee.com/javaweb-dev-tech/lab2_2/blob/master/book_template/doc/A-%E6%A0%A1%E5%9B%AD%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.postman_collection.json">Postman 测试集合</a></td>
+<td style="text-align: left;">提供 API 测试请求模板</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://gitee.com/javaweb-dev-tech/lab2_2/blob/master/book_template/doc/%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A.md">测试报告模板</a></td>
+<td style="text-align: left;">记录测试过程、结果和缺陷</td>
+</tr>
+</tbody>
+</table>
+<p>推荐按照下面的顺序推进：</p>
+<blockquote>
+<p>启动环境 → API 测试 → 浏览器界面测试 → 修复问题 → 回归测试 → 填写测试报告 → 打包部署 → 部署后验证</p>
+</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">测试前先对齐文档和实现</p>
+<p>如果接口路径、字段名或业务规则与文档不同，不要直接修改测试用例来“迁就代码”。先确认是实现偏离了需求设计，还是设计确实需要调整；然后同步修改代码或文档，并记录原因。</p>
+</div>
+<hr />
+<h2 id="_4">📦 第一步：准备测试环境<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>测试前，先确认本地环境已正常工作：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">项目</th>
+<th style="text-align: left;">推荐环境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">JDK</td>
+<td style="text-align: left;">17 或更高版本</td>
+</tr>
+<tr>
+<td style="text-align: left;">Maven</td>
+<td style="text-align: left;">3.8 或更高版本</td>
+</tr>
+<tr>
+<td style="text-align: left;">Web 服务器</td>
+<td style="text-align: left;">Tomcat 11 或更高版本</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库</td>
+<td style="text-align: left;">MySQL 8.0 或更高版本</td>
+</tr>
+<tr>
+<td style="text-align: left;">浏览器</td>
+<td style="text-align: left;">Chrome 或 Edge</td>
+</tr>
+<tr>
+<td style="text-align: left;">API 测试工具</td>
+<td style="text-align: left;">Postman</td>
+</tr>
+</tbody>
+</table>
+<p>启动前检查：</p>
+<ol>
+<li>数据库已创建，表结构和测试数据已准备完成；</li>
+<li><code>src/main/resources/db.properties</code> 中的数据库连接信息与实际环境一致；</li>
+<li>项目已部署到 Tomcat，应用上下文为 <code>/book</code>；</li>
+<li>浏览器能打开 <code>http://localhost:8080/book/user/login.html</code>；</li>
+<li>已准备管理员账号与一个普通测试账号。</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">先记录初始状态</p>
+<p>在改动或测试前，记录数据库名、访问地址、部署上下文、测试账号和当前已知问题。遇到异常时，这些信息能帮助你和 AI 快速复现问题。</p>
+</div>
+<hr />
+<h2 id="postman">🔌 第二步：导入 Postman 集合并配置环境<a class="headerlink" href="#postman" title="Permanent link">&para;</a></h2>
+<p>模板已提供 Postman 集合文件：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>doc/A-校园图书管理系统.postman_collection.json
+</code></pre></div></td></tr></table></div>
+<p>在 Postman 中按以下步骤操作：</p>
+<ol>
+<li>点击 <strong>Import（导入）</strong>，选择上述 JSON 文件；</li>
+<li>创建环境，名称设为 <strong><code>A-校园图书管理系统</code></strong>；</li>
+<li>配置环境变量；</li>
+<li>选择该环境，再执行集合中的请求。</li>
+</ol>
+<h3 id="_5">环境变量<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">变量名</th>
+<th style="text-align: left;">初始值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ip</code></td>
+<td style="text-align: left;"><code>localhost</code></td>
+<td style="text-align: left;">Tomcat 所在服务器地址</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>port</code></td>
+<td style="text-align: left;"><code>8080</code></td>
+<td style="text-align: left;">Tomcat 端口</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>context</code></td>
+<td style="text-align: left;"><code>/book</code></td>
+<td style="text-align: left;">项目部署上下文</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>baseUrl</code></td>
+<td style="text-align: left;"><code>http://{{ip}}:{{port}}{{context}}</code></td>
+<td style="text-align: left;">接口基础地址</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>bookId</code></td>
+<td style="text-align: left;">选择一本可借图书的 ID</td>
+<td style="text-align: left;">用于图书与借阅接口</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>recordId</code></td>
+<td style="text-align: left;">选择一条借阅中的记录 ID</td>
+<td style="text-align: left;">用于借阅记录相关接口</td>
+</tr>
+</tbody>
+</table>
+<p>请求地址一般写为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>{{baseUrl}}/api/...
+</code></pre></div></td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title">登录顺序不能跳过</p>
+<p>系统使用 Session 保存登录状态。先调用登录接口，再测试需要登录的用户接口或管理员接口。切换普通用户与管理员时，先退出登录或清除 Postman 中旧的 Cookie，避免把前一次 Session 当成当前测试结果。</p>
+</div>
+<hr />
+<h2 id="api">🧪 第三步：按业务流程完成 API 测试<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<p>不要随机点击请求。按真实用户路径测试，才能发现前后功能之间的问题。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">顺序</th>
+<th style="text-align: left;">测试模块</th>
+<th style="text-align: left;">关键检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">认证</td>
+<td style="text-align: left;">注册、正确登录、错误密码、退出与 Session 状态</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">个人中心</td>
+<td style="text-align: left;">查询资料、修改邮箱、修改密码</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">图书查询</td>
+<td style="text-align: left;">列表、详情、书名/作者/ISBN 搜索、分类筛选</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">图书借阅</td>
+<td style="text-align: left;">借阅资格、创建记录、库存减少、当前借阅查询</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">图书归还</td>
+<td style="text-align: left;">只能归还本人未归还记录、状态更新、库存恢复</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">管理端</td>
+<td style="text-align: left;">图书、用户、借阅记录管理及权限校验</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">借阅模块必须覆盖的业务规则<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>借阅是本项目的核心流程。至少验证以下情况：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">场景</th>
+<th style="text-align: left;">预期结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">可借图书，正常用户</td>
+<td style="text-align: left;">创建借阅记录，可借复本数减 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">已借满 5 本</td>
+<td style="text-align: left;">拒绝借阅，并给出明确提示</td>
+</tr>
+<tr>
+<td style="text-align: left;">有超期未还记录</td>
+<td style="text-align: left;">拒绝借阅，并提示先归还超期图书</td>
+</tr>
+<tr>
+<td style="text-align: left;">可借复本数为 0</td>
+<td style="text-align: left;">不创建记录，不减少库存</td>
+</tr>
+<tr>
+<td style="text-align: left;">重复点击借阅</td>
+<td style="text-align: left;">不产生重复记录或错误库存</td>
+</tr>
+<tr>
+<td style="text-align: left;">正常归还</td>
+<td style="text-align: left;">记录状态变为已归还，可借复本数加 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">重复归还</td>
+<td style="text-align: left;">拒绝操作，不重复增加库存</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api_1">API 测试时如何判断通过<a class="headerlink" href="#api_1" title="Permanent link">&para;</a></h3>
+<p>接口返回不只看 HTTP 状态码，还要检查响应体内容：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;操作成功&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>检查时关注：</p>
+<ul>
+<li><code>code</code> 是否符合预期；</li>
+<li><code>message</code> 是否能说明成功或失败原因；</li>
+<li><code>data</code> 是否包含正确字段和数据；</li>
+<li>写操作后，相关查询和数据库数据是否同步变化；</li>
+<li>无权限或未登录请求是否被正确阻止。</li>
+</ul>
+<p>可以在 Postman 的 Tests 标签中加入简单断言：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span>
+<span class="normal"><a href="#__codelineno-3-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;返回内容是 JSON&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">json</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="p">});</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;业务处理成功&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">code</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">eql</span><span class="p">(</span><span class="mf">200</span><span class="p">);</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="p">});</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">失败用例和成功用例同样重要</p>
+<p>测试“能借书”只能说明主流程可能可用；测试“无库存不能借”“普通用户不能访问管理接口”“重复归还不增加库存”，才能证明业务规则真正被实现。</p>
+</div>
+<hr />
+<h2 id="_7">🖥️ 第四步：在浏览器中测试真实页面<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>API 正确不代表页面一定可用。启动 Tomcat 后，在浏览器中完成用户端和管理端的真实操作。</p>
+<h3 id="_8">用户端检查清单<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">页面或功能</th>
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">预期结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">登录与注册</td>
+<td style="text-align: left;">注册账号、正确/错误密码登录</td>
+<td style="text-align: left;">成功后进入对应首页；失败有明确提示</td>
+</tr>
+<tr>
+<td style="text-align: left;">图书首页</td>
+<td style="text-align: left;">查看列表、分类、搜索</td>
+<td style="text-align: left;">图书数据和可借状态正确显示</td>
+</tr>
+<tr>
+<td style="text-align: left;">图书详情</td>
+<td style="text-align: left;">查看信息、点击借阅</td>
+<td style="text-align: left;">显示图书详情；借阅结果与接口一致</td>
+</tr>
+<tr>
+<td style="text-align: left;">我的借阅</td>
+<td style="text-align: left;">查看当前与历史记录、归还</td>
+<td style="text-align: left;">仅显示本人记录；归还后状态和库存更新</td>
+</tr>
+<tr>
+<td style="text-align: left;">个人中心</td>
+<td style="text-align: left;">查看资料、修改邮箱或密码</td>
+<td style="text-align: left;">数据正确显示，修改后有反馈</td>
+</tr>
+<tr>
+<td style="text-align: left;">退出登录</td>
+<td style="text-align: left;">退出后访问受保护页面</td>
+<td style="text-align: left;">Session 失效，不能继续访问业务页面</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">管理端检查清单<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">页面或功能</th>
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">预期结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">管理首页</td>
+<td style="text-align: left;">登录后查看统计卡片</td>
+<td style="text-align: left;">图书、用户、借阅等统计合理显示</td>
+</tr>
+<tr>
+<td style="text-align: left;">图书管理</td>
+<td style="text-align: left;">查询、新增、编辑、删除</td>
+<td style="text-align: left;">列表及时刷新；不满足条件时禁止删除</td>
+</tr>
+<tr>
+<td style="text-align: left;">用户管理</td>
+<td style="text-align: left;">搜索与删除普通用户</td>
+<td style="text-align: left;">管理员不能删除；有未还图书的用户不能删除</td>
+</tr>
+<tr>
+<td style="text-align: left;">借阅管理</td>
+<td style="text-align: left;">查询记录、查看超期、代还</td>
+<td style="text-align: left;">状态、归还日期与库存同步更新</td>
+</tr>
+<tr>
+<td style="text-align: left;">权限校验</td>
+<td style="text-align: left;">普通用户直接访问管理页面</td>
+<td style="text-align: left;">被拒绝访问，不能获取管理数据</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">页面测试要观察反馈，而不只是点通</p>
+<p>同时检查加载状态、空数据提示、表单校验、删除二次确认、错误提示、菜单高亮和浏览器刷新后的登录状态。页面能打开不等于交互是完整的。</p>
+</div>
+<h3 id="_10">保存测试证据<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>至少保存以下截图或记录：</p>
+<ol>
+<li>Postman 登录成功后的 JSON 响应；</li>
+<li>图书列表或搜索接口响应；</li>
+<li>借阅成功或借阅失败的接口/页面结果；</li>
+<li>管理员新增图书的结果；</li>
+<li>用户端图书首页与“我的借阅”页面；</li>
+<li>管理端图书管理与借阅管理页面；</li>
+<li>一个典型缺陷的复现或修复后结果。</li>
+</ol>
+<p>将测试截图保存在项目约定的目录中，并在测试报告中引用或说明它们的位置。</p>
+<hr />
+<h2 id="_11">🐛 第五步：发现问题后按流程修复<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>测试不是为了证明“没有问题”，而是尽早找到问题并修复。发现 Bug 后，不要只对 AI 说“这里坏了”。要提供可复现的证据：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>问题：普通用户可以直接访问管理员图书列表接口。
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>复现步骤：
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>1. 使用普通用户登录；
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>2. 请求 GET /api/admin/books?action=list；
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>3. 接口返回了图书管理数据。
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>预期结果：应拒绝访问，不能返回管理员数据。
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>实际结果：返回 code=200 和图书列表。
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a>证据：Postman 请求与响应截图；相关后端日志。
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>请先阅读 AGENTS.md、需求分析说明书和系统设计说明书中权限控制的要求。
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>不要立即修改代码。请先说明可能原因、需要检查的文件和验证方案。
+</code></pre></div></td></tr></table></div>
+<p>修复后必须进行<strong>回归测试</strong>：不仅重新测试该问题，还要测试紧邻的功能。例如修复权限过滤器后，应同时检查普通用户页面、管理员页面、未登录访问和所有管理接口。</p>
+<hr />
+<h2 id="_12">📝 第六步：如实填写测试报告<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>测试报告模板位于：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>doc/测试报告.md
+</code></pre></div></td></tr></table></div>
+<p>填写时不要把“待实测”原样保留。每个用例至少记录：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">应填写内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">实际结果</td>
+<td style="text-align: left;">实际响应、页面行为或关键数据变化</td>
+</tr>
+<tr>
+<td style="text-align: left;">是否通过</td>
+<td style="text-align: left;">根据预期结果勾选通过或不通过</td>
+</tr>
+<tr>
+<td style="text-align: left;">缺陷记录</td>
+<td style="text-align: left;">问题描述、复现步骤、严重程度和修复状态</td>
+</tr>
+<tr>
+<td style="text-align: left;">测试结论</td>
+<td style="text-align: left;">用例数量、通过/失败数量、主要问题和是否可演示</td>
+</tr>
+</tbody>
+</table>
+<p>可以采用下面的写法：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>实际结果：普通用户登录后，借阅《Java Web 开发技术》，接口返回 code=200；
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>“我的借阅”新增一条 borrowing 记录，图书可借复本数由 3 变为 2。
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>是否通过：通过。
+</code></pre></div></td></tr></table></div>
+<div class="admonition failure">
+<p class="admonition-title">测试报告不能写成计划书</p>
+<p>“预计通过”“理论上可以”“AI 已检查”都不是实际结果。只有你真实运行、真实操作后观察到的现象，才能写进测试报告。</p>
+</div>
+<hr />
+<h2 id="tomcat">📦 第七步：打包并部署到 Tomcat<a class="headerlink" href="#tomcat" title="Permanent link">&para;</a></h2>
+<p>完成测试并修复严重问题后，再进行部署。课程项目采用简单的单机部署：浏览器访问 Tomcat，Tomcat 运行 Java Web 应用，MySQL 保存数据。</p>
+<h3 id="1-war">1. 先构建 WAR 包<a class="headerlink" href="#1-war" title="Permanent link">&para;</a></h3>
+<p>在项目根目录执行：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>mvn<span class="w"> </span>clean<span class="w"> </span>package
+</code></pre></div></td></tr></table></div>
+<p>构建成功后，在 <code>target/</code> 目录中找到生成的 <code>.war</code> 文件。若构建失败，先根据终端日志定位并修复问题，不要跳过错误继续部署。</p>
+<h3 id="2-tomcat">2. 部署到 Tomcat<a class="headerlink" href="#2-tomcat" title="Permanent link">&para;</a></h3>
+<ol>
+<li>停止正在运行的 Tomcat；</li>
+<li>将 WAR 包复制到 Tomcat 的 <code>webapps/</code> 目录；</li>
+<li>确认部署后的应用上下文为 <code>/book</code>；</li>
+<li>启动 Tomcat；</li>
+<li>查看 Tomcat 日志，确认应用部署成功且没有数据库连接错误。</li>
+</ol>
+<p>部署后访问：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>http://localhost:8080/book/user/login.html
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">上下文路径不一致是常见问题</p>
+<p>如果你的 WAR 文件名或 Tomcat 配置导致实际路径不是 <code>/book</code>，需要同步修改前端请求的基础地址、Postman 环境变量和访问 URL。不要只改其中一处。</p>
+</div>
+<h3 id="3">3. 部署后最小验证<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>部署成功后，至少重新执行一次：</p>
+<ul>
+<li>用户登录；</li>
+<li>图书列表查询；</li>
+<li>图书借阅或归还中的一个完整操作；</li>
+<li>管理员登录并进入图书管理页面；</li>
+<li>一条 Postman API 请求。</li>
+</ul>
+<p>这一步验证的是“部署环境可用”，不能用开发时的测试结果代替。</p>
+<hr />
+<h2 id="_13">🚦 本节完成后，你应该能够回答<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>我的系统在哪个地址运行？我测了哪些功能？借阅上限、超期和库存不足是否被验证？发现了哪些问题并如何修复？部署后是否重新验证？</strong></p>
+</blockquote>
+<p>如果这些问题都有真实答案和记录，你已经完成了从“代码生成”到“可交付项目”的关键一步。</p>
+<hr />
+<h2 id="_14">📝 本节小结<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>测试从 API 开始，再回到页面</strong>：先验证接口和业务规则，再验证真实用户操作；</li>
+<li><strong>Postman 集合是起点</strong>：导入集合、配置环境变量，并按认证到管理端的流程执行；</li>
+<li><strong>边界场景必须覆盖</strong>：借阅上限、超期、无库存、重复操作和权限控制不能遗漏；</li>
+<li><strong>测试报告记录真实证据</strong>：填写实际结果、缺陷和结论，不保留“待实测”；</li>
+<li><strong>部署后必须再验证</strong>：WAR 包部署到 Tomcat 后，重新运行关键流程确认环境正确。</li>
+</ul>
+<p><a class="md-button" href="../04-development/">返回上一节：开发图书管理系统</a>
+<a class="md-button md-button--primary" href="../">返回阶段一目录</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 陈德
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

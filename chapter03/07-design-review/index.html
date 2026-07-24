@@ -1,0 +1,4085 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="《软件开发综合项目实训——AI辅助的软件项目开发》电子教程">
+      
+      
+      
+        <link rel="canonical" href="https://project-ai.chende.top/chapter03/07-design-review/">
+      
+      
+        <link rel="prev" href="../06-design-document/">
+      
+      
+        <link rel="next" href="../../projects/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>07 评审优化：设计检查与迭代改进 - 软件开发综合项目实训</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#37" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件开发综合项目实训" class="md-header__button md-logo" aria-label="软件开发综合项目实训" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件开发综合项目实训
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              07 评审优化：设计检查与迭代改进
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件开发综合项目实训" class="md-nav__button md-logo" aria-label="软件开发综合项目实训" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件开发综合项目实训
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程介绍
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程介绍
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程导学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程导学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16周项目路线
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/learning-method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    学习与AI协作规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter01/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一篇｜AI 协同开发实战
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第一篇｜AI 协同开发实战
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 认识项目：体验系统与阅读文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/02-ai-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 准备工具：Trae 与 Superpowers-zh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/03-ai-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 建立规则：Rules、Skills 与 AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/04-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 分步开发：从模板到功能闭环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/05-deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 测试部署：验证并交付项目
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter02/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二篇｜项目选题与需求分析
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第二篇｜项目选题与需求分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/01-topic-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 选好项目：问题、调研与范围
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/02-proposal-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 项目立项：目标、计划与可行性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/03-user-needs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 梳理需求：用户、功能与业务规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/04-document-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成文档：需求说明书与检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三篇｜原型与系统设计
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第三篇｜原型与系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-design-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 明确方案：设计目标、约束与技术选型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 设计架构：系统架构与功能模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-prototype/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 设计原型：UI 原型与页面流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 设计数据：E-R 图与数据表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-api-permission-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完善规则：接口、权限与业务状态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-design-document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 编制文档：系统设计说明书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 评审优化：设计检查与迭代改进
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 评审优化：设计检查与迭代改进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在写代码之前，用一次评审提前发现返工风险
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 第一步：准备评审材料
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 第一步：准备评审材料">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        评审前由设计者自查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👥 第二步：确定评审参与者和职责
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👥 第二步：确定评审参与者和职责">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        评审规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗓️ 第三步：设计评审议程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 第四步：沿核心业务场景走查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 第四步：沿核心业务场景走查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一条完整设计链
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例：学生报名活动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        至少走查这些场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 第五步：检查需求覆盖和范围一致性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 第五步：检查需求覆盖和范围一致性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        需求覆盖检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        范围控制检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用追踪表检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 第六步：检查技术方案和架构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 第六步：检查技术方案和架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技术选型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        系统架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        功能模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖥️ 第七步：检查原型与页面流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🖥️ 第七步：检查原型与页面流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        页面覆盖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信息与操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        页面状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        页面流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗃️ 第八步：检查数据库设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗃️ 第八步：检查数据库设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实体与关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        表与字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        约束和索引
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        脚本验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 第九步：检查接口设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 第九步：检查接口设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接口覆盖与命名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        请求与响应
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据变化与一致性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 第十步：检查权限、安全与隐私
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 第十步：检查权限、安全与隐私">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        认证和会话
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        功能权限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据权限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据与隐私
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 第十一步：检查业务状态和异常规则
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔀 第十一步：检查业务状态和异常规则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态完整性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态转换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        异常与边界
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 第十二步：检查可实现性和可测试性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 第十二步：检查可实现性和可测试性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可实现性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可测试性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 第十三步：记录和分级评审问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 第十三步：记录和分级评审问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题记录模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        严重程度建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题清单示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 第十四步：修改设计并进行影响分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 第十四步：修改设计并进行影响分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        影响分析示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见变化的影响范围
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        修改原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 第十五步：复核问题并关闭
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 第十五步：复核问题并关闭">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复核要回答
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 第十六步：形成设计基线
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📌 第十六步：形成设计基线">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进入基线的条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基线确认记录
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 第十七步：用 AI 辅助设计评审
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🤖 第十七步：用 AI 辅助设计评审">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        综合评审提示词
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心流程攻击式走查提示词
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        人工审核 AI 评审结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 设计评审记录模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 本节自查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目选题库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc-templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档与任务模板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在写代码之前，用一次评审提前发现返工风险
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 第一步：准备评审材料
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 第一步：准备评审材料">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        评审前由设计者自查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👥 第二步：确定评审参与者和职责
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👥 第二步：确定评审参与者和职责">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        评审规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗓️ 第三步：设计评审议程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 第四步：沿核心业务场景走查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 第四步：沿核心业务场景走查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一条完整设计链
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例：学生报名活动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        至少走查这些场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 第五步：检查需求覆盖和范围一致性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 第五步：检查需求覆盖和范围一致性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        需求覆盖检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        范围控制检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用追踪表检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 第六步：检查技术方案和架构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 第六步：检查技术方案和架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技术选型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        系统架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        功能模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖥️ 第七步：检查原型与页面流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🖥️ 第七步：检查原型与页面流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        页面覆盖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信息与操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        页面状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        页面流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗃️ 第八步：检查数据库设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗃️ 第八步：检查数据库设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实体与关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        表与字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        约束和索引
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        脚本验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 第九步：检查接口设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 第九步：检查接口设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接口覆盖与命名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        请求与响应
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据变化与一致性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 第十步：检查权限、安全与隐私
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 第十步：检查权限、安全与隐私">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        认证和会话
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        功能权限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据权限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据与隐私
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 第十一步：检查业务状态和异常规则
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔀 第十一步：检查业务状态和异常规则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态完整性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态转换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        异常与边界
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 第十二步：检查可实现性和可测试性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 第十二步：检查可实现性和可测试性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可实现性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可测试性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 第十三步：记录和分级评审问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 第十三步：记录和分级评审问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题记录模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        严重程度建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题清单示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 第十四步：修改设计并进行影响分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 第十四步：修改设计并进行影响分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        影响分析示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见变化的影响范围
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        修改原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 第十五步：复核问题并关闭
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 第十五步：复核问题并关闭">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复核要回答
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 第十六步：形成设计基线
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📌 第十六步：形成设计基线">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进入基线的条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基线确认记录
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 第十七步：用 AI 辅助设计评审
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🤖 第十七步：用 AI 辅助设计评审">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        综合评审提示词
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心流程攻击式走查提示词
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        人工审核 AI 评审结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 设计评审记录模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 本节自查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="37">3.7 评审优化：设计检查与迭代改进<a class="headerlink" href="#37" title="Permanent link">&para;</a></h1>
+<h2 id="_1">在写代码之前，用一次评审提前发现返工风险<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">评审不是挑错，而是共同确认方案能否落地</p>
+<p>设计者已经熟悉自己的方案，很容易自动补全图表中没有写出的条件。评审者则会追问：普通用户能否调用这个接口？最后一个名额怎样处理？页面上的字段从哪里来？活动关闭后报名记录怎么办？</p>
+<p>这些问题越早发现，修改成本越低。评审的目标不是证明设计没有任何问题，而是找出会影响开发、测试和交付的风险，并形成明确的修改决定。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">本节学习目标</p>
+<p>组织并完成一次系统设计评审，从需求一致性、技术可行性、架构、原型、数据、接口、权限、状态和安全等方面检查《系统设计说明书》，记录问题、完成修改和复核，形成可以指导开发的设计基线。</p>
+</div>
+<p><a class="md-button" href="../06-design-document/">返回上一节：编制文档</a>
+<a class="md-button" href="../">返回第三篇导读</a>
+<a class="md-button md-button--primary" href="../../guide/roadmap/">返回课程路线</a></p>
+<hr />
+<h2 id="_2">🎯 本节完成后，你要交付<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">成果</th>
+<th style="text-align: left;">要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">设计评审记录</td>
+<td style="text-align: left;">记录评审时间、参与人、材料、结论和主要讨论内容</td>
+</tr>
+<tr>
+<td style="text-align: left;">评审问题清单</td>
+<td style="text-align: left;">每个问题都有位置、证据、影响、等级、负责人和状态</td>
+</tr>
+<tr>
+<td style="text-align: left;">修改后的设计文档</td>
+<td style="text-align: left;">已处理阻断和重要问题，图、表、正文保持同步</td>
+</tr>
+<tr>
+<td style="text-align: left;">问题复核记录</td>
+<td style="text-align: left;">说明问题是否按决定解决，是否产生新的不一致</td>
+</tr>
+<tr>
+<td style="text-align: left;">《系统设计说明书》基线版</td>
+<td style="text-align: left;">版本和确认状态明确，可以作为开发与测试依据</td>
+</tr>
+<tr>
+<td style="text-align: left;">后续优化清单</td>
+<td style="text-align: left;">记录暂不影响开发、可以在后续迭代处理的建议</td>
+</tr>
+</tbody>
+</table>
+<p>评审结束不是要求“问题数量为零”，而是所有影响开发的关键问题都已有明确结论和处理结果。</p>
+<hr />
+<h2 id="_3">📦 第一步：准备评审材料<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>评审前应把需要检查的材料集中准备好：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">材料</th>
+<th style="text-align: left;">评审用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">《项目选题立项书》</td>
+<td style="text-align: left;">检查目标、范围、人员和进度约束</td>
+</tr>
+<tr>
+<td style="text-align: left;">《需求分析说明书》</td>
+<td style="text-align: left;">检查设计是否覆盖角色、功能、规则和验收条件</td>
+</tr>
+<tr>
+<td style="text-align: left;">《系统设计说明书》初稿</td>
+<td style="text-align: left;">本次评审的主要对象</td>
+</tr>
+<tr>
+<td style="text-align: left;">核心页面原型</td>
+<td style="text-align: left;">走查用户任务、页面状态和操作反馈</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库脚本</td>
+<td style="text-align: left;">检查表结构是否能够执行并支撑业务</td>
+</tr>
+<tr>
+<td style="text-align: left;">接口文档或接口清单</td>
+<td style="text-align: left;">检查前后端约定、权限和错误处理</td>
+</tr>
+<tr>
+<td style="text-align: left;">需求—设计追踪表</td>
+<td style="text-align: left;">快速发现遗漏和无依据设计</td>
+</tr>
+<tr>
+<td style="text-align: left;">待确认问题清单</td>
+<td style="text-align: left;">集中讨论尚未决定的问题</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">评审前由设计者自查<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 所有材料都指向当前版本；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 文档中的图片、链接和附件可以打开；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 核心流程、架构图、E-R 图和状态机清楚可读；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 数据库脚本已经在目标数据库执行；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 待确认问题已经列出，没有隐藏在正文中；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 需求、页面、接口、表和状态具有基本追踪关系；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 文档中没有真实账号、密码、密钥和隐私数据。</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">材料不完整时，不要假装进行正式评审</p>
+<p>如果核心流程、数据库或接口仍然只是零散想法，可以先进行方案讨论，但应明确标记为“设计讨论”，完成材料后再进入正式评审。</p>
+</div>
+<hr />
+<h2 id="_5">👥 第二步：确定评审参与者和职责<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>个人项目也不应只由设计者自己评审。可以邀请同学、教师或潜在用户参与。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">角色</th>
+<th style="text-align: left;">主要职责</th>
+<th style="text-align: left;">适合关注的内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">主持人</td>
+<td style="text-align: left;">控制范围和时间，确保逐项形成结论</td>
+<td style="text-align: left;">议程、问题确认、评审结论</td>
+</tr>
+<tr>
+<td style="text-align: left;">设计说明人</td>
+<td style="text-align: left;">介绍方案和依据，回答问题</td>
+<td style="text-align: left;">架构、模块、关键决策</td>
+</tr>
+<tr>
+<td style="text-align: left;">业务或用户代表</td>
+<td style="text-align: left;">判断流程是否符合真实任务</td>
+<td style="text-align: left;">页面、业务规则、操作反馈</td>
+</tr>
+<tr>
+<td style="text-align: left;">开发视角评审者</td>
+<td style="text-align: left;">判断方案是否能按当前技术实现</td>
+<td style="text-align: left;">架构、接口、数据和项目结构</td>
+</tr>
+<tr>
+<td style="text-align: left;">测试视角评审者</td>
+<td style="text-align: left;">寻找边界、失败和不可验证之处</td>
+<td style="text-align: left;">验收、错误码、状态和权限</td>
+</tr>
+<tr>
+<td style="text-align: left;">记录人</td>
+<td style="text-align: left;">记录问题、决定、负责人和状态</td>
+<td style="text-align: left;">评审问题清单与会议记录</td>
+</tr>
+</tbody>
+</table>
+<p>项目规模较小时，一个人可以承担多个角色，但设计说明人最好不要同时负责记录所有问题，以免遗漏讨论结论。</p>
+<h3 id="_6">评审规则<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>开始前约定：</p>
+<ul>
+<li>讨论设计和证据，不评价个人能力；</li>
+<li>问题必须指出具体位置和可能影响；</li>
+<li>有争议时回到需求、约束和验证结果；</li>
+<li>无法现场确认的问题记录下来，不凭印象决定；</li>
+<li>每个重要问题都要有结论、负责人和计划时间；</li>
+<li>不在评审中临时扩展与核心范围无关的新功能。</li>
+</ul>
+<hr />
+<h2 id="_7">🗓️ 第三步：设计评审议程<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>一次课程项目设计评审可以控制在 30～60 分钟。建议按下面的顺序进行：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">环节</th>
+<th style="text-align: center;">建议时间</th>
+<th style="text-align: left;">主要任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">说明目标和范围</td>
+<td style="text-align: center;">5 分钟</td>
+<td style="text-align: left;">确认本次评审对象、版本和重点</td>
+</tr>
+<tr>
+<td style="text-align: left;">方案概览</td>
+<td style="text-align: center;">5 分钟</td>
+<td style="text-align: left;">介绍设计目标、约束、技术和总体架构</td>
+</tr>
+<tr>
+<td style="text-align: left;">核心流程走查</td>
+<td style="text-align: center;">15～25 分钟</td>
+<td style="text-align: left;">沿页面、接口、权限、状态和数据走完整流程</td>
+</tr>
+<tr>
+<td style="text-align: left;">专项检查</td>
+<td style="text-align: center;">10～15 分钟</td>
+<td style="text-align: left;">检查架构、数据库、安全、部署和可测试性</td>
+</tr>
+<tr>
+<td style="text-align: left;">确认问题与结论</td>
+<td style="text-align: center;">5～10 分钟</td>
+<td style="text-align: left;">去重、分级、分配负责人和完成时间</td>
+</tr>
+</tbody>
+</table>
+<p>评审时间有限时，优先检查：</p>
+<ol>
+<li>核心业务闭环；</li>
+<li>会改变数据和业务状态的操作；</li>
+<li>多角色权限和本人数据范围；</li>
+<li>容易产生返工的数据库与接口约定；</li>
+<li>当前团队最不熟悉、风险最高的技术方案。</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">不要从文档第一页逐字念到最后一页</p>
+<p>评审不是朗读说明书。先用架构图说明全局，再沿核心业务场景检查设计链条，最后处理专项风险，通常更容易发现真实问题。</p>
+</div>
+<hr />
+<h2 id="_8">🔄 第四步：沿核心业务场景走查<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>场景走查把分散在不同章节的设计串起来，是本次评审最重要的环节。</p>
+<h3 id="_9">一条完整设计链<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart LR
+    Requirement["需求与验收条件"] --&gt; Module["功能模块"]
+    Module --&gt; Page["页面与用户操作"]
+    Page --&gt; API["接口请求与响应"]
+    API --&gt; Permission["身份、角色与数据权限"]
+    Permission --&gt; State["业务状态与前置条件"]
+    State --&gt; Data["数据查询与修改"]
+    Data --&gt; Feedback["页面结果与错误反馈"]
+    Feedback --&gt; Test["可验证的测试场景"]</code></pre>
+<h3 id="_10">示例：学生报名活动<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>评审者可以按顺序提问：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">环节</th>
+<th style="text-align: left;">评审问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">需求</td>
+<td style="text-align: left;">哪类用户在什么情况下需要报名？怎样算完成？</td>
+</tr>
+<tr>
+<td style="text-align: left;">模块</td>
+<td style="text-align: left;">哪个模块负责报名，是否与活动模块职责重叠？</td>
+</tr>
+<tr>
+<td style="text-align: left;">页面</td>
+<td style="text-align: left;">报名入口在哪里？已报名、名额已满时怎样显示？</td>
+</tr>
+<tr>
+<td style="text-align: left;">接口</td>
+<td style="text-align: left;">调用哪个接口？请求中为什么不需要用户编号？</td>
+</tr>
+<tr>
+<td style="text-align: left;">权限</td>
+<td style="text-align: left;">如何确认是学生本人报名？管理员是否允许报名？</td>
+</tr>
+<tr>
+<td style="text-align: left;">状态</td>
+<td style="text-align: left;">活动在什么状态和时间范围内允许报名？</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据</td>
+<td style="text-align: left;">修改哪些表？怎样防止重复报名和名额超限？</td>
+</tr>
+<tr>
+<td style="text-align: left;">反馈</td>
+<td style="text-align: left;">成功、重复报名、名额已满和登录失效分别返回什么？</td>
+</tr>
+<tr>
+<td style="text-align: left;">测试</td>
+<td style="text-align: left;">怎样准备数据并验证以上成功与失败场景？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">至少走查这些场景<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">场景类型</th>
+<th style="text-align: left;">活动报名系统示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">核心用户成功路径</td>
+<td style="text-align: left;">学生查找活动并完成报名</td>
+</tr>
+<tr>
+<td style="text-align: left;">核心管理成功路径</td>
+<td style="text-align: left;">管理员创建并发布活动</td>
+</tr>
+<tr>
+<td style="text-align: left;">业务失败路径</td>
+<td style="text-align: left;">名额已满、重复报名、报名已截止</td>
+</tr>
+<tr>
+<td style="text-align: left;">权限失败路径</td>
+<td style="text-align: left;">学生调用活动发布接口</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据范围路径</td>
+<td style="text-align: left;">学生只能查看和取消自己的报名</td>
+</tr>
+<tr>
+<td style="text-align: left;">状态变化路径</td>
+<td style="text-align: left;">活动从草稿到发布再到关闭</td>
+</tr>
+<tr>
+<td style="text-align: left;">异常恢复路径</td>
+<td style="text-align: left;">请求失败、重复提交或登录失效后怎样处理</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">能走通成功路径还不够</p>
+<p>很多严重问题只会出现在失败、越权和状态变化时。至少选择一个核心失败场景和一个权限场景进行完整走查。</p>
+</div>
+<hr />
+<h2 id="_12">🎯 第五步：检查需求覆盖和范围一致性<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="_13">需求覆盖检查<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每个核心角色是否有对应的使用入口？</li>
+<li>每项核心需求是否对应明确的功能模块？</li>
+<li>每个业务流程是否有页面、接口、数据和状态支撑？</li>
+<li>每个验收条件是否能够通过页面、接口或数据验证？</li>
+<li>关键异常和边界情况是否有处理结果？</li>
+<li>非功能要求是否在架构、部署或质量设计中得到体现？</li>
+</ul>
+<h3 id="_14">范围控制检查<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>设计是否增加了需求中没有确认的功能？</li>
+<li>是否引入了不解决实际问题的复杂技术？</li>
+<li>是否存在超出课程周期的模块或集成？</li>
+<li>是否把“以后可以优化”误写成“本期必须完成”？</li>
+<li>是否仍然保持一个可以独立演示的核心闭环？</li>
+</ul>
+<h3 id="_15">使用追踪表检查<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">检查结果</th>
+<th style="text-align: left;">含义</th>
+<th style="text-align: left;">处理建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">需求有设计对应</td>
+<td style="text-align: left;">具备实现依据</td>
+<td style="text-align: left;">继续检查设计质量</td>
+</tr>
+<tr>
+<td style="text-align: left;">需求没有设计对应</td>
+<td style="text-align: left;">设计遗漏</td>
+<td style="text-align: left;">补充设计或调整需求范围</td>
+</tr>
+<tr>
+<td style="text-align: left;">设计没有需求依据</td>
+<td style="text-align: left;">可能超范围</td>
+<td style="text-align: left;">删除、降级为后续优化或补充正式依据</td>
+</tr>
+<tr>
+<td style="text-align: left;">一个需求对应相互矛盾的设计</td>
+<td style="text-align: left;">文档不一致</td>
+<td style="text-align: left;">明确唯一方案并同步修改</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_16">🏗️ 第六步：检查技术方案和架构<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h3 id="_17">技术选型<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每项技术是否解决明确问题？</li>
+<li>团队是否能够安装、使用、调试并解释？</li>
+<li>技术版本是否相互兼容？</li>
+<li>是否符合已有模板和部署环境？</li>
+<li>是否存在更简单且能满足需求的方案？</li>
+<li>外部 API 或服务不可用时，核心流程是否仍可运行？</li>
+</ul>
+<h3 id="_18">系统架构<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<ul>
+<li>架构图中的每个部分是否真实需要？</li>
+<li>前端、后端、数据库和外部服务职责是否清楚？</li>
+<li>一个请求经过哪些部分，是否可以解释？</li>
+<li>系统形态是否符合团队人数和课程周期？</li>
+<li>是否为了展示复杂度而使用微服务或过多中间件？</li>
+<li>开发架构和部署架构是否相互矛盾？</li>
+</ul>
+<h3 id="_19">功能模块<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<ul>
+<li>模块是否按业务职责划分？</li>
+<li>模块边界是否清楚，有没有重复职责？</li>
+<li>模块依赖是否存在循环？</li>
+<li>核心流程能否通过模块协作完成？</li>
+<li>模块划分能否指导后续任务分工？</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">评审复杂度，而不是追求复杂度</p>
+<p>如果简单的前后端分离单体能够满足需求，就应优先采用。评审应帮助项目删除不必要的复杂性，把时间留给核心功能、测试和部署。</p>
+</div>
+<hr />
+<h2 id="_20">🖥️ 第七步：检查原型与页面流程<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<h3 id="_21">页面覆盖<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>页面清单是否覆盖所有核心用户任务？</li>
+<li>不同角色能否找到各自功能入口？</li>
+<li>是否存在页面有功能但需求没有依据？</li>
+<li>页面名称是否与模块和需求术语一致？</li>
+</ul>
+<h3 id="_22">信息与操作<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<ul>
+<li>用户完成任务所需的信息是否齐全？</li>
+<li>页面字段是否都有数据来源？</li>
+<li>主操作是否明显，危险操作是否需要确认？</li>
+<li>表单必填、格式和错误位置是否清楚？</li>
+<li>完成、取消和返回后分别去哪里？</li>
+</ul>
+<h3 id="_23">页面状态<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<ul>
+<li>是否设计加载、空数据、失败和无权限状态？</li>
+<li>处理中是否防止重复提交？</li>
+<li>页面按钮是否与权限和业务状态一致？</li>
+<li>错误提示是否说明原因和下一步？</li>
+</ul>
+<h3 id="_24">页面流程<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<ul>
+<li>从入口到核心目标是否完整？</li>
+<li>是否存在无法返回或无法继续的“死胡同”？</li>
+<li>登录失效和直接访问受限页面怎样处理？</li>
+<li>成功、失败和取消路径是否都有结果？</li>
+</ul>
+<p>可以邀请一位没有参与设计的同学，根据原型完成一个具体任务。观察实际停顿和误操作，比只看截图更容易发现问题。</p>
+<hr />
+<h2 id="_25">🗃️ 第八步：检查数据库设计<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h2>
+<h3 id="_26">实体与关系<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
+<ul>
+<li>核心业务对象是否都有数据支撑？</li>
+<li>实体、属性和关系是否来自真实需求？</li>
+<li>一对多、多对多关系和基数是否正确？</li>
+<li>中间表是否需要保存时间、状态等业务属性？</li>
+<li>是否错误地把页面控件或临时提示设计成表？</li>
+</ul>
+<h3 id="_27">表与字段<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每张表是否有明确用途和主键？</li>
+<li>主外键或逻辑关联是否清楚，类型是否一致？</li>
+<li>字段类型、长度、可空性和默认值是否合理？</li>
+<li>状态字段是否有完整取值说明？</li>
+<li>时间、金额、密码和隐私数据的处理是否正确？</li>
+<li>页面字段和接口字段能否找到可靠数据来源？</li>
+</ul>
+<h3 id="_28">约束和索引<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
+<ul>
+<li>必要的非空、唯一和关联约束是否存在？</li>
+<li>约束是否符合取消、重建和历史保留规则？</li>
+<li>索引是否来自真实查询，而不是全部字段都加？</li>
+<li>逻辑删除、历史数据和审计信息是否按实际需要设计？</li>
+</ul>
+<h3 id="_29">脚本验证<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
+<ul>
+<li>建表脚本能否在空数据库中执行？</li>
+<li>初始化数据能否支撑核心流程？</li>
+<li>正常数据能否写入？</li>
+<li>重复账号、无效关联等错误数据是否被阻止？</li>
+<li>删除后重新执行脚本是否仍能成功？</li>
+</ul>
+<div class="admonition failure">
+<p class="admonition-title">只看 E-R 图不能完成数据库评审</p>
+<p>必须同时检查数据字典、约束、SQL 和核心查询。图上关系正确，不代表脚本能够执行或业务数据能够保持一致。</p>
+</div>
+<hr />
+<h2 id="_30">🔌 第九步：检查接口设计<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h2>
+<h3 id="_31">接口覆盖与命名<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每个核心页面操作是否有对应接口？</li>
+<li>接口是否归属清楚的业务模块？</li>
+<li>方法和路径是否准确表达查询、创建和状态操作？</li>
+<li>是否存在没有页面、流程或外部调用使用的多余接口？</li>
+<li>同类接口的命名、分页和筛选规则是否统一？</li>
+</ul>
+<h3 id="_32">请求与响应<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
+<ul>
+<li>路径参数、查询参数和请求体是否区分清楚？</li>
+<li>字段名称、类型、必填和校验规则是否明确？</li>
+<li>响应结构、分页、时间和状态格式是否统一？</li>
+<li>成功和主要失败场景是否有示例？</li>
+<li>HTTP 状态和业务错误码是否能够表达失败原因？</li>
+</ul>
+<h3 id="_33">数据变化与一致性<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h3>
+<ul>
+<li>会改变数据的接口是否说明前置条件和结果？</li>
+<li>多表更新是否具有明确事务边界？</li>
+<li>重复提交是否可能创建重复数据？</li>
+<li>并发操作是否可能突破名额、库存等限制？</li>
+<li>失败后是否会留下部分成功的数据？</li>
+</ul>
+<hr />
+<h2 id="_34">🔐 第十步：检查权限、安全与隐私<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h2>
+<h3 id="_35">认证和会话<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
+<ul>
+<li>哪些接口需要登录？</li>
+<li>登录凭证怎样传递、失效和退出？</li>
+<li>未登录与无权限是否使用不同结果？</li>
+<li>密码是否使用安全哈希保存，而不是明文或可逆加密？</li>
+</ul>
+<h3 id="_36">功能权限<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每项管理功能是否有允许角色？</li>
+<li>后端是否对接口执行权限校验？</li>
+<li>是否错误地只通过前端隐藏按钮控制权限？</li>
+</ul>
+<h3 id="_37">数据权限<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
+<ul>
+<li>“我的数据”是否从当前登录身份获取用户编号？</li>
+<li>普通用户能否通过修改路径参数访问他人数据？</li>
+<li>管理员是否只能管理允许范围内的数据？</li>
+<li>查询是否在后端或数据库层限制数据范围？</li>
+</ul>
+<h3 id="_38">数据与隐私<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h3>
+<ul>
+<li>是否只收集完成业务所需的数据？</li>
+<li>文档、日志和测试数据中是否包含真实敏感信息？</li>
+<li>密钥、密码和本机配置是否可能提交到 Git？</li>
+<li>接口错误是否泄露数据库、路径或程序堆栈？</li>
+<li>删除、导出和日志记录是否符合项目实际需要？</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">权限评审要实际尝试越权场景</p>
+<p>不要只看权限矩阵。选择一个学生接口和一个管理员接口，说明如果修改用户编号、活动编号或直接调用路径，后端将怎样拒绝无权操作。</p>
+</div>
+<hr />
+<h2 id="_39">🔀 第十一步：检查业务状态和异常规则<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h2>
+<h3 id="_40">状态完整性<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每个状态是否有唯一、明确的业务含义？</li>
+<li>初始状态和结束状态是否清楚？</li>
+<li>每个状态是否可以通过合法操作进入？</li>
+<li>是否存在进入后无法处理的状态？</li>
+<li>是否允许从任意状态跳到任意状态？</li>
+</ul>
+<h3 id="_41">状态转换<a class="headerlink" href="#_41" title="Permanent link">&para;</a></h3>
+<ul>
+<li>谁可以触发转换？</li>
+<li>需要满足哪些时间、数据和权限条件？</li>
+<li>转换会修改哪些表或字段？</li>
+<li>转换失败时是否整体回滚？</li>
+<li>页面按钮、接口操作和数据库状态是否一致？</li>
+<li>状态变化是否需要保留操作时间和历史记录？</li>
+</ul>
+<h3 id="_42">异常与边界<a class="headerlink" href="#_42" title="Permanent link">&para;</a></h3>
+<ul>
+<li>名额为 0、库存不足或数据不存在时怎样处理？</li>
+<li>同一操作重复执行会产生什么结果？</li>
+<li>两个用户同时操作最后一个名额时怎样保证正确？</li>
+<li>外部服务超时是否阻断核心业务？</li>
+<li>服务器错误时给用户什么提示，后台记录什么证据？</li>
+</ul>
+<p>状态评审可以直接使用状态机和状态转换表。尝试为每条转换设计一个成功用例和一个失败用例，通常能快速发现条件遗漏。</p>
+<hr />
+<h2 id="_43">🧪 第十二步：检查可实现性和可测试性<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h2>
+<h3 id="_44">可实现性<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h3>
+<ul>
+<li>当前技术栈是否能实现设计中的全部核心能力？</li>
+<li>是否有需要提前验证的技术难点？</li>
+<li>外部依赖是否已经确认访问方式、费用和限制？</li>
+<li>目录和模块划分能否直接转化为开发任务？</li>
+<li>项目是否能在计划周期内完成和部署？</li>
+</ul>
+<p>对于不确定的高风险点，可以安排一个小型技术验证，例如：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>验证目标：确认部署服务器能够运行 JDK 17 和 MySQL 客户端。
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>验证范围：只检查环境和最小 Spring Boot 应用启动，不开发业务功能。
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>完成证据：版本输出、启动日志和访问结果。
+</code></pre></div></td></tr></table></div>
+<h3 id="_45">可测试性<a class="headerlink" href="#_45" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每个核心需求是否有明确预期结果？</li>
+<li>页面和接口失败是否有稳定、可识别的结果？</li>
+<li>权限矩阵能否转化为允许与拒绝测试？</li>
+<li>状态转换表能否转化为状态用例？</li>
+<li>初始化数据能否支撑成功和失败场景？</li>
+<li>日志和错误信息能否帮助定位问题？</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">无法验证的设计，很难证明已经完成</p>
+<p>“系统安全性高”“性能良好”“体验友好”都需要进一步变成可观察条件。课程项目可以使用适合规模的简单标准，但不能完全没有判断依据。</p>
+</div>
+<hr />
+<h2 id="_46">📝 第十三步：记录和分级评审问题<a class="headerlink" href="#_46" title="Permanent link">&para;</a></h2>
+<p>评审发现的问题应记录事实和影响，不能只写“这里不好”“建议优化”。</p>
+<h3 id="_47">问题记录模板<a class="headerlink" href="#_47" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">问题编号</td>
+<td style="text-align: left;">便于追踪，例如 DR-001</td>
+</tr>
+<tr>
+<td style="text-align: left;">问题位置</td>
+<td style="text-align: left;">文档章节、图、表、接口或页面</td>
+</tr>
+<tr>
+<td style="text-align: left;">问题描述</td>
+<td style="text-align: left;">当前设计具体存在什么问题</td>
+</tr>
+<tr>
+<td style="text-align: left;">证据</td>
+<td style="text-align: left;">与哪个需求、规则或约束矛盾</td>
+</tr>
+<tr>
+<td style="text-align: left;">影响</td>
+<td style="text-align: left;">会造成什么开发、数据、权限或交付风险</td>
+</tr>
+<tr>
+<td style="text-align: left;">严重程度</td>
+<td style="text-align: left;">阻断、重要、一般或建议</td>
+</tr>
+<tr>
+<td style="text-align: left;">修改建议</td>
+<td style="text-align: left;">推荐方向，不替负责人隐藏决策</td>
+</tr>
+<tr>
+<td style="text-align: left;">负责人和期限</td>
+<td style="text-align: left;">谁处理、何时完成</td>
+</tr>
+<tr>
+<td style="text-align: left;">状态</td>
+<td style="text-align: left;">待处理、处理中、待复核、已关闭或暂缓</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_48">严重程度建议<a class="headerlink" href="#_48" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">等级</th>
+<th style="text-align: left;">判断标准</th>
+<th style="text-align: left;">示例</th>
+<th style="text-align: left;">处理要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">阻断</td>
+<td style="text-align: left;">不解决就无法开始或继续核心开发</td>
+<td style="text-align: left;">核心流程没有确定；数据库关系互相矛盾</td>
+<td style="text-align: left;">开发前必须解决</td>
+</tr>
+<tr>
+<td style="text-align: left;">重要</td>
+<td style="text-align: left;">可能造成明显返工、数据错误或越权</td>
+<td style="text-align: left;">报名接口信任前端用户编号</td>
+<td style="text-align: left;">进入相关开发前解决</td>
+</tr>
+<tr>
+<td style="text-align: left;">一般</td>
+<td style="text-align: left;">不阻断核心流程，但会影响一致性或体验</td>
+<td style="text-align: left;">错误码命名不统一</td>
+<td style="text-align: left;">计划内修改</td>
+</tr>
+<tr>
+<td style="text-align: left;">建议</td>
+<td style="text-align: left;">可提高质量，但不影响本期交付</td>
+<td style="text-align: left;">原型提示文字可以更友好</td>
+<td style="text-align: left;">纳入后续优化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_49">问题清单示例<a class="headerlink" href="#_49" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">编号</th>
+<th style="text-align: left;">问题位置</th>
+<th style="text-align: left;">问题与影响</th>
+<th style="text-align: left;">等级</th>
+<th style="text-align: left;">修改决定</th>
+<th style="text-align: left;">负责人</th>
+<th style="text-align: left;">状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">DR-001</td>
+<td style="text-align: left;">SIGN-01 报名接口</td>
+<td style="text-align: left;">请求体包含 <code>userId</code>，可能操作他人数据</td>
+<td style="text-align: left;">重要</td>
+<td style="text-align: left;">从登录身份获取用户编号</td>
+<td style="text-align: left;">后端负责人</td>
+<td style="text-align: left;">待处理</td>
+</tr>
+<tr>
+<td style="text-align: left;">DR-002</td>
+<td style="text-align: left;">活动状态机</td>
+<td style="text-align: left;">发布后没有关闭路径，活动无法结束</td>
+<td style="text-align: left;">阻断</td>
+<td style="text-align: left;">增加关闭操作和 <code>CLOSED</code> 状态</td>
+<td style="text-align: left;">设计负责人</td>
+<td style="text-align: left;">待处理</td>
+</tr>
+<tr>
+<td style="text-align: left;">DR-003</td>
+<td style="text-align: left;">活动详情原型</td>
+<td style="text-align: left;">名额已满时仍显示可点击按钮</td>
+<td style="text-align: left;">一般</td>
+<td style="text-align: left;">禁用按钮并说明原因</td>
+<td style="text-align: left;">前端负责人</td>
+<td style="text-align: left;">待处理</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">严重程度看影响，不看修改工作量</p>
+<p>一个只需改一行的越权问题可能是“重要”，一项需要调整多个页面但只影响视觉一致性的修改仍可能是“一般”。</p>
+</div>
+<hr />
+<h2 id="_50">🔧 第十四步：修改设计并进行影响分析<a class="headerlink" href="#_50" title="Permanent link">&para;</a></h2>
+<p>处理问题时，不要只修改评审者指出的那一行。先检查这一决定会影响哪些设计成果。</p>
+<h3 id="_51">影响分析示例<a class="headerlink" href="#_51" title="Permanent link">&para;</a></h3>
+<p>如果决定“活动发布后可以由管理员关闭”，需要同步检查：</p>
+<pre class="mermaid"><code>flowchart LR
+    Decision["增加关闭活动规则"] --&gt; Requirement["需求与业务规则"]
+    Decision --&gt; Prototype["管理页面按钮与提示"]
+    Decision --&gt; API["关闭活动接口"]
+    Decision --&gt; Permission["管理员权限"]
+    Decision --&gt; State["PUBLISHED → CLOSED"]
+    Decision --&gt; Database["活动状态字段"]
+    Decision --&gt; Test["允许与拒绝测试场景"]</code></pre>
+<h3 id="_52">常见变化的影响范围<a class="headerlink" href="#_52" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">设计变化</th>
+<th style="text-align: left;">需要同步检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">增加页面字段</td>
+<td style="text-align: left;">原型、接口、数据字典、校验和隐私要求</td>
+</tr>
+<tr>
+<td style="text-align: left;">修改接口路径或字段</td>
+<td style="text-align: left;">页面调用、接口文档、测试和追踪表</td>
+</tr>
+<tr>
+<td style="text-align: left;">修改角色权限</td>
+<td style="text-align: left;">菜单、按钮、后端校验、数据范围和权限矩阵</td>
+</tr>
+<tr>
+<td style="text-align: left;">增加业务状态</td>
+<td style="text-align: left;">页面状态、接口操作、数据库取值和状态机</td>
+</tr>
+<tr>
+<td style="text-align: left;">修改表关系</td>
+<td style="text-align: left;">E-R 图、SQL、业务逻辑、接口响应和初始化数据</td>
+</tr>
+<tr>
+<td style="text-align: left;">更换技术方案</td>
+<td style="text-align: left;">架构、项目结构、环境、部署、风险和进度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_53">修改原则<a class="headerlink" href="#_53" title="Permanent link">&para;</a></h3>
+<ul>
+<li>一个问题一次形成一个明确决定；</li>
+<li>先修改设计源文件，再更新导出图片或附件；</li>
+<li>图、表、正文和追踪关系同步更新；</li>
+<li>不在修复问题时顺便增加未评审的新功能；</li>
+<li>对重要决策保留修改理由；</li>
+<li>修改完成后更新文档版本和变更记录。</li>
+</ul>
+<hr />
+<h2 id="_54">✅ 第十五步：复核问题并关闭<a class="headerlink" href="#_54" title="Permanent link">&para;</a></h2>
+<p>问题负责人完成修改后，应由原评审者或其他成员进行复核。</p>
+<h3 id="_55">复核要回答<a class="headerlink" href="#_55" title="Permanent link">&para;</a></h3>
+<ol>
+<li>原问题是否按照评审决定解决？</li>
+<li>修改是否覆盖所有受影响的图、表和章节？</li>
+<li>修改是否引入新的矛盾、遗漏或超范围内容？</li>
+<li>页面、接口、权限、状态和数据库是否仍然一致？</li>
+<li>是否已经具备可以验证的成功和失败场景？</li>
+</ol>
+<h3 id="_56">问题状态<a class="headerlink" href="#_56" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; OPEN: 记录问题
+    OPEN --&gt; IN_PROGRESS: 分配并开始处理
+    IN_PROGRESS --&gt; TO_VERIFY: 完成修改
+    TO_VERIFY --&gt; CLOSED: 复核通过
+    TO_VERIFY --&gt; IN_PROGRESS: 复核未通过
+    OPEN --&gt; DEFERRED: 确认暂缓
+    DEFERRED --&gt; OPEN: 后续重新处理</code></pre>
+<p>“已关闭”表示问题已经得到验证，不是负责人说“已经改了”。暂缓问题必须说明原因、影响和未来处理条件。</p>
+<hr />
+<h2 id="_57">📌 第十六步：形成设计基线<a class="headerlink" href="#_57" title="Permanent link">&para;</a></h2>
+<p>设计基线是团队共同确认、用于指导后续开发和测试的版本。</p>
+<h3 id="_58">进入基线的条件<a class="headerlink" href="#_58" title="Permanent link">&para;</a></h3>
+<ul>
+<li>核心需求均有可实现的设计支撑；</li>
+<li>核心业务成功、失败和权限路径能够走通；</li>
+<li>阻断问题全部关闭；</li>
+<li>重要问题已经关闭，或有不会影响当前开发的明确处理计划；</li>
+<li>架构、原型、数据、接口、权限和状态基本一致；</li>
+<li>数据库脚本能够执行；</li>
+<li>待确认事项不影响即将开始的核心开发；</li>
+<li>文档版本、日期、状态和参与确认人员已经记录。</li>
+</ul>
+<h3 id="_59">基线确认记录<a class="headerlink" href="#_59" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">项目</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">文档名称</td>
+<td style="text-align: left;">《校园活动报名系统——系统设计说明书》</td>
+</tr>
+<tr>
+<td style="text-align: left;">基线版本</td>
+<td style="text-align: left;">V1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">确认日期</td>
+<td style="text-align: left;">2026-04-25</td>
+</tr>
+<tr>
+<td style="text-align: left;">评审结论</td>
+<td style="text-align: left;">通过 / 修改后通过 / 不通过</td>
+</tr>
+<tr>
+<td style="text-align: left;">未关闭问题</td>
+<td style="text-align: left;">编号、等级和处理计划</td>
+</tr>
+<tr>
+<td style="text-align: left;">确认人员</td>
+<td style="text-align: left;">项目成员、教师或评审同学</td>
+</tr>
+<tr>
+<td style="text-align: left;">下一步</td>
+<td style="text-align: left;">按模块拆分开发任务并搭建项目骨架</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">基线不是以后永远不能修改</p>
+<p>开发中发现新事实时仍然可以变更设计，但要记录原因、评估影响、更新关联材料，并让团队知道当前应遵守哪个版本。</p>
+</div>
+<hr />
+<h2 id="ai">🤖 第十七步：用 AI 辅助设计评审<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h2>
+<p>AI 可以同时检查多份文档、生成追踪关系和发现名称不一致，适合作为第一轮评审助手。</p>
+<h3 id="_60">综合评审提示词<a class="headerlink" href="#_60" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>请以软件项目设计评审者身份工作。
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>先完整阅读《项目选题立项书》《需求分析说明书》
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>和《系统设计说明书》，以及引用的原型、数据库和接口材料。
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>不要修改文件，不要补充没有依据的功能。
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>请按以下维度检查：
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>1. 需求覆盖和项目范围；
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>2. 技术选型与架构可行性；
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>3. 功能模块职责和依赖；
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>4. 页面任务、状态和流程；
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>5. E-R 图、数据字典、约束和 SQL；
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>6. 接口请求、响应、错误码和数据变化；
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>7. 身份认证、角色权限和数据权限；
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>8. 业务状态、转换条件和异常路径；
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>9. 重复请求、并发和数据一致性；
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>10. 文档术语、图表和追踪关系的一致性。
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>对每个问题输出：
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a>- 问题位置；
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>- 当前设计的具体证据；
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a>- 与哪个需求、约束或其他设计矛盾；
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a>- 可能影响；
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a>- 严重程度；
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a>- 修改建议；
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a>- 需要人工确认的问题。
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a>不要只给通用建议；没有证据时标记为“待确认”。
+</code></pre></div></td></tr></table></div>
+<h3 id="_61">核心流程攻击式走查提示词<a class="headerlink" href="#_61" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>请围绕“学生报名活动”进行失败和越权场景走查，
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>不要假设页面能够保护后端。
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>依次检查：未登录、角色错误、修改用户编号、活动不存在、
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>活动未发布、报名已截止、名额已满、重复报名、连续点击、
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>两个用户争抢最后一个名额、数据库写入中途失败。
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>对每个场景说明：
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>1. 哪一层发现问题；
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>2. 接口返回什么状态和错误码；
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>3. 数据是否发生变化；
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>4. 页面怎样提示和恢复；
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>5. 当前设计文档是否已经覆盖。
+</code></pre></div></td></tr></table></div>
+<h3 id="ai_1">人工审核 AI 评审结果<a class="headerlink" href="#ai_1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 问题是否有真实文档证据；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 严重程度是否根据影响判断；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 是否把个人偏好误写成必须修改的问题；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 是否建议了超出课程范围的复杂方案；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 是否错误理解了业务术语或角色；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 是否重复报告同一个根本问题；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 修改建议是否会破坏其他已确认设计；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 最终业务决定是否经过人工确认。</li>
+</ul>
+<div class="admonition failure">
+<p class="admonition-title">AI 评审不能代替共同确认</p>
+<p>AI 能发现形式不一致和常见风险，但不了解所有真实用户、团队能力和课堂约束。评审结论、问题等级和修改决定仍由项目成员与教师确认。</p>
+</div>
+<hr />
+<h2 id="_62">📋 设计评审记录模板<a class="headerlink" href="#_62" title="Permanent link">&para;</a></h2>
+<p>可以使用下面的模板记录评审过程和结果：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span>
+<span class="normal"><a href="#__codelineno-3-32">32</a></span>
+<span class="normal"><a href="#__codelineno-3-33">33</a></span>
+<span class="normal"><a href="#__codelineno-3-34">34</a></span>
+<span class="normal"><a href="#__codelineno-3-35">35</a></span>
+<span class="normal"><a href="#__codelineno-3-36">36</a></span>
+<span class="normal"><a href="#__codelineno-3-37">37</a></span>
+<span class="normal"><a href="#__codelineno-3-38">38</a></span>
+<span class="normal"><a href="#__codelineno-3-39">39</a></span>
+<span class="normal"><a href="#__codelineno-3-40">40</a></span>
+<span class="normal"><a href="#__codelineno-3-41">41</a></span>
+<span class="normal"><a href="#__codelineno-3-42">42</a></span>
+<span class="normal"><a href="#__codelineno-3-43">43</a></span>
+<span class="normal"><a href="#__codelineno-3-44">44</a></span>
+<span class="normal"><a href="#__codelineno-3-45">45</a></span>
+<span class="normal"><a href="#__codelineno-3-46">46</a></span>
+<span class="normal"><a href="#__codelineno-3-47">47</a></span>
+<span class="normal"><a href="#__codelineno-3-48">48</a></span>
+<span class="normal"><a href="#__codelineno-3-49">49</a></span>
+<span class="normal"><a href="#__codelineno-3-50">50</a></span>
+<span class="normal"><a href="#__codelineno-3-51">51</a></span>
+<span class="normal"><a href="#__codelineno-3-52">52</a></span>
+<span class="normal"><a href="#__codelineno-3-53">53</a></span>
+<span class="normal"><a href="#__codelineno-3-54">54</a></span>
+<span class="normal"><a href="#__codelineno-3-55">55</a></span>
+<span class="normal"><a href="#__codelineno-3-56">56</a></span>
+<span class="normal"><a href="#__codelineno-3-57">57</a></span>
+<span class="normal"><a href="#__codelineno-3-58">58</a></span>
+<span class="normal"><a href="#__codelineno-3-59">59</a></span>
+<span class="normal"><a href="#__codelineno-3-60">60</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="gh"># 项目名称——系统设计评审记录</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="gu">## 1. 评审信息</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>| 项目 | 内容 |
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>| --- | --- |
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>| 评审对象 | 《系统设计说明书》V0.__ |
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>| 评审时间 |  |
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>| 评审地点或方式 |  |
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>| 主持人 |  |
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>| 设计说明人 |  |
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>| 评审参与人 |  |
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a>| 记录人 |  |
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="gu">## 2. 评审范围</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="k">-</span><span class="w"> </span>本次重点：
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="k">-</span><span class="w"> </span>不在本次范围的内容：
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="k">-</span><span class="w"> </span>使用的材料：
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="gu">## 3. 核心场景走查</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23"></a>| 场景 | 页面 | 接口 | 权限 | 状态 | 数据变化 | 结论 |
+<a id="__codelineno-3-24" name="__codelineno-3-24"></a>| --- | --- | --- | --- | --- | --- | --- |
+<a id="__codelineno-3-25" name="__codelineno-3-25"></a>|  |  |  |  |  |  |  |
+<a id="__codelineno-3-26" name="__codelineno-3-26"></a>
+<a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="gu">## 4. 评审问题清单</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28"></a>
+<a id="__codelineno-3-29" name="__codelineno-3-29"></a>| 编号 | 问题位置 | 问题与证据 | 影响 | 等级 | 修改决定 | 负责人 | 期限 | 状态 |
+<a id="__codelineno-3-30" name="__codelineno-3-30"></a>| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+<a id="__codelineno-3-31" name="__codelineno-3-31"></a>|  |  |  |  |  |  |  |  |  |
+<a id="__codelineno-3-32" name="__codelineno-3-32"></a>
+<a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="gu">## 5. 待确认事项</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34"></a>
+<a id="__codelineno-3-35" name="__codelineno-3-35"></a>| 编号 | 问题 | 影响范围 | 确认人 | 计划时间 | 状态 | 结论 |
+<a id="__codelineno-3-36" name="__codelineno-3-36"></a>| --- | --- | --- | --- | --- | --- | --- |
+<a id="__codelineno-3-37" name="__codelineno-3-37"></a>|  |  |  |  |  |  |  |
+<a id="__codelineno-3-38" name="__codelineno-3-38"></a>
+<a id="__codelineno-3-39" name="__codelineno-3-39"></a><span class="gu">## 6. 评审结论</span>
+<a id="__codelineno-3-40" name="__codelineno-3-40"></a>
+<a id="__codelineno-3-41" name="__codelineno-3-41"></a><span class="k">- [ ]</span> 通过：可以形成设计基线并进入开发
+<a id="__codelineno-3-42" name="__codelineno-3-42"></a><span class="k">- [ ]</span> 修改后通过：完成指定问题并复核后进入开发
+<a id="__codelineno-3-43" name="__codelineno-3-43"></a><span class="k">- [ ]</span> 不通过：核心方案需要重新设计并再次评审
+<a id="__codelineno-3-44" name="__codelineno-3-44"></a>
+<a id="__codelineno-3-45" name="__codelineno-3-45"></a>结论说明：
+<a id="__codelineno-3-46" name="__codelineno-3-46"></a>
+<a id="__codelineno-3-47" name="__codelineno-3-47"></a><span class="gu">## 7. 修改与复核记录</span>
+<a id="__codelineno-3-48" name="__codelineno-3-48"></a>
+<a id="__codelineno-3-49" name="__codelineno-3-49"></a>| 问题编号 | 修改位置 | 修改内容 | 复核人 | 复核结果 | 关闭日期 |
+<a id="__codelineno-3-50" name="__codelineno-3-50"></a>| --- | --- | --- | --- | --- | --- |
+<a id="__codelineno-3-51" name="__codelineno-3-51"></a>|  |  |  |  |  |  |
+<a id="__codelineno-3-52" name="__codelineno-3-52"></a>
+<a id="__codelineno-3-53" name="__codelineno-3-53"></a><span class="gu">## 8. 基线确认</span>
+<a id="__codelineno-3-54" name="__codelineno-3-54"></a>
+<a id="__codelineno-3-55" name="__codelineno-3-55"></a>| 项目 | 内容 |
+<a id="__codelineno-3-56" name="__codelineno-3-56"></a>| --- | --- |
+<a id="__codelineno-3-57" name="__codelineno-3-57"></a>| 基线版本 |  |
+<a id="__codelineno-3-58" name="__codelineno-3-58"></a>| 确认日期 |  |
+<a id="__codelineno-3-59" name="__codelineno-3-59"></a>| 未关闭问题及计划 |  |
+<a id="__codelineno-3-60" name="__codelineno-3-60"></a>| 下一步工作 |  |
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="_63">✅ 本节自查<a class="headerlink" href="#_63" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 评审对象、版本、范围和参与人已经明确；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 立项书、需求说明书、设计说明书及附件准备完整；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 至少走查了一条核心成功流程；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 至少走查了一条业务失败流程和一条权限失败流程；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 核心需求能够追踪到模块、页面、接口、数据和状态；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 技术方案符合团队能力、课程周期和部署环境；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 页面字段、操作和状态都有需求及数据依据；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> E-R 图、数据字典和数据库脚本相互一致；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 接口请求、响应、错误码和数据变化说明清楚；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 认证、功能权限和数据权限都经过检查；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 状态转换具有角色、前置条件、目标和失败结果；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 重复请求、关键并发和事务一致性风险得到考虑；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 每个评审问题都有位置、证据、影响和严重程度；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 阻断和重要问题具有负责人、期限和修改决定；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 修改后完成了影响分析和问题复核；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 图、表、正文和追踪关系已经同步更新；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 《系统设计说明书》版本和变更记录已经更新；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已形成明确的评审结论和设计基线；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 暂缓问题说明了原因、影响和后续处理计划。</li>
+</ul>
+<p>当核心流程能够从需求一路追踪到页面、接口、权限、状态、数据和测试结果，阻断问题全部关闭，团队也知道开发应遵守哪个版本，第三篇的设计工作就完成了。</p>
+<hr />
+<h2 id="_64">📝 总结<a class="headerlink" href="#_64" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>评审围绕风险和证据展开</strong>：指出具体位置、事实和影响，不只表达个人偏好；</li>
+<li><strong>沿核心业务场景走查</strong>：把需求、页面、接口、权限、状态和数据连成完整链条；</li>
+<li><strong>成功、失败和越权都要检查</strong>：边界场景往往比正常流程更容易暴露设计问题；</li>
+<li><strong>问题必须闭环</strong>：记录、分级、修改、复核和关闭缺一不可；</li>
+<li><strong>形成设计基线再进入开发</strong>：后续可以变更，但必须评估影响并同步更新文档。</li>
+</ul>
+<p><a class="md-button" href="../06-design-document/">返回上一节：编制文档</a>
+<a class="md-button" href="../">返回第三篇导读</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 陈德
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

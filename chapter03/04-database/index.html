@@ -1,0 +1,3633 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="《软件开发综合项目实训——AI辅助的软件项目开发》电子教程">
+      
+      
+      
+        <link rel="canonical" href="https://project-ai.chende.top/chapter03/04-database/">
+      
+      
+        <link rel="prev" href="../03-prototype/">
+      
+      
+        <link rel="next" href="../05-api-permission-state/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>04 设计数据：E-R 图与数据表 - 软件开发综合项目实训</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#34-e-r" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件开发综合项目实训" class="md-header__button md-logo" aria-label="软件开发综合项目实训" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件开发综合项目实训
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04 设计数据：E-R 图与数据表
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件开发综合项目实训" class="md-nav__button md-logo" aria-label="软件开发综合项目实训" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件开发综合项目实训
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程介绍
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程介绍
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程导学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程导学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16周项目路线
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/learning-method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    学习与AI协作规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter01/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一篇｜AI 协同开发实战
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第一篇｜AI 协同开发实战
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 认识项目：体验系统与阅读文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/02-ai-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 准备工具：Trae 与 Superpowers-zh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/03-ai-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 建立规则：Rules、Skills 与 AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/04-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 分步开发：从模板到功能闭环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/05-deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 测试部署：验证并交付项目
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter02/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二篇｜项目选题与需求分析
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第二篇｜项目选题与需求分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/01-topic-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 选好项目：问题、调研与范围
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/02-proposal-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 项目立项：目标、计划与可行性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/03-user-needs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 梳理需求：用户、功能与业务规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/04-document-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成文档：需求说明书与检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三篇｜原型与系统设计
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第三篇｜原型与系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-design-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 明确方案：设计目标、约束与技术选型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 设计架构：系统架构与功能模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-prototype/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 设计原型：UI 原型与页面流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 设计数据：E-R 图与数据表
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 设计数据：E-R 图与数据表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先想清楚系统要保存什么，再编写建表 SQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 第一步：从业务流程中寻找数据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📄 第一步：从业务流程中寻找数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用“谁、对什么、做了什么、留下什么记录”分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建立核心数据清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 第二步：识别实体和属性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧱 第二步：识别实体和属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是实体
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从需求名词中筛选实体
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为实体整理主要属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 第三步：确定实体之间的关系
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 第三步：确定实体之间的关系">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        多对多关系需要中间实体
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        明确关系的业务规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#e-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 第四步：把 E-R 图转换为数据表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 第四步：把 E-R 图转换为数据表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据表清单示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        表名和字段名保持一致
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗃️ 第五步：设计字段和数据字典
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗃️ 第五步：设计字段和数据字典">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择合适的数据类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        活动表数据字典示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        报名表数据字典示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔑 第六步：设计主键、外键和约束
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔑 第六步：设计主键、外键和约束">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见约束及其作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        防止重复报名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        物理外键还是逻辑关联
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 第七步：根据查询需求设计索引
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ 第七步：根据查询需求设计索引">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从页面反推常用查询
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        索引设计原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕒 第八步：处理状态、历史和删除
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🕒 第八步：处理状态、历史和删除">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        是否保留历史记录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逻辑删除不要随意使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧮 第九步：识别计算字段和冗余数据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧮 第九步：识别计算字段和冗余数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        “剩余名额”是否建字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        判断一个字段是否应该保存
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 第十步：生成并验证建表脚本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 第十步：生成并验证建表脚本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        提供给 AI 的上下文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        脚本至少分为
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 第十一步：检查设计一致性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 第十一步：检查设计一致性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一致性检查表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建立简单追踪关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 第十二步：用 AI 辅助检查数据设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 本节成果模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 本节自查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-api-permission-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完善规则：接口、权限与业务状态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-design-document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 编制文档：系统设计说明书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-design-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 评审优化：设计检查与迭代改进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目选题库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc-templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档与任务模板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先想清楚系统要保存什么，再编写建表 SQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 第一步：从业务流程中寻找数据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📄 第一步：从业务流程中寻找数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用“谁、对什么、做了什么、留下什么记录”分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建立核心数据清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 第二步：识别实体和属性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧱 第二步：识别实体和属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是实体
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从需求名词中筛选实体
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为实体整理主要属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 第三步：确定实体之间的关系
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 第三步：确定实体之间的关系">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        多对多关系需要中间实体
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        明确关系的业务规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#e-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 第四步：把 E-R 图转换为数据表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 第四步：把 E-R 图转换为数据表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据表清单示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        表名和字段名保持一致
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗃️ 第五步：设计字段和数据字典
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗃️ 第五步：设计字段和数据字典">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择合适的数据类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        活动表数据字典示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        报名表数据字典示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔑 第六步：设计主键、外键和约束
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔑 第六步：设计主键、外键和约束">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见约束及其作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        防止重复报名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        物理外键还是逻辑关联
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 第七步：根据查询需求设计索引
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ 第七步：根据查询需求设计索引">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从页面反推常用查询
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        索引设计原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕒 第八步：处理状态、历史和删除
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🕒 第八步：处理状态、历史和删除">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        是否保留历史记录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逻辑删除不要随意使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧮 第九步：识别计算字段和冗余数据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧮 第九步：识别计算字段和冗余数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        “剩余名额”是否建字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        判断一个字段是否应该保存
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 第十步：生成并验证建表脚本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 第十步：生成并验证建表脚本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        提供给 AI 的上下文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        脚本至少分为
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 第十一步：检查设计一致性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 第十一步：检查设计一致性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一致性检查表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建立简单追踪关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 第十二步：用 AI 辅助检查数据设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 本节成果模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 本节自查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="34-e-r">3.4 设计数据：E-R 图与数据表<a class="headerlink" href="#34-e-r" title="Permanent link">&para;</a></h1>
+<h2 id="sql">先想清楚系统要保存什么，再编写建表 SQL<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">数据库不是把页面字段搬进表格</p>
+<p>页面只展示用户当前需要看到的信息，数据库却要长期、准确地保存业务事实。例如“活动剩余名额”可以在页面上显示，但它可能由活动总名额和有效报名记录计算得到，不一定需要单独保存。</p>
+<p>数据库设计的重点，是从业务流程中找出核心实体，明确它们之间的关系，再通过字段、主键、外键、约束和索引保证数据能够正确保存和查询。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">本节学习目标</p>
+<p>根据需求、功能模块和页面原型，识别系统需要长期保存的数据，绘制 E-R 图，设计数据表、字段、主外键、约束和索引，形成数据字典与可执行的建表脚本。</p>
+</div>
+<p><a class="md-button" href="../03-prototype/">返回上一节：设计原型</a>
+<a class="md-button" href="../">返回第三篇导读</a>
+<a class="md-button md-button--primary" href="../05-api-permission-state/">进入下一节：完善规则</a></p>
+<hr />
+<h2 id="_1">🎯 本节完成后，你要交付<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">成果</th>
+<th style="text-align: left;">要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">核心数据清单</td>
+<td style="text-align: left;">说明系统要记录哪些业务数据、从哪里产生、用于什么功能</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-R 图</td>
+<td style="text-align: left;">展示核心实体、主要属性、关系和基数</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据表清单</td>
+<td style="text-align: left;">写清每张表的用途、主键和关联关系</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据字典</td>
+<td style="text-align: left;">说明字段名称、类型、是否为空、默认值、约束和业务含义</td>
+</tr>
+<tr>
+<td style="text-align: left;">建表与初始化脚本</td>
+<td style="text-align: left;">能在目标数据库执行，并提供支撑核心流程的少量测试数据</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据设计检查记录</td>
+<td style="text-align: left;">记录设计问题、修改结果和待确认事项</td>
+</tr>
+</tbody>
+</table>
+<p>本节主要确定数据结构。业务状态的完整取值、状态转换和角色权限将在 3.5 中统一设计，但表中需要先为已经确认的状态预留合适字段。</p>
+<hr />
+<h2 id="_2">📄 第一步：从业务流程中寻找数据<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>开始设计前，先读取已经确认的材料：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">输入材料</th>
+<th style="text-align: left;">需要提取的内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">《需求分析说明书》</td>
+<td style="text-align: left;">业务对象、业务规则、查询需求和验收条件</td>
+</tr>
+<tr>
+<td style="text-align: left;">功能模块与职责表</td>
+<td style="text-align: left;">哪个模块创建、读取或修改哪些数据</td>
+</tr>
+<tr>
+<td style="text-align: left;">页面原型</td>
+<td style="text-align: left;">页面需要展示、输入和筛选哪些信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">页面流程图</td>
+<td style="text-align: left;">业务过程中会产生哪些记录和状态变化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">用“谁、对什么、做了什么、留下什么记录”分析<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>以“学生报名活动”为例：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">业务问题</th>
+<th style="text-align: left;">分析结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">谁执行操作？</td>
+<td style="text-align: left;">学生用户</td>
+</tr>
+<tr>
+<td style="text-align: left;">对什么操作？</td>
+<td style="text-align: left;">校园活动</td>
+</tr>
+<tr>
+<td style="text-align: left;">做了什么？</td>
+<td style="text-align: left;">提交报名或取消报名</td>
+</tr>
+<tr>
+<td style="text-align: left;">需要留下什么？</td>
+<td style="text-align: left;">报名人、活动、报名时间、报名状态</td>
+</tr>
+<tr>
+<td style="text-align: left;">后续要查询什么？</td>
+<td style="text-align: left;">我的报名、活动报名名单、报名人数</td>
+</tr>
+</tbody>
+</table>
+<p>由此可以先识别出 <code>用户</code>、<code>活动</code> 和 <code>报名记录</code> 三类核心数据。</p>
+<h3 id="_4">建立核心数据清单<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">数据对象</th>
+<th style="text-align: left;">从哪里产生</th>
+<th style="text-align: left;">主要内容</th>
+<th style="text-align: left;">用于哪些功能</th>
+<th style="text-align: center;">是否长期保存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用户</td>
+<td style="text-align: left;">注册、导入或管理员创建</td>
+<td style="text-align: left;">账号、姓名、角色、状态</td>
+<td style="text-align: left;">登录、权限、个人信息</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动</td>
+<td style="text-align: left;">管理员发布</td>
+<td style="text-align: left;">名称、时间、地点、名额、状态</td>
+<td style="text-align: left;">浏览、报名、活动管理</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: left;">报名记录</td>
+<td style="text-align: left;">学生报名</td>
+<td style="text-align: left;">用户、活动、报名时间、状态</td>
+<td style="text-align: left;">我的报名、名单、统计</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: left;">查询关键词</td>
+<td style="text-align: left;">用户在列表页输入</td>
+<td style="text-align: left;">临时搜索条件</td>
+<td style="text-align: left;">筛选活动</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: left;">登录提示</td>
+<td style="text-align: left;">登录失败时生成</td>
+<td style="text-align: left;">错误说明</td>
+<td style="text-align: left;">页面反馈</td>
+<td style="text-align: center;">通常否</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">不是页面上出现的内容都要存入数据库</p>
+<p>搜索条件、按钮状态、临时提示和由其他字段实时计算的内容，通常不需要建字段。判断标准是：它是否代表需要长期保存、以后还要查询或追溯的业务事实。</p>
+</div>
+<hr />
+<h2 id="_5">🧱 第二步：识别实体和属性<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">什么是实体<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>实体是系统需要长期记录，并具有独立业务含义的对象。常见实体包括：</p>
+<ul>
+<li>人或组织：用户、学生、教师、部门；</li>
+<li>业务对象：活动、商品、图书、维修单；</li>
+<li>过程记录：报名记录、借阅记录、订单、审批记录；</li>
+<li>分类或配置：活动类型、商品分类、系统配置。</li>
+</ul>
+<p>可以用下面的问题判断一个名词是否适合作为实体：</p>
+<ol>
+<li>系统是否需要长期保存它？</li>
+<li>它是否有多个需要记录的属性？</li>
+<li>它是否会被创建、查询、修改或删除？</li>
+<li>它是否会与其他对象建立关系？</li>
+<li>它是否能用一个唯一标识进行区分？</li>
+</ol>
+<h3 id="_7">从需求名词中筛选实体<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">候选名词</th>
+<th style="text-align: center;">是否作为实体</th>
+<th style="text-align: left;">判断理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用户</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: left;">需要登录、区分身份并关联报名记录</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: left;">需要长期保存并被发布、查询和修改</td>
+</tr>
+<tr>
+<td style="text-align: left;">报名</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: left;">需要记录用户与活动的关系及业务状态</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动类型</td>
+<td style="text-align: center;">视项目需要</td>
+<td style="text-align: left;">类型固定且很少变化时可用字段；需要维护时可独立成表</td>
+</tr>
+<tr>
+<td style="text-align: left;">搜索按钮</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">页面控件，不是业务数据</td>
+</tr>
+<tr>
+<td style="text-align: left;">剩余名额</td>
+<td style="text-align: center;">通常不是独立实体</td>
+<td style="text-align: left;">可由总名额和有效报名数量计算</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">为实体整理主要属性<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">实体</th>
+<th style="text-align: left;">主要属性</th>
+<th style="text-align: left;">业务说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用户</td>
+<td style="text-align: left;">用户编号、账号、密码摘要、姓名、角色、状态</td>
+<td style="text-align: left;">识别系统使用者及其身份</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动</td>
+<td style="text-align: left;">活动编号、名称、类型、时间、地点、名额、状态</td>
+<td style="text-align: left;">表示一场可以发布和报名的活动</td>
+</tr>
+<tr>
+<td style="text-align: left;">报名记录</td>
+<td style="text-align: left;">报名编号、用户编号、活动编号、报名时间、状态</td>
+<td style="text-align: left;">表示某个用户参加某个活动的过程记录</td>
+</tr>
+</tbody>
+</table>
+<p>属性先使用业务语言描述，不必一开始就决定 <code>VARCHAR(100)</code> 或 <code>BIGINT</code>。先确认“需要保存什么”，再确定“怎样保存”。</p>
+<hr />
+<h2 id="_9">🔗 第三步：确定实体之间的关系<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>实体之间常见的关系有三种：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">关系</th>
+<th style="text-align: left;">判断方法</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">一对一</td>
+<td style="text-align: left;">一个 A 最多对应一个 B，一个 B 也最多对应一个 A</td>
+<td style="text-align: left;">一个用户对应一份扩展资料</td>
+</tr>
+<tr>
+<td style="text-align: left;">一对多</td>
+<td style="text-align: left;">一个 A 可以对应多个 B，一个 B 只属于一个 A</td>
+<td style="text-align: left;">一个用户可以创建多个活动</td>
+</tr>
+<tr>
+<td style="text-align: left;">多对多</td>
+<td style="text-align: left;">一个 A 可以对应多个 B，一个 B 也可以对应多个 A</td>
+<td style="text-align: left;">多个学生可以报名多个活动</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">多对多关系需要中间实体<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>“用户”和“活动”之间是多对多关系，不能只在用户表或活动表中保存一串编号。需要通过“报名记录”连接：</p>
+<pre class="mermaid"><code>erDiagram
+    USER ||--o{ SIGNUP : "提交"
+    ACTIVITY ||--o{ SIGNUP : "包含"
+
+    USER {
+        bigint id PK
+        varchar username UK
+        varchar name
+        varchar role
+        tinyint status
+    }
+
+    ACTIVITY {
+        bigint id PK
+        varchar title
+        datetime start_time
+        datetime end_time
+        int capacity
+        varchar status
+    }
+
+    SIGNUP {
+        bigint id PK
+        bigint user_id FK
+        bigint activity_id FK
+        datetime signup_time
+        varchar status
+    }</code></pre>
+<p>报名记录不只是技术上的“中间表”，它本身也有报名时间、状态等业务属性，因此更准确地说，它是一个关联实体。</p>
+<h3 id="_11">明确关系的业务规则<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>画线之后，还需要用文字解释：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">关系</th>
+<th style="text-align: left;">基数说明</th>
+<th style="text-align: left;">业务规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用户—报名记录</td>
+<td style="text-align: left;">一个用户可以有多条报名记录</td>
+<td style="text-align: left;">每条报名记录只属于一个用户</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动—报名记录</td>
+<td style="text-align: left;">一个活动可以有多条报名记录</td>
+<td style="text-align: left;">每条报名记录只对应一个活动</td>
+</tr>
+<tr>
+<td style="text-align: left;">用户—活动</td>
+<td style="text-align: left;">通过报名记录形成多对多关系</td>
+<td style="text-align: left;">同一用户不能重复有效报名同一活动</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">E-R 图要与业务规则一起读</p>
+<p>图能表达实体和基数，但不一定能完整表达“名额不能超限”“活动结束后不能报名”等规则。这些规则要先记录，后续在数据约束、业务逻辑和 3.5 的状态设计中落实。</p>
+</div>
+<hr />
+<h2 id="e-r">🔄 第四步：把 E-R 图转换为数据表<a class="headerlink" href="#e-r" title="Permanent link">&para;</a></h2>
+<p>从实体关系转换为表结构时，可以遵循以下规则：</p>
+<ol>
+<li>一个核心实体通常对应一张表；</li>
+<li>一个实体属性通常对应一个字段；</li>
+<li>每张表设置稳定、唯一的主键；</li>
+<li>一对多关系通常在“多”的一方保存外键；</li>
+<li>多对多关系通过中间表或关联实体实现；</li>
+<li>可重复的多值属性不要挤在一个文本字段中；</li>
+<li>计算结果是否保存，要根据查询频率和一致性风险判断。</li>
+</ol>
+<h3 id="_12">数据表清单示例<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">表名</th>
+<th style="text-align: left;">中文名称</th>
+<th style="text-align: left;">主要用途</th>
+<th style="text-align: left;">主键</th>
+<th style="text-align: left;">主要关联</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>sys_user</code></td>
+<td style="text-align: left;">用户表</td>
+<td style="text-align: left;">保存账号、身份和用户状态</td>
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;">被活动和报名记录引用</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>activity</code></td>
+<td style="text-align: left;">活动表</td>
+<td style="text-align: left;">保存活动基本信息、名额和状态</td>
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;">创建人关联用户；拥有多条报名记录</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>activity_signup</code></td>
+<td style="text-align: left;">活动报名表</td>
+<td style="text-align: left;">保存用户报名活动的记录</td>
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;">关联用户和活动</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_13">表名和字段名保持一致<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>建议采用统一命名规则：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">推荐做法</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">表名</td>
+<td style="text-align: left;">小写英文，下划线分隔，单数或复数全项目统一</td>
+<td style="text-align: left;"><code>activity_signup</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">主键</td>
+<td style="text-align: left;">统一使用 <code>id</code></td>
+<td style="text-align: left;"><code>id</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">外键字段</td>
+<td style="text-align: left;">关联对象名称 + <code>_id</code></td>
+<td style="text-align: left;"><code>user_id</code>、<code>activity_id</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">时间字段</td>
+<td style="text-align: left;">使用 <code>_time</code> 或 <code>_at</code>，全项目统一</td>
+<td style="text-align: left;"><code>signup_time</code>、<code>created_at</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">状态字段</td>
+<td style="text-align: left;">使用明确名称，避免多个无含义的 <code>flag</code></td>
+<td style="text-align: left;"><code>status</code>、<code>publish_status</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">布尔字段</td>
+<td style="text-align: left;">使用 <code>is_</code> 或具有判断含义的名称</td>
+<td style="text-align: left;"><code>is_deleted</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">不要把多个值塞进一个字段</p>
+<p>例如在活动表中用 <code>participant_ids = "3,8,12"</code> 保存报名用户，会导致查询、校验和更新困难。此类多对多数据应使用报名表逐条记录。</p>
+</div>
+<hr />
+<h2 id="_14">🗃️ 第五步：设计字段和数据字典<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<p>数据字典用于解释每个字段怎样存、是否必填、默认值是什么以及代表什么业务含义。</p>
+<h3 id="_15">选择合适的数据类型<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">数据内容</th>
+<th style="text-align: left;">常用类型</th>
+<th style="text-align: left;">设计提示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">主键、外键</td>
+<td style="text-align: left;"><code>BIGINT</code></td>
+<td style="text-align: left;">主外键类型必须一致</td>
+</tr>
+<tr>
+<td style="text-align: left;">短文本</td>
+<td style="text-align: left;"><code>VARCHAR(n)</code></td>
+<td style="text-align: left;">根据实际长度设置，不要全部使用最大长度</td>
+</tr>
+<tr>
+<td style="text-align: left;">长文本</td>
+<td style="text-align: left;"><code>TEXT</code></td>
+<td style="text-align: left;">适合活动介绍、问题描述等内容</td>
+</tr>
+<tr>
+<td style="text-align: left;">整数数量</td>
+<td style="text-align: left;"><code>INT</code></td>
+<td style="text-align: left;">人数、库存、排序值等</td>
+</tr>
+<tr>
+<td style="text-align: left;">精确金额</td>
+<td style="text-align: left;"><code>DECIMAL(p,s)</code></td>
+<td style="text-align: left;">金额不要使用 <code>FLOAT</code> 或 <code>DOUBLE</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">日期时间</td>
+<td style="text-align: left;"><code>DATE</code>、<code>DATETIME</code></td>
+<td style="text-align: left;">根据是否需要具体时间选择</td>
+</tr>
+<tr>
+<td style="text-align: left;">状态码</td>
+<td style="text-align: left;"><code>TINYINT</code> 或短 <code>VARCHAR</code></td>
+<td style="text-align: left;">必须在数据字典中说明取值含义</td>
+</tr>
+<tr>
+<td style="text-align: left;">是否值</td>
+<td style="text-align: left;"><code>TINYINT</code> 或数据库支持的布尔类型</td>
+<td style="text-align: left;">全项目统一 0/1 的含义</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_16">活动表数据字典示例<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: center;">可空</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">键或约束</th>
+<th style="text-align: left;">业务含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;"><code>BIGINT</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">自增</td>
+<td style="text-align: left;">主键</td>
+<td style="text-align: left;">活动唯一编号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>title</code></td>
+<td style="text-align: left;"><code>VARCHAR(100)</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">活动名称</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>category</code></td>
+<td style="text-align: left;"><code>VARCHAR(30)</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">活动类型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>start_time</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">活动开始时间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>end_time</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">结束时间晚于开始时间</td>
+<td style="text-align: left;">活动结束时间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>location</code></td>
+<td style="text-align: left;"><code>VARCHAR(100)</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">活动地点</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>capacity</code></td>
+<td style="text-align: left;"><code>INT</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">大于 0</td>
+<td style="text-align: left;">可报名总人数</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>description</code></td>
+<td style="text-align: left;"><code>TEXT</code></td>
+<td style="text-align: center;">是</td>
+<td style="text-align: left;"><code>NULL</code></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">活动介绍</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;"><code>VARCHAR(20)</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;"><code>DRAFT</code></td>
+<td style="text-align: left;">限定状态取值</td>
+<td style="text-align: left;">当前业务状态</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>creator_id</code></td>
+<td style="text-align: left;"><code>BIGINT</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">外键或逻辑关联</td>
+<td style="text-align: left;">创建活动的管理员</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>created_at</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">当前时间</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">创建时间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>updated_at</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">当前时间</td>
+<td style="text-align: left;">更新时维护</td>
+<td style="text-align: left;">最后修改时间</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_17">报名表数据字典示例<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: center;">可空</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">键或约束</th>
+<th style="text-align: left;">业务含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;"><code>BIGINT</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">自增</td>
+<td style="text-align: left;">主键</td>
+<td style="text-align: left;">报名记录编号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>user_id</code></td>
+<td style="text-align: left;"><code>BIGINT</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">关联用户</td>
+<td style="text-align: left;">报名人</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>activity_id</code></td>
+<td style="text-align: left;"><code>BIGINT</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">关联活动</td>
+<td style="text-align: left;">所报名活动</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>signup_time</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">当前时间</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">提交报名时间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;"><code>VARCHAR(20)</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;"><code>VALID</code></td>
+<td style="text-align: left;">限定状态取值</td>
+<td style="text-align: left;">报名是否有效或已取消</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cancel_time</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: center;">是</td>
+<td style="text-align: left;"><code>NULL</code></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">取消报名时间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>created_at</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">当前时间</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">记录创建时间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>updated_at</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: center;">否</td>
+<td style="text-align: left;">当前时间</td>
+<td style="text-align: left;">更新时维护</td>
+<td style="text-align: left;">最后修改时间</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">密码不能以明文保存</p>
+<p>用户密码应保存安全哈希结果，字段可以命名为 <code>password_hash</code>。不要在数据库脚本、测试数据、代码仓库或设计文档中放入真实用户密码、密钥和隐私数据。</p>
+</div>
+<hr />
+<h2 id="_18">🔑 第六步：设计主键、外键和约束<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<p>约束不仅用于“防止 SQL 报错”，更用于阻止不符合业务事实的数据进入数据库。</p>
+<h3 id="_19">常见约束及其作用<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">约束</th>
+<th style="text-align: left;">作用</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">主键</td>
+<td style="text-align: left;">唯一标识一条记录</td>
+<td style="text-align: left;"><code>activity.id</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">非空约束</td>
+<td style="text-align: left;">保证必要数据必须存在</td>
+<td style="text-align: left;">活动名称不能为空</td>
+</tr>
+<tr>
+<td style="text-align: left;">唯一约束</td>
+<td style="text-align: left;">防止业务上不允许重复的数据</td>
+<td style="text-align: left;">用户账号唯一</td>
+</tr>
+<tr>
+<td style="text-align: left;">外键约束</td>
+<td style="text-align: left;">保证关联记录存在</td>
+<td style="text-align: left;">报名记录关联有效用户和活动</td>
+</tr>
+<tr>
+<td style="text-align: left;">检查约束</td>
+<td style="text-align: left;">限制数值范围或字段关系</td>
+<td style="text-align: left;">活动名额大于 0</td>
+</tr>
+<tr>
+<td style="text-align: left;">默认值</td>
+<td style="text-align: left;">为新记录提供明确初始值</td>
+<td style="text-align: left;">活动初始状态为草稿</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_20">防止重复报名<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<p>如果报名记录采用“每个用户和活动只有一条记录，取消时修改状态”的方式，可以为以下字段增加联合唯一约束：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">UNIQUE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">uk_signup_user_activity</span><span class="w"> </span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">activity_id</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>如果业务允许取消后重新创建一条新记录，就不能简单使用上述唯一约束，需要重新设计记录策略。设计前必须先确认是否需要保留每次报名和取消的完整历史。</p>
+<h3 id="_21">物理外键还是逻辑关联<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">方式</th>
+<th style="text-align: left;">优点</th>
+<th style="text-align: left;">注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">数据库外键</td>
+<td style="text-align: left;">数据库直接保证引用完整性</td>
+<td style="text-align: left;">删除、导入和迁移时需要注意顺序</td>
+</tr>
+<tr>
+<td style="text-align: left;">逻辑关联</td>
+<td style="text-align: left;">应用控制更灵活</td>
+<td style="text-align: left;">必须在业务代码中严格校验，避免产生孤立数据</td>
+</tr>
+</tbody>
+</table>
+<p>课程项目可以根据所用模板和团队规范选择，但数据字典中必须写清关联关系，不能只保存 <code>user_id</code> 却不说明它指向哪里。</p>
+<div class="admonition info">
+<p class="admonition-title">数据库约束不能代替全部业务规则</p>
+<p>“名额不能超限”“活动截止后不能报名”等规则涉及多条记录、当前时间或业务状态，通常还需要在 Service 业务层校验，并通过事务保证数据一致性。</p>
+</div>
+<hr />
+<h2 id="_22">⚡ 第七步：根据查询需求设计索引<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
+<p>索引用于提高查询效率，但并不是每个字段都要建立索引。先从真实页面和接口的查询方式出发。</p>
+<h3 id="_23">从页面反推常用查询<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">页面或功能</th>
+<th style="text-align: left;">常用查询条件</th>
+<th style="text-align: left;">可考虑的索引</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用户登录</td>
+<td style="text-align: left;">账号</td>
+<td style="text-align: left;">用户表账号唯一索引</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动列表</td>
+<td style="text-align: left;">状态、类型、开始时间</td>
+<td style="text-align: left;">根据实际查询考虑组合索引</td>
+</tr>
+<tr>
+<td style="text-align: left;">我的报名</td>
+<td style="text-align: left;">用户编号、报名状态、报名时间</td>
+<td style="text-align: left;">报名表用户编号相关索引</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动报名名单</td>
+<td style="text-align: left;">活动编号、报名状态</td>
+<td style="text-align: left;">报名表活动编号相关索引</td>
+</tr>
+<tr>
+<td style="text-align: left;">判断重复报名</td>
+<td style="text-align: left;">用户编号、活动编号</td>
+<td style="text-align: left;">联合唯一索引或组合索引</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_24">索引设计原则<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<ul>
+<li>主键和唯一约束通常会自动形成索引；</li>
+<li>经常用于查询、关联和排序的字段可以考虑索引；</li>
+<li>组合查询可根据字段顺序设计联合索引；</li>
+<li>数据量很小的课程项目不需要追求复杂索引；</li>
+<li>索引会增加写入和维护成本，不要盲目给所有字段加索引；</li>
+<li>最终应通过真实 SQL 和执行计划验证，而不是只凭猜测。</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">先保证结构正确，再讨论性能优化</p>
+<p>课程项目首先要保证表结构、关联和业务规则正确。没有真实数据和查询证据时，不要设计大量冗余字段、缓存表和复杂索引。</p>
+</div>
+<hr />
+<h2 id="_25">🕒 第八步：处理状态、历史和删除<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h2>
+<p>数据设计需要提前考虑“数据变化后，还要不要保留以前的事实”。</p>
+<h3 id="_26">状态字段<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
+<p>状态字段必须有清楚的业务含义。例如：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">示例取值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">活动状态</td>
+<td style="text-align: left;"><code>DRAFT</code>、<code>PUBLISHED</code>、<code>CLOSED</code></td>
+<td style="text-align: left;">草稿、已发布、已关闭</td>
+</tr>
+<tr>
+<td style="text-align: left;">报名状态</td>
+<td style="text-align: left;"><code>VALID</code>、<code>CANCELLED</code></td>
+<td style="text-align: left;">有效报名、已取消</td>
+</tr>
+<tr>
+<td style="text-align: left;">用户状态</td>
+<td style="text-align: left;"><code>ENABLED</code>、<code>DISABLED</code></td>
+<td style="text-align: left;">正常使用、已禁用</td>
+</tr>
+</tbody>
+</table>
+<p>本节先确定需要哪些状态字段以及怎样保存；完整的状态转换条件将在 3.5 设计。</p>
+<h3 id="_27">是否保留历史记录<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">业务场景</th>
+<th style="text-align: left;">推荐处理方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用户取消报名，但管理员需要追溯</td>
+<td style="text-align: left;">保留记录并修改状态，记录取消时间</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动内容发生关键变更，需要审计</td>
+<td style="text-align: left;">增加变更记录或操作日志（按项目需要）</td>
+</tr>
+<tr>
+<td style="text-align: left;">临时草稿且从未对外发布</td>
+<td style="text-align: left;">可以根据规则物理删除</td>
+</tr>
+<tr>
+<td style="text-align: left;">已产生报名记录的活动</td>
+<td style="text-align: left;">通常不直接物理删除，改为关闭或停用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_28">逻辑删除不要随意使用<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
+<p>逻辑删除可以保留历史，但会让每次查询都需要处理删除状态。只有在确实需要恢复、追溯或保护关联数据时才使用，并统一字段含义和查询规则。</p>
+<hr />
+<h2 id="_29">🧮 第九步：识别计算字段和冗余数据<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h2>
+<p>页面展示的数据不一定都需要保存。</p>
+<h3 id="_30">“剩余名额”是否建字段<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
+<p>可以有两种方案：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">方案</th>
+<th style="text-align: left;">计算方式</th>
+<th style="text-align: left;">优点</th>
+<th style="text-align: left;">风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">实时计算</td>
+<td style="text-align: left;">总名额减去有效报名数</td>
+<td style="text-align: left;">数据来源清楚，不容易产生两个真相</td>
+<td style="text-align: left;">查询时需要统计报名记录</td>
+</tr>
+<tr>
+<td style="text-align: left;">保存冗余字段</td>
+<td style="text-align: left;">活动表保存剩余名额</td>
+<td style="text-align: left;">查询简单</td>
+<td style="text-align: left;">报名和取消时必须同步更新，可能不一致</td>
+</tr>
+</tbody>
+</table>
+<p>对于普通课程项目，优先使用容易保持正确的方案。如果决定保存冗余字段，必须说明谁在什么操作中更新它，以及失败时如何回滚。</p>
+<h3 id="_31">判断一个字段是否应该保存<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
+<ol>
+<li>它能否由其他可靠数据计算得到？</li>
+<li>计算成本是否真的影响使用？</li>
+<li>保存后是否会出现多个相互矛盾的值？</li>
+<li>哪个模块负责更新？</li>
+<li>如何验证更新始终一致？</li>
+</ol>
+<hr />
+<h2 id="_32">💻 第十步：生成并验证建表脚本<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h2>
+<p>E-R 图和数据字典确认后，再生成建表 SQL。不要只对 AI 说“帮我设计一个活动系统数据库”。</p>
+<h3 id="ai">提供给 AI 的上下文<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>请根据已经确认的 E-R 图和数据字典，
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>为 MySQL 8.0 生成建表 SQL，不要自行增加表和字段。
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>要求：
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>1. 使用 InnoDB 和 utf8mb4；
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>2. 主键、非空、唯一、默认值和字段注释与数据字典一致；
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>3. 主键与外键字段类型保持一致；
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>4. 建表顺序满足关联关系；
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>5. 索引只依据已经列出的查询需求；
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>6. 为核心流程生成少量虚构测试数据，不使用真实个人信息；
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>7. 生成后逐项说明 SQL 与数据字典的对应关系；
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>8. 标出数据库版本可能不支持的语法。
+</code></pre></div></td></tr></table></div>
+<h3 id="_33">脚本至少分为<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>database/
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>├── 01_schema.sql       # 建库或建表、约束和索引
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>├── 02_init_data.sql    # 必要的分类、测试账号和业务数据
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>└── README.md           # 数据库版本、执行顺序和注意事项
+</code></pre></div></td></tr></table></div>
+<h3 id="_34">执行验证<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h3>
+<p>生成 SQL 后，需要在本地目标数据库真实执行：</p>
+<ol>
+<li>在空数据库中按顺序运行脚本；</li>
+<li>检查所有表是否成功创建；</li>
+<li>查看字段、默认值、约束和索引是否符合数据字典；</li>
+<li>插入正常数据，确认可以保存；</li>
+<li>尝试插入重复账号、无效关联等错误数据，确认约束有效；</li>
+<li>使用初始化数据执行核心查询；</li>
+<li>删除数据库后重新执行脚本，确认过程可以重复。</li>
+</ol>
+<div class="admonition failure">
+<p class="admonition-title">生成 SQL 不等于完成数据库设计</p>
+<p>只有脚本能够执行、约束能够生效、测试数据能够支撑核心流程，并且表结构与文档一致，才算完成。不要提交一份从未运行过的建表脚本。</p>
+</div>
+<hr />
+<h2 id="_35">🔍 第十一步：检查设计一致性<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h2>
+<p>数据设计完成后，要与需求、模块、原型和后续业务规则交叉检查。</p>
+<h3 id="_36">一致性检查表<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">检查方向</th>
+<th style="text-align: left;">要确认的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">需求 → 数据</td>
+<td style="text-align: left;">核心业务对象和规则是否有数据支撑？</td>
+</tr>
+<tr>
+<td style="text-align: left;">模块 → 数据</td>
+<td style="text-align: left;">每个业务模块需要读写哪些表，职责是否清楚？</td>
+</tr>
+<tr>
+<td style="text-align: left;">原型 → 数据</td>
+<td style="text-align: left;">页面展示、表单提交和筛选字段是否有可靠数据来源？</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据 → 原型</td>
+<td style="text-align: left;">表中收集的数据是否真的有业务用途和用户入口？</td>
+</tr>
+<tr>
+<td style="text-align: left;">关系 → 约束</td>
+<td style="text-align: left;">一对多、多对多和唯一性是否通过外键或约束落实？</td>
+</tr>
+<tr>
+<td style="text-align: left;">状态 → 历史</td>
+<td style="text-align: left;">取消、关闭、禁用后是否需要保留原记录？</td>
+</tr>
+<tr>
+<td style="text-align: left;">查询 → 索引</td>
+<td style="text-align: left;">核心列表和关联查询是否有合理的数据结构？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_37">建立简单追踪关系<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">业务功能</th>
+<th style="text-align: left;">页面</th>
+<th style="text-align: left;">主要数据表</th>
+<th style="text-align: left;">关键规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">活动浏览</td>
+<td style="text-align: left;">活动列表页、详情页</td>
+<td style="text-align: left;"><code>activity</code></td>
+<td style="text-align: left;">只展示允许公开的活动</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动报名</td>
+<td style="text-align: left;">活动详情页</td>
+<td style="text-align: left;"><code>activity_signup</code>、<code>activity</code></td>
+<td style="text-align: left;">不重复报名，不超过名额</td>
+</tr>
+<tr>
+<td style="text-align: left;">我的报名</td>
+<td style="text-align: left;">我的报名页</td>
+<td style="text-align: left;"><code>activity_signup</code>、<code>activity</code></td>
+<td style="text-align: left;">只能查看当前用户数据</td>
+</tr>
+<tr>
+<td style="text-align: left;">报名管理</td>
+<td style="text-align: left;">报名管理页</td>
+<td style="text-align: left;"><code>activity_signup</code>、<code>sys_user</code></td>
+<td style="text-align: left;">仅管理员可访问</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ai_1">🤖 第十二步：用 AI 辅助检查数据设计<a class="headerlink" href="#ai_1" title="Permanent link">&para;</a></h2>
+<p>AI 可以帮助识别遗漏的实体、检查关系、生成 Mermaid E-R 图和 SQL，但必须以现有项目文档为依据。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>请先阅读《需求分析说明书》、功能模块设计、页面原型与流程，
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>不要修改文件，也不要立即生成 SQL。
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>请按以下顺序检查数据库设计：
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>1. 从核心业务流程中提取需要长期保存的数据；
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>2. 识别实体、属性、关系和基数，并说明需求依据；
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>3. 检查多对多关系、历史记录和状态字段是否处理合理；
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>4. 对照页面字段，找出缺少数据来源或没有用途的数据；
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>5. 对照查询需求，提出必要的唯一约束和索引；
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>6. 用 Mermaid 生成 E-R 图；
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>7. 输出数据表清单和数据字典初稿；
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>8. 将不能从文档确认的内容标记为“待确认”。
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a>不要添加需求之外的收藏、积分、评论、消息等功能。
+</code></pre></div></td></tr></table></div>
+<p>人工审核时重点检查：</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 实体和字段是否都有业务依据；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 是否把页面控件或临时数据错误地设计成表；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 主外键类型、关系和基数是否一致；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 多对多关系是否使用了合理的关联表；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 唯一约束是否符合取消、重建和历史保留规则；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 状态值是否清楚，是否与页面状态矛盾；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 是否出现明文密码、真实隐私数据或密钥；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 生成的 SQL 是否在指定数据库版本中真实执行过。</li>
+</ul>
+<hr />
+<h2 id="_38">📋 本节成果模板<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h2>
+<p>可以用下面的结构整理本节成果，后续纳入《系统设计说明书》：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span>
+<span class="normal"><a href="#__codelineno-4-30">30</a></span>
+<span class="normal"><a href="#__codelineno-4-31">31</a></span>
+<span class="normal"><a href="#__codelineno-4-32">32</a></span>
+<span class="normal"><a href="#__codelineno-4-33">33</a></span>
+<span class="normal"><a href="#__codelineno-4-34">34</a></span>
+<span class="normal"><a href="#__codelineno-4-35">35</a></span>
+<span class="normal"><a href="#__codelineno-4-36">36</a></span>
+<span class="normal"><a href="#__codelineno-4-37">37</a></span>
+<span class="normal"><a href="#__codelineno-4-38">38</a></span>
+<span class="normal"><a href="#__codelineno-4-39">39</a></span>
+<span class="normal"><a href="#__codelineno-4-40">40</a></span>
+<span class="normal"><a href="#__codelineno-4-41">41</a></span>
+<span class="normal"><a href="#__codelineno-4-42">42</a></span>
+<span class="normal"><a href="#__codelineno-4-43">43</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="gu">## 数据库 E-R 图与数据表设计</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="gu">### 1. 设计依据</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">-</span><span class="w"> </span>核心业务流程：
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="k">-</span><span class="w"> </span>主要数据对象：
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="k">-</span><span class="w"> </span>关键查询和统计需求：
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="gu">### 2. E-R 图</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="k">-</span><span class="w"> </span>E-R 图：
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="k">-</span><span class="w"> </span>实体关系说明：
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="k">-</span><span class="w"> </span>关键业务规则：
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="gu">### 3. 数据表清单</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a>| 表名 | 中文名称 | 主要用途 | 主键 | 主要关联 |
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a>| --- | --- | --- | --- | --- |
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a>|  |  |  |  |  |
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="gu">### 4. 数据字典</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="gu">#### 表：________</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a>| 字段 | 类型 | 可空 | 默认值 | 键或约束 | 业务含义 |
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a>| --- | --- | --- | --- | --- | --- |
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a>|  |  |  |  |  |  |
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="gu">### 5. 约束和索引</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="k">-</span><span class="w"> </span>主键与外键：
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="k">-</span><span class="w"> </span>唯一约束：
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="k">-</span><span class="w"> </span>检查约束：
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="k">-</span><span class="w"> </span>索引及对应查询：
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a>
+<a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="gu">### 6. 状态、历史与删除策略</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="k">-</span><span class="w"> </span>状态字段：
+<a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="k">-</span><span class="w"> </span>历史保留：
+<a id="__codelineno-4-33" name="__codelineno-4-33"></a><span class="k">-</span><span class="w"> </span>删除方式：
+<a id="__codelineno-4-34" name="__codelineno-4-34"></a>
+<a id="__codelineno-4-35" name="__codelineno-4-35"></a><span class="gu">### 7. 数据库脚本</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36"></a><span class="k">-</span><span class="w"> </span>数据库及版本：
+<a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="k">-</span><span class="w"> </span>脚本位置：
+<a id="__codelineno-4-38" name="__codelineno-4-38"></a><span class="k">-</span><span class="w"> </span>执行顺序：
+<a id="__codelineno-4-39" name="__codelineno-4-39"></a><span class="k">-</span><span class="w"> </span>验证结果：
+<a id="__codelineno-4-40" name="__codelineno-4-40"></a>
+<a id="__codelineno-4-41" name="__codelineno-4-41"></a><span class="gu">### 8. 待确认问题</span>
+<a id="__codelineno-4-42" name="__codelineno-4-42"></a><span class="k">-</span><span class="w"> </span>问题一：
+<a id="__codelineno-4-43" name="__codelineno-4-43"></a><span class="k">-</span><span class="w"> </span>问题二：
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="_39">✅ 本节自查<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 核心实体来自需求、流程或页面，而不是凭空增加；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> E-R 图包含核心实体、主要属性、关系和正确基数；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 一对多和多对多关系已经正确转换为数据表；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 每张表都有清楚的用途和稳定的主键；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 外键或逻辑关联指向明确，关联字段类型一致；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 每个字段都有类型、可空性、默认值和业务说明；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 密码不以明文保存，脚本中没有真实隐私数据或密钥；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 唯一约束、非空约束和检查规则符合业务要求；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 索引来源于真实查询需求，没有盲目添加；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 状态、取消、删除和历史保留方式已经初步明确；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 页面展示和输入的数据都能找到可靠的数据来源；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 建表及初始化脚本已在目标数据库中成功执行；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 正常数据和至少一种违反约束的数据都经过验证；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> E-R 图、数据字典和 SQL 使用相同的表名与字段名。</li>
+</ul>
+<p>当你能够从一条核心业务流程说明“产生什么数据、存在哪张表、怎样关联、如何保证正确”，并且脚本能够重复执行，本节设计就达到了目标。</p>
+<hr />
+<h2 id="_40">📝 总结<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>从业务事实找数据</strong>：先分析系统需要长期记录什么，再决定表和字段；</li>
+<li><strong>先画关系，再写 SQL</strong>：E-R 图帮助发现遗漏实体、错误基数和多对多关系；</li>
+<li><strong>字段必须有明确含义</strong>：类型、可空性、默认值、约束和状态取值都要说明；</li>
+<li><strong>约束帮助守住数据正确性</strong>：主键、唯一性和关联关系要与业务规则一致；</li>
+<li><strong>脚本必须真实执行</strong>：能够建表、插入测试数据并支撑核心查询，设计才算落地。</li>
+</ul>
+<p><a class="md-button" href="../03-prototype/">返回上一节：设计原型</a>
+<a class="md-button md-button--primary" href="../05-api-permission-state/">进入下一节：完善规则</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 陈德
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

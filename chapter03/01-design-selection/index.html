@@ -1,0 +1,2266 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="《软件开发综合项目实训——AI辅助的软件项目开发》电子教程">
+      
+      
+      
+        <link rel="canonical" href="https://project-ai.chende.top/chapter03/01-design-selection/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02-architecture/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>01 明确方案：设计目标、约束与技术选型 - 软件开发综合项目实训</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#31" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件开发综合项目实训" class="md-header__button md-logo" aria-label="软件开发综合项目实训" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件开发综合项目实训
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              01 明确方案：设计目标、约束与技术选型
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件开发综合项目实训" class="md-nav__button md-logo" aria-label="软件开发综合项目实训" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件开发综合项目实训
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程介绍
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程介绍
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程导学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程导学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16周项目路线
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/learning-method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    学习与AI协作规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter01/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一篇｜AI 协同开发实战
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第一篇｜AI 协同开发实战
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 认识项目：体验系统与阅读文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/02-ai-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 准备工具：Trae 与 Superpowers-zh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/03-ai-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 建立规则：Rules、Skills 与 AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/04-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 分步开发：从模板到功能闭环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/05-deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 测试部署：验证并交付项目
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter02/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二篇｜项目选题与需求分析
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第二篇｜项目选题与需求分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/01-topic-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 选好项目：问题、调研与范围
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/02-proposal-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 项目立项：目标、计划与可行性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/03-user-needs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 梳理需求：用户、功能与业务规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/04-document-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成文档：需求说明书与检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三篇｜原型与系统设计
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第三篇｜原型与系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 明确方案：设计目标、约束与技术选型
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 明确方案：设计目标、约束与技术选型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先明确“为什么这样设计”，再决定“用什么技术实现”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 第一步：确认设计依据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📄 第一步：确认设计依据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建立需求到设计的对应关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 第二步：确定系统设计目标
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧭 第二步：确定系统设计目标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见设计目标
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚧 第三步：识别项目约束
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚧 第三步：识别项目约束">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 5 个方面检查约束
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 第四步：比较并选择技术方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 第四步：比较并选择技术方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先确定选择标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        课程推荐技术路线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技术选型表示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 第五步：记录关键设计决策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 第六步：用 AI 辅助比较方案
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 本节成果模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 本节自查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 设计架构：系统架构与功能模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-prototype/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 设计原型：UI 原型与页面流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 设计数据：E-R 图与数据表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-api-permission-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完善规则：接口、权限与业务状态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-design-document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 编制文档：系统设计说明书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-design-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 评审优化：设计检查与迭代改进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目选题库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc-templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档与任务模板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先明确“为什么这样设计”，再决定“用什么技术实现”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 第一步：确认设计依据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📄 第一步：确认设计依据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建立需求到设计的对应关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 第二步：确定系统设计目标
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧭 第二步：确定系统设计目标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见设计目标
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚧 第三步：识别项目约束
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚧 第三步：识别项目约束">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 5 个方面检查约束
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 第四步：比较并选择技术方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 第四步：比较并选择技术方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先确定选择标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        课程推荐技术路线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技术选型表示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 第五步：记录关键设计决策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 第六步：用 AI 辅助比较方案
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 本节成果模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 本节自查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="31">3.1 明确方案：设计目标、约束与技术选型<a class="headerlink" href="#31" title="Permanent link">&para;</a></h1>
+<h2 id="_1">先明确“为什么这样设计”，再决定“用什么技术实现”<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">技术选型不是框架点名</p>
+<p>“前端用 Vue，后端用 Spring Boot，数据库用 MySQL”还不算完整的技术选型。你还需要说明：这些技术是否适合项目需求，团队是否能够掌握，课程时间内能否完成，开发和部署环境是否支持。</p>
+<p>本节不追求使用最新、最复杂的技术，而是为项目选出一套<strong>做得出来、能够验证、便于解释</strong>的实现方案。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">本节学习目标</p>
+<p>根据《项目选题立项书》和《需求分析说明书》，明确系统设计目标、项目约束和技术方案，记录关键选择及其理由，为后续架构、原型、数据库和接口设计建立统一依据。</p>
+</div>
+<p><a class="md-button" href="../">返回第三篇导读</a>
+<a class="md-button md-button--primary" href="../02-architecture/">进入下一节：设计架构</a></p>
+<hr />
+<h2 id="_2">🎯 本节完成后，你要交付<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">成果</th>
+<th style="text-align: left;">要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">设计依据清单</td>
+<td style="text-align: left;">写清设计所依据的需求、范围和验收条件</td>
+</tr>
+<tr>
+<td style="text-align: left;">设计目标与约束</td>
+<td style="text-align: left;">明确项目优先保证什么、受到哪些条件限制</td>
+</tr>
+<tr>
+<td style="text-align: left;">技术选型表</td>
+<td style="text-align: left;">列出前端、后端、数据库及开发工具，并说明选择理由</td>
+</tr>
+<tr>
+<td style="text-align: left;">关键决策记录</td>
+<td style="text-align: left;">对重要选择记录备选方案、决定和影响</td>
+</tr>
+</tbody>
+</table>
+<p>本节暂时不需要画完整架构图，也不需要创建项目代码。先把方案定稳，后面的设计才不会各说各话。</p>
+<hr />
+<h2 id="_3">📄 第一步：确认设计依据<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>系统设计不能脱离需求自由发挥。开始前，先准备并检查以下材料：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">设计依据</th>
+<th style="text-align: left;">需要重点读取的内容</th>
+<th style="text-align: left;">对设计的影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">《项目选题立项书》</td>
+<td style="text-align: left;">项目目标、建设范围、进度和风险</td>
+<td style="text-align: left;">决定系统做到什么程度</td>
+</tr>
+<tr>
+<td style="text-align: left;">《需求分析说明书》</td>
+<td style="text-align: left;">用户角色、功能、流程、规则和验收条件</td>
+<td style="text-align: left;">决定系统需要支持哪些能力</td>
+</tr>
+<tr>
+<td style="text-align: left;">调研与原始记录</td>
+<td style="text-align: left;">用户反馈、同类产品和实际场景</td>
+<td style="text-align: left;">帮助判断设计是否符合真实使用方式</td>
+</tr>
+<tr>
+<td style="text-align: left;">课程与运行环境</td>
+<td style="text-align: left;">开发周期、已有基础、服务器和数据库条件</td>
+<td style="text-align: left;">限制技术复杂度和部署方式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">建立需求到设计的对应关系<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>从需求文档中找出会直接影响设计的内容，不必重复抄写整份需求。例如“校园活动报名系统”可以整理为：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">需求或条件</th>
+<th style="text-align: left;">对设计提出的要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">学生和管理员使用同一系统</td>
+<td style="text-align: left;">需要区分角色、菜单和操作权限</td>
+</tr>
+<tr>
+<td style="text-align: left;">学生可以查看并报名活动</td>
+<td style="text-align: left;">需要活动浏览、活动详情和报名流程</td>
+</tr>
+<tr>
+<td style="text-align: left;">活动有人数上限</td>
+<td style="text-align: left;">报名时需要校验名额，避免超额报名</td>
+</tr>
+<tr>
+<td style="text-align: left;">管理员需要查看报名统计</td>
+<td style="text-align: left;">需要保存报名数据并提供统计查询</td>
+</tr>
+<tr>
+<td style="text-align: left;">项目需要在课程结束前上线</td>
+<td style="text-align: left;">技术方案应便于开发、测试和部署</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">需求还没有确认，不要急着做设计</p>
+<p>如果核心角色、业务流程或验收条件仍然含糊，应先返回第二篇完善《需求分析说明书》。系统设计可以细化实现方式，但不能替需求文档擅自增加功能。</p>
+</div>
+<hr />
+<h2 id="_5">🧭 第二步：确定系统设计目标<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>设计目标说明系统在实现时优先保证什么。目标应来自项目需求，并且可以通过后续设计、测试或演示进行检查。</p>
+<h3 id="_6">常见设计目标<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">目标</th>
+<th style="text-align: left;">要回答的问题</th>
+<th style="text-align: left;">适合课程项目的表达示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">功能完整</td>
+<td style="text-align: left;">核心业务能否形成闭环？</td>
+<td style="text-align: left;">学生能够完成“查看活动—报名—查看报名结果”全过程</td>
+</tr>
+<tr>
+<td style="text-align: left;">使用清楚</td>
+<td style="text-align: left;">用户能否顺利找到并完成操作？</td>
+<td style="text-align: left;">核心操作入口明确，失败时给出可理解的提示</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据正确</td>
+<td style="text-align: left;">业务数据和状态能否保持一致？</td>
+<td style="text-align: left;">报名成功后名额和报名记录同步更新</td>
+</tr>
+<tr>
+<td style="text-align: left;">权限安全</td>
+<td style="text-align: left;">不同角色能否只访问允许的功能和数据？</td>
+<td style="text-align: left;">普通学生不能进入活动管理功能</td>
+</tr>
+<tr>
+<td style="text-align: left;">易于维护</td>
+<td style="text-align: left;">代码职责是否清楚，后续是否方便修改？</td>
+<td style="text-align: left;">页面、业务逻辑和数据访问按职责划分</td>
+</tr>
+<tr>
+<td style="text-align: left;">能够部署</td>
+<td style="text-align: left;">项目能否在指定环境中稳定运行？</td>
+<td style="text-align: left;">系统能够部署到课程提供的 Linux 服务器</td>
+</tr>
+</tbody>
+</table>
+<p>目标不宜写成“界面美观”“性能良好”“安全性高”这类无法判断的口号。可以改成更具体的表达：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>不清楚：系统响应速度快。
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>较清楚：普通列表查询在课程演示数据规模下能够正常返回，页面无明显等待。
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>不清楚：系统安全性高。
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>较清楚：用户登录后才能访问个人数据，普通用户不能调用管理员接口。
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">课程项目优先保证核心业务闭环</p>
+<p>如果时间有限，优先保证功能正确、数据一致、权限清楚和项目能够部署。微服务、高并发、复杂中间件不是大多数课程项目的必要目标。</p>
+</div>
+<hr />
+<h2 id="_7">🚧 第三步：识别项目约束<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>约束是设计方案必须面对的现实条件。忽略约束，方案即使看起来先进，也可能无法完成。</p>
+<h3 id="5">从 5 个方面检查约束<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">约束类型</th>
+<th style="text-align: left;">需要确认的问题</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">时间约束</td>
+<td style="text-align: left;">剩余多少周？每周能投入多少时间？</td>
+<td style="text-align: left;">4 周内完成核心开发，不采用学习成本过高的框架</td>
+</tr>
+<tr>
+<td style="text-align: left;">人员约束</td>
+<td style="text-align: left;">个人还是团队？成员掌握哪些技术？</td>
+<td style="text-align: left;">两人组队，一人熟悉 Java，一人熟悉 Vue</td>
+</tr>
+<tr>
+<td style="text-align: left;">技术约束</td>
+<td style="text-align: left;">课程、模板或已有代码规定了什么？</td>
+<td style="text-align: left;">使用 JDK 17，复用课程提供的 Spring Boot 项目结构</td>
+</tr>
+<tr>
+<td style="text-align: left;">环境约束</td>
+<td style="text-align: left;">系统在哪里开发、运行和部署？</td>
+<td style="text-align: left;">开发机使用 Windows，最终部署到 Linux 服务器</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据与合规约束</td>
+<td style="text-align: left;">是否涉及隐私、敏感数据或外部服务？</td>
+<td style="text-align: left;">不采集身份证号；第三方 API 密钥不能写入代码仓库</td>
+</tr>
+</tbody>
+</table>
+<p>建议把约束写成“条件 + 影响”，而不只是列出名词：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>条件：项目由 1 人在课程周期内完成。
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>影响：采用前后端分离的单体架构，不拆分微服务。
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>条件：部署服务器资源有限。
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>影响：减少非必要中间件，优先使用已有数据库和部署环境。
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="_8">🛠️ 第四步：比较并选择技术方案<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>技术选择应按照“项目需要什么”来决定，而不是按照“哪个技术听起来更高级”来决定。</p>
+<h3 id="_9">先确定选择标准<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>比较候选方案时，可以使用以下标准：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选择标准</th>
+<th style="text-align: left;">判断问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">满足需求</td>
+<td style="text-align: left;">能否支持项目的页面、业务、数据和权限需求？</td>
+</tr>
+<tr>
+<td style="text-align: left;">学习成本</td>
+<td style="text-align: left;">你或团队是否掌握？短时间内能否学会并解释？</td>
+</tr>
+<tr>
+<td style="text-align: left;">开发效率</td>
+<td style="text-align: left;">是否有成熟脚手架、组件、文档和调试工具？</td>
+</tr>
+<tr>
+<td style="text-align: left;">项目兼容</td>
+<td style="text-align: left;">是否与课程模板、已有代码和运行环境兼容？</td>
+</tr>
+<tr>
+<td style="text-align: left;">部署难度</td>
+<td style="text-align: left;">能否在目标服务器上安装、配置和运行？</td>
+</tr>
+<tr>
+<td style="text-align: left;">风险可控</td>
+<td style="text-align: left;">遇到问题时是否容易查找资料、定位和替换？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">课程推荐技术路线<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>对于普通 Web 管理系统，可以优先采用课程推荐方案：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">层次或用途</th>
+<th style="text-align: left;">推荐选择</th>
+<th style="text-align: left;">主要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">前端</td>
+<td style="text-align: left;">Vue 3</td>
+<td style="text-align: left;">构建页面、组件和用户交互</td>
+</tr>
+<tr>
+<td style="text-align: left;">后端</td>
+<td style="text-align: left;">JDK 17、Spring Boot 3</td>
+<td style="text-align: left;">提供接口，实现业务逻辑和权限控制</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据访问</td>
+<td style="text-align: left;">MyBatis</td>
+<td style="text-align: left;">完成数据库查询和数据持久化</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库</td>
+<td style="text-align: left;">MySQL 或 openGauss</td>
+<td style="text-align: left;">保存用户、业务记录和系统配置</td>
+</tr>
+<tr>
+<td style="text-align: left;">接口调试</td>
+<td style="text-align: left;">Apifox</td>
+<td style="text-align: left;">编写接口文档、发送请求和保存测试示例</td>
+</tr>
+<tr>
+<td style="text-align: left;">版本管理</td>
+<td style="text-align: left;">Git</td>
+<td style="text-align: left;">记录开发过程，支持回退和协作</td>
+</tr>
+<tr>
+<td style="text-align: left;">AI 编程工具</td>
+<td style="text-align: left;">Trae</td>
+<td style="text-align: left;">辅助分析、设计、编码、调试和检查</td>
+</tr>
+<tr>
+<td style="text-align: left;">部署</td>
+<td style="text-align: left;">Linux、Nginx</td>
+<td style="text-align: left;">运行后端服务并发布前端资源</td>
+</tr>
+</tbody>
+</table>
+<p>这是一条推荐路线，不是所有项目的唯一答案。如果已有模板、团队经验或项目需求更适合其他技术，可以选择其他方案，但必须说明理由和风险。</p>
+<h3 id="_11">技术选型表示例<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选型项</th>
+<th style="text-align: left;">候选方案</th>
+<th style="text-align: left;">最终选择</th>
+<th style="text-align: left;">选择理由</th>
+<th style="text-align: left;">风险与应对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">前端框架</td>
+<td style="text-align: left;">Vue 3、原生 HTML</td>
+<td style="text-align: left;">Vue 3</td>
+<td style="text-align: left;">适合组件化页面，课程已有基础</td>
+<td style="text-align: left;">不熟悉状态管理，先用简单组件通信</td>
+</tr>
+<tr>
+<td style="text-align: left;">后端框架</td>
+<td style="text-align: left;">Spring Boot、Servlet</td>
+<td style="text-align: left;">Spring Boot 3</td>
+<td style="text-align: left;">能快速搭建 RESTful API，便于分层开发</td>
+<td style="text-align: left;">配置较多，复用课程模板</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库</td>
+<td style="text-align: left;">MySQL、openGauss</td>
+<td style="text-align: left;">MySQL 8</td>
+<td style="text-align: left;">团队熟悉，开发环境已安装</td>
+<td style="text-align: left;">部署前检查版本与字符集</td>
+</tr>
+<tr>
+<td style="text-align: left;">系统结构</td>
+<td style="text-align: left;">单体、微服务</td>
+<td style="text-align: left;">前后端分离的单体应用</td>
+<td style="text-align: left;">项目规模较小，开发部署更简单</td>
+<td style="text-align: left;">后续模块增加时保持清晰分层</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">技术栈不是越多越好</p>
+<p>Redis、消息队列、Elasticsearch、Docker、微服务等技术只有在需求确实需要、团队能够掌握并且有时间验证时才加入。为了“显得高级”增加技术，会扩大故障范围和交付风险。</p>
+</div>
+<hr />
+<h2 id="_12">📝 第五步：记录关键设计决策<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>技术选型过程中，一些决定会影响后面的架构、数据和接口设计。建议用简短的决策记录保留“为什么这样选”。</p>
+<p>每条记录包含以下内容即可：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="gu">### 决策：采用前后端分离的单体架构</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="k">-</span><span class="w"> </span>背景：系统包含学生端和管理端，需要多个交互页面和统一接口。
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="k">-</span><span class="w"> </span>备选：传统服务端页面、前后端分离单体、微服务。
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="k">-</span><span class="w"> </span>决定：采用 Vue 3 + Spring Boot 的前后端分离单体架构。
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="k">-</span><span class="w"> </span>理由：符合课程技术基础，开发和部署复杂度可控。
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="k">-</span><span class="w"> </span>影响：下一节需要分别设计前端、后端模块及二者的接口关系。
+</code></pre></div></td></tr></table></div>
+<p>重点记录会影响多个模块、需要团队共同遵守或以后可能被追问的决定。普通的小设置不需要全部写成决策记录。</p>
+<hr />
+<h2 id="ai">🤖 第六步：用 AI 辅助比较方案<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h2>
+<p>AI 适合帮助你补充候选方案、比较优缺点和检查遗漏，但最终选择必须结合自己的项目条件。</p>
+<p>可以把真实项目材料提供给 Trae：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>请先阅读《项目选题立项书》和《需求分析说明书》，
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>不要修改文件，也不要直接替我决定技术方案。
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>请完成以下分析：
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>1. 从需求中提取会影响系统设计的功能、角色、业务规则和质量要求；
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>2. 识别时间、人员、技术、部署和数据方面的约束；
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>3. 根据“满足需求、学习成本、开发效率、环境兼容、部署难度、风险”
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>   比较可选技术方案；
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>4. 给出推荐方案、选择理由、主要风险和更简单的备选方案；
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>5. 标出需求文档中仍需人工确认的问题。
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>所有结论必须说明依据；没有材料支持的内容请标记为“待确认”。
+</code></pre></div></td></tr></table></div>
+<p>收到建议后，至少检查：</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> AI 是否真的依据项目文档，而不是给出通用技术清单；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 推荐的每项技术是否解决了明确问题；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 自己是否能够安装、使用、调试并解释这些技术；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 方案是否能在课程时间和部署环境内完成；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 是否出现了需求之外的功能或不必要的中间件。</li>
+</ul>
+<div class="admonition failure">
+<p class="admonition-title">不要把 AI 的推荐直接当成最终决定</p>
+<p>AI 不知道你的真实熟练程度、课程进度和服务器条件。任何会增加依赖、改变数据库或明显扩大项目范围的建议，都需要你和团队确认。</p>
+</div>
+<hr />
+<h2 id="_13">📋 本节成果模板<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p>完成分析后，可以用下面的结构整理本节成果，并在后续写入《系统设计说明书》：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span>
+<span class="normal"><a href="#__codelineno-4-30">30</a></span>
+<span class="normal"><a href="#__codelineno-4-31">31</a></span>
+<span class="normal"><a href="#__codelineno-4-32">32</a></span>
+<span class="normal"><a href="#__codelineno-4-33">33</a></span>
+<span class="normal"><a href="#__codelineno-4-34">34</a></span>
+<span class="normal"><a href="#__codelineno-4-35">35</a></span>
+<span class="normal"><a href="#__codelineno-4-36">36</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="gu">## 设计方案与技术选型</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="gu">### 1. 设计依据</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">-</span><span class="w"> </span>项目目标：
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="k">-</span><span class="w"> </span>核心用户与业务流程：
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="k">-</span><span class="w"> </span>必须实现的功能：
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="k">-</span><span class="w"> </span>明确不做的内容：
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="gu">### 2. 设计目标</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="k">-</span><span class="w"> </span>功能与业务目标：
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="k">-</span><span class="w"> </span>数据与权限目标：
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="k">-</span><span class="w"> </span>使用与部署目标：
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="gu">### 3. 项目约束</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="k">-</span><span class="w"> </span>时间与人员：
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="k">-</span><span class="w"> </span>技术与已有基础：
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="k">-</span><span class="w"> </span>开发和部署环境：
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="k">-</span><span class="w"> </span>数据与外部服务：
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="gu">### 4. 技术选型</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a>| 选型项 | 候选方案 | 最终选择 | 选择理由 | 风险与应对 |
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a>| --- | --- | --- | --- | --- |
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a>| 前端 |  |  |  |  |
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a>| 后端 |  |  |  |  |
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a>| 数据访问 |  |  |  |  |
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a>| 数据库 |  |  |  |  |
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a>| 开发与测试工具 |  |  |  |  |
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a>| 部署方案 |  |  |  |  |
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a>
+<a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="gu">### 5. 关键设计决策</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="k">-</span><span class="w"> </span>决策一：
+<a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="k">-</span><span class="w"> </span>决策二：
+<a id="__codelineno-4-33" name="__codelineno-4-33"></a>
+<a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="gu">### 6. 待确认问题</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35"></a><span class="k">-</span><span class="w"> </span>问题一：
+<a id="__codelineno-4-36" name="__codelineno-4-36"></a><span class="k">-</span><span class="w"> </span>问题二：
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="_14">✅ 本节自查<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 设计方案能够对应《需求分析说明书》中的核心需求；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已明确系统优先保证的设计目标；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已识别时间、人员、技术、环境和数据方面的约束；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 每项主要技术都有与项目相关的选择理由；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 没有为了展示复杂度而加入不必要的框架或中间件；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 技术版本与开发、部署环境基本兼容；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 关键决策记录了备选方案、决定、理由和影响；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 尚不明确的问题已标记为“待确认”，没有自行编造答案；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 团队成员或教师已经确认该方案在课程周期内可完成。</li>
+</ul>
+<p>当你能够用 2 分钟说明“系统优先保证什么、受到哪些限制、为什么选择这些技术”，就可以进入下一节，把总体方案进一步拆成系统架构和功能模块。</p>
+<hr />
+<h2 id="_15">📝 总结<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>先看需求，再定方案</strong>：技术选择必须服务于真实功能、业务规则和验收目标；</li>
+<li><strong>先承认约束，再控制复杂度</strong>：时间、能力和环境决定了什么方案能够真正落地；</li>
+<li><strong>选合适的，不选最多的</strong>：课程项目优先采用熟悉、稳定、便于开发和部署的技术；</li>
+<li><strong>记录选择理由</strong>：明确“为什么这样选”，后续设计、开发和答辩才有一致依据；</li>
+<li><strong>AI 帮助比较，人负责决定</strong>：建议可以由 AI 补充，最终方案必须经过人工确认。</li>
+</ul>
+<p><a class="md-button" href="../">返回第三篇导读</a>
+<a class="md-button md-button--primary" href="../02-architecture/">进入下一节：设计架构</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 陈德
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
