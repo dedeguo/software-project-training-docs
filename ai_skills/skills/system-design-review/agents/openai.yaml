@@ -1,0 +1,4 @@
+interface:
+  display_name: "系统设计评审助手"
+  short_description: "评审架构、页面、数据、接口、权限、状态与设计可落地性"
+  default_prompt: "使用 $system-design-review 评审我的《系统设计说明书》和相关设计材料，列出进入开发前必须解决的问题。"
