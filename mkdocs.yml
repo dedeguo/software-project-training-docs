@@ -55,9 +55,17 @@ nav:
     - 03 开发基础：登录权限与第一个模块: chapter04/03-first-module.md
     - 04 完成业务：实现核心流程与异常处理: chapter04/04-core-workflow.md
     - 05 增加特色：实现一个有价值的特色功能: chapter04/05-feature.md
-    - 06 集成验收：形成完整业务演示版本: chapter04/06-integration-review.md
+    - 06 集成验收：形成完整业务演示版本: chapter04/06-integration-review.md      
+  - 第五篇｜测试、部署与成果交付:
+    - 本篇导读：从可演示到可交付: chapter05/index.md
+    - 01 制定测试：范围、环境与优先级: chapter05/01-test-plan.md
+    - 02 执行测试：功能、接口与核心流程: chapter05/02-test-cases.md
+    - 03 修复问题：缺陷管理与回归测试: chapter05/03-defect-regression.md
+    - 04 部署准备：配置、数据与启动清单: chapter05/04-deployment-preparation.md
+    - 05 部署验证：本地 Docker 与可访问系统: chapter05/05-deployment-verification.md
+    - 06 整理交付：README、测试报告与 v1.0: chapter05/06-project-delivery.md
   - 项目选题库: projects/index.md
-  # - 文档与任务模板: doc-templates/index.md
+  - 文档与任务模板: doc-templates/index.md
   - 💖 赞赏与支持: about/donate.md 
 
 
