@@ -1,6 +1,6 @@
 # 《软件开发综合项目实训》课程脚手架设计方案（Servlet 版）
 
-> 与 [《软件开发综合项目实训》课程脚手架设计方案.md](《软件开发综合项目实训》课程脚手架设计方案.md)（Spring Boot 3 + Vue 3 版）配套，提供 Servlet + JSP 技术栈版本，供基础课刚结束或希望更深入理解请求-响应 / Filter / JSP 生命周期的同学选用。
+> 与 [《软件开发综合项目实训》课程脚手架设计方案.md](《软件开发综合项目实训》课程脚手架设计方案.md)（Spring Boot 3 + Vue 3 版）配套，提供 Servlet + HTML + CSS + JS 技术栈版本，供基础课刚结束或希望更深入理解请求-响应 / Filter / Servlet 容器的同学选用。
 >
 > 本文档仅在两版存在差异的章节展开，与 Spring Boot 版相同的内容请直接参考姊妹篇。
 
@@ -8,13 +8,14 @@
 
 - 与 Spring Boot 版相同（详见姊妹篇"一、目标定位"）
 - 额外定位：贴近《Java Web 开发技术》基础课，作为基础课到项目实训的过渡脚手架
-- 让学生更直观地看到 Servlet 容器、Filter 链、JSP 编译、JDBC 连接池的运行机制
+- 让学生更直观地看到 Servlet 容器、Filter 链、原生请求-响应、JDBC 连接池的运行机制
 
 ## 二、技术栈
 
 | 层 | 技术 |
 | :--- | :--- |
-| 后端 | JDK 17、Servlet 6.x、JSP、JSTL |
+| 后端 | JDK 17、Servlet 6.x、原生 HTML/CSS/JS（不使用 JSP） |
+| 开发环境 | IntelliJ IDEA + smart-tomcat 插件 + 本地 Tomcat 11、MySQL 8 |
 | 数据库 | MySQL 8（兼容说明 openGauss） |
 | 连接池 | Alibaba Druid |
 | 数据访问 | 原生 JDBC（不引入 MyBatis，贴近基础课） |
@@ -68,13 +69,12 @@ scaffold-servlet/
 │   │   └── logback.xml
 │   └── webapp/
 │       ├── WEB-INF/
-│       │   ├── web.xml             # Servlet / Filter / 欢迎页
-│       │   └── views/              # JSP（如需服务端渲染）
+│       │   └── web.xml             # Servlet / Filter / 欢迎页
 │       ├── admin/                  # HTML 静态页（管理端）
 │       ├── user/                   # HTML 静态页（用户端）
 │       ├── css/
 │       ├── js/
-│       └── index.jsp               # 入口
+│       └── index.html              # 入口
 │
 ├── src/test/java/                  # JUnit 5 单测示例
 │
@@ -85,7 +85,7 @@ scaffold-servlet/
 │   └── init.sql                    # MySQL/openGauss 兼容
 │
 ├── deploy/
-│   ├── Dockerfile                  # 基于 tomcat:10-jdk17
+│   ├── Dockerfile                  # 基于 tomcat:11-jdk17
 │   ├── docker-compose.yml
 │   └── nginx/default.conf
 │
@@ -118,13 +118,13 @@ Servlet 版特有教学点：
 学生拿到脚手架后：
 
 1. 第一步改名 `DemoItem`、换业务表 → 变为自己项目；
-2. 第二步在 JSP 中加深对请求-响应链路的理解。
+2. 第二步在 HTML/JS 异步交互中加深对请求-响应链路的理解。
 
 ## 五、配套资源
 
 | 资源 | 内容 |
 | :--- | :--- |
-| `README.md` | 5 分钟上手：环境准备、初始化数据库、`mvn tomcat7:run` 或 IDEA 部署、Docker 部署 |
+| `README.md` | 5 分钟上手：环境准备（JDK 17 / IDEA / smart-tomcat 插件 / Tomcat 11 / MySQL 8）、初始化数据库、IDEA smart-tomcat 一键运行、Docker 部署 |
 | `AGENTS.md` | 写明 AI 角色、Servlet 生命周期、目录约定、改动约束 |
 | `api/*.postman_collection.json` | 全部示例接口可一键测试 |
 | `sql/init.sql` | 含示例数据，学生 fork 后只改业务表 |
@@ -136,14 +136,14 @@ Servlet 版特有教学点：
 
 与 Spring Boot 版相同（详见姊妹篇"六、学生使用流程"），注意两点差异：
 
-- 第 2 步运行体验：使用 `mvn tomcat11:run` 或 IDEA 部署到本地 Tomcat 11，访问 `http://localhost:8080/scaffold-servlet/`
+- 第 2 步运行体验：在 IDEA 中通过 smart-tomcat 插件配置本地 Tomcat 11 运行，访问 `http://localhost:8080/scaffold-servlet/`
 - 第 4 步改造工程：除改名外，建议在 `web.xml` 中修改 `<display-name>` 和 Servlet 路径前缀
 
 ## 七、与现有资源的对应
 
 | 现有资源 | 在 Servlet 版脚手架中的角色 |
 | :--- | :--- |
-| `book-manage/` | **核心参考实现**——Servlet + JSP + Druid + JDBC 的完整示例，本脚手架将抽取并精简其结构 |
+| `book-manage/` | **核心参考实现**——Servlet + HTML + Druid + JDBC 的完整示例，本脚手架将抽取并精简其结构 |
 | `lab2_2/book_template/` | 不再使用，已被新脚手架替代 |
 | `ecommerce/` | 仅作技术栈对照参考（Servlet 版不引入 Spring 系列依赖） |
 | `course/project-cases/教学项目案例体系与使用方案.md` | 项目案例方法论参考 |
@@ -175,7 +175,7 @@ Servlet 版特有教学点：
 
 **AI 协作（必做）**
 
-- `AGENTS.md`（Servlet 生命周期、Filter 链、JSP 隐式对象、改动禁区）
+- `AGENTS.md`（Servlet 生命周期、Filter 链、原生请求-响应、改动禁区）
 - `.trae/skills/.keep` + 安装说明
 
 **配套（必做）**
@@ -183,7 +183,7 @@ Servlet 版特有教学点：
 - `README.md`（5 分钟上手 + Tomcat / Docker 两种启动方式）
 - Postman 接口集
 - `docs/` 4 份过程文档模板
-- `Dockerfile`（基于 `tomcat:10-jdk17`，将 WAR 复制到 `webapps/`）
+- `Dockerfile`（基于 `tomcat:11-jdk17`，将 WAR 复制到 `webapps/`）
 - `docker-compose.yml`
 - `deploy/nginx/default.conf`
 - `LICENSE`
@@ -207,7 +207,7 @@ Servlet 版特有教学点：
 | 路线 | 适用学生 | 仓库 |
 | :--- | :--- | :--- |
 | 主流路线 | 已学 Java 基础、想掌握主流框架 | `scaffold-springboot`（Spring Boot 3 + Vue 3） |
-| 入门路线 | 基础课刚结束、希望先掌握请求-响应与 Servlet 容器 | `scaffold-servlet`（Servlet + JSP） |
+| 入门路线 | 基础课刚结束、希望先掌握请求-响应与 Servlet 容器 | `scaffold-servlet`（Servlet + HTML + CSS + JS） |
 
 `chapter04/02-project-customization.md` 增加两版的改造差异点（包结构 vs 单体应用、Filter 链 vs 拦截器链、JSON 工具 vs Jackson 自动配置 等）。
 
@@ -217,17 +217,17 @@ Servlet 版特有教学点：
 | :--- | :--- |
 | 原生 JDBC vs JdbcTemplate vs MyBatis | 选原生 JDBC，贴近基础课；不引入 MyBatis，避免与 Spring Boot 版重复 |
 | Session vs Token | 选 Session + Cookie（更贴近基础课）；同时提供 Token 模式作为进阶演示 |
-| HTML 静态页 vs JSP | 主体 HTML + 静态资源 + `fetch` 异步；仅在必须服务端渲染时使用 JSP |
-| Tomcat 内嵌 vs 外部 | 提供两种：本地开发用 `tomcat7-maven-plugin`；Docker 用外部 `tomcat:10-jdk17` 镜像 |
-| 字符编码 | 强制 UTF-8：`EncodingFilter` + `request.setCharacterEncoding` + `<%@ page pageEncoding="UTF-8" %>` |
+| 前端方案 | 不使用 JSP，全部用原生 HTML + CSS + JS + `fetch` 异步交互；保持学习心智与 Java Web 基础课一致 |
+| Tomcat 内嵌 vs 外部 | 提供两种：本地开发用 IDEA + smart-tomcat 插件 + Tomcat 11；Docker 用外部 `tomcat:11-jdk17` 镜像 |
+| 字符编码 | 强制 UTF-8：`EncodingFilter` + `request.setCharacterEncoding("UTF-8")` + HTML `<meta charset="UTF-8">` + 响应 `setContentType("text/html;charset=UTF-8")` |
 | Filter 顺序 | 编码 → 跨域 → 登录 → 角色；通过 `@WebFilter` + `web.xml` `<filter-mapping>` 控制 |
 | WAR 打包 | `<packaging>war</packaging>`，`<finalName>scaffold-servlet</finalName>` |
 
 ## 十二、与 Spring Boot 版的对照表（教学选用参考）
 
-| 维度 | Spring Boot 3 + Vue 3 版 | Servlet + JSP 版 |
+| 维度 | Spring Boot 3 + Vue 3 版 | Servlet + HTML 版 |
 | :--- | :--- | :--- |
-| 启动方式 | `mvn spring-boot:run` | `mvn tomcat7:run` 或 IDEA 部署 |
+| 启动方式 | `mvn spring-boot:run` | IDEA + smart-tomcat 插件运行 Tomcat 11 |
 | 请求入口 | `@RestController` 方法 | `HttpServlet.service()` |
 | 路由机制 | `@RequestMapping` | `BaseServlet` 反射分发或 `web.xml` |
 | 鉴权实现 | HandlerInterceptor + 注解 | Filter 链 |

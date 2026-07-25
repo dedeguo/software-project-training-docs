@@ -48,8 +48,18 @@ nav:
     - 05 完善规则：接口、权限与业务状态: chapter03/05-api-permission-state.md
     - 06 编制文档：系统设计说明书: chapter03/06-design-document.md
     - 07 评审优化：设计检查与迭代改进: chapter03/07-design-review.md
+  - 第四篇｜项目开发与业务实现:
+    - 本篇导读：从脚手架到完整业务: chapter04/index.md
+    - 01 启动项目：选择并运行课程脚手架: chapter04/01-project-scaffold.md
+    - 02 改造工程：让脚手架匹配项目设计: chapter04/02-project-customization.md
+    - 03 开发基础：登录权限与第一个模块: chapter04/03-first-module.md
+    - 04 完成业务：实现核心流程与异常处理: chapter04/04-core-workflow.md
+    - 05 增加特色：实现一个有价值的特色功能: chapter04/05-feature.md
+    - 06 集成验收：形成完整业务演示版本: chapter04/06-integration-review.md
   - 项目选题库: projects/index.md
-  - 文档与任务模板: doc-templates/index.md
+  # - 文档与任务模板: doc-templates/index.md
+  - 💖 赞赏与支持: about/donate.md 
+
 
 plugins:
   - search:
