@@ -64,10 +64,16 @@ nav:
     - 04 部署准备：配置、数据与启动清单: chapter05/04-deployment-preparation.md
     - 05 部署验证：本地 Docker 与可访问系统: chapter05/05-deployment-verification.md
     - 06 整理交付：README、测试报告与 v1.0: chapter05/06-project-delivery.md
+  - 第六篇｜项目展示、答辩与成长复盘:
+    - 本篇导读：从完成项目到讲清成果: chapter06/index.md
+    - 01 准备演示：视频、脚本与环境检查: chapter06/01-demo-preparation.md
+    - 02 完成答辩：陈述、PPT 与 Q&A: chapter06/02-defense-presentation.md
+    - 03 展示贡献：个人职责与能力证明: chapter06/03-personal-contribution.md
+    - 04 整理简历：项目描述与面试表达: chapter06/04-resume-portfolio.md
+    - 05 完成复盘：经验总结与后续行动: chapter06/05-project-retrospective.md
   - 项目选题库: projects/index.md
   - 文档与任务模板: doc-templates/index.md
   - 💖 赞赏与支持: about/donate.md 
-
 
 plugins:
   - search:
