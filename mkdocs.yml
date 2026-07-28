@@ -1,4 +1,4 @@
-site_name: 软件开发综合项目实训
+site_name: 🚀 Project AI 软件工程实践
 site_description: 《软件开发综合项目实训——AI辅助的软件项目开发》电子教程
 site_url: https://project-ai.chende.top/
 # repo_url: https://github.com/dedeguo/software-project-training-docs
@@ -24,7 +24,6 @@ nav:
      - 课程介绍: index.md
   - 课程导学:
     - 课程导学: guide/index.md
-    - 16周项目路线: guide/roadmap.md
     - 学习与AI协作规范: guide/learning-method.md
   - 第一篇｜AI 协同开发实战:
     - 本篇导读：图书管理系统带练: chapter01/index.md

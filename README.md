@@ -4,7 +4,6 @@
 
 [![Website](https://img.shields.io/badge/在线教程-project--ai.chende.top-indigo?style=flat-square&logo=materialformkdocs)](https://project-ai.chende.top/)
 [![GitHub](https://img.shields.io/badge/仓库-GitHub-181717?style=flat-square&logo=github)](https://github.com/dedeguo/software-project-training-docs)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#许可证)
 [![Made with MkDocs Material](https://img.shields.io/badge/MkDocs-Material-526CFE?style=flat-square&logo=materialformkdocs)](https://squidfunk.github.io/mkdocs-material/)
 
 本仓库同时维护面向学生的电子教程，以及面向教师的课程建设资料和 AI Skills。课程面向计算机科学与技术专业，以 **Spring Boot 单体项目 + 数据库 + 前端 + 接口测试 + Git + 部署** 为技术主线，将 AI 辅助编程融入选题、需求分析、系统设计、编码、测试、部署和项目答辩全过程。

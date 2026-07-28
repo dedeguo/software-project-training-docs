@@ -10,7 +10,7 @@
 !!! tip "模板使用原则"
     根据课程阶段选择需要的模板，复制到自己的项目仓库后再填写。删除不适用的占位说明，保留仍需确认的问题，不要让 AI 编造调研、测试、人员贡献或教师结论。
 
-[查看 16 周项目路线](../guide/roadmap.md){ .md-button .md-button--primary }
+[查看课程阶段与弹性路线](../guide/index.md){ .md-button .md-button--primary }
 [进入项目选题与需求分析](../chapter02/index.md){ .md-button }
 [进入原型与系统设计](../chapter03/index.md){ .md-button }
 
@@ -831,5 +831,5 @@ AI 可以整理已有材料、发现缺项和生成初稿，但不能替你提�
 * **AI 可以整理，不能编造**：调研、测试、贡献和评审结论必须由人确认。
 * **最终形成完整过程链**：立项有范围、需求可验收、设计能落地、开发有记录、测试有证据、交付能复现。
 
-[查看 16 周项目路线](../guide/roadmap.md){ .md-button .md-button--primary }
+[查看课程阶段与弹性路线](../guide/index.md){ .md-button .md-button--primary }
 [进入第四篇：项目开发与业务实现](../chapter04/index.md){ .md-button }

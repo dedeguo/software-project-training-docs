@@ -12,7 +12,7 @@
 
 [返回上一节：编制文档](06-design-document.md){ .md-button }
 [返回第三篇导读](index.md){ .md-button }
-[返回课程路线](../guide/roadmap.md){ .md-button .md-button--primary }
+[返回课程导学](../guide/index.md){ .md-button .md-button--primary }
 
 ---
 

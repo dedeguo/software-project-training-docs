@@ -12,7 +12,7 @@
 
 [返回上一节：增加特色](05-feature.md){ .md-button }
 [返回第四篇导读](index.md){ .md-button }
-[查看 16 周项目路线](../guide/roadmap.md){ .md-button .md-button--primary }
+[查看课程阶段与弹性路线](../guide/index.md){ .md-button .md-button--primary }
 
 ---
 
