@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "RunCommand",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/chende/Documents/Codes/research_demo/test.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "RunCommand",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/chende/Documents/Codes/research_demo/test_stop.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
