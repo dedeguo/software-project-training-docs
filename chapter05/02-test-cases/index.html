@@ -1,0 +1,4159 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="《软件开发综合项目实训——AI辅助的软件项目开发》电子教程">
+      
+      
+      
+        <link rel="canonical" href="https://project-ai.chende.top/chapter05/02-test-cases/">
+      
+      
+        <link rel="prev" href="../01-test-plan/">
+      
+      
+        <link rel="next" href="../03-defect-regression/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>02 执行测试：功能、接口与核心流程 - 🚀 Project AI 软件工程实践</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#52" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="🚀 Project AI 软件工程实践" class="md-header__button md-logo" aria-label="🚀 Project AI 软件工程实践" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            🚀 Project AI 软件工程实践
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              02 执行测试：功能、接口与核心流程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="🚀 Project AI 软件工程实践" class="md-nav__button md-logo" aria-label="🚀 Project AI 软件工程实践" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    🚀 Project AI 软件工程实践
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程介绍
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程介绍
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程导学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程导学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/learning-method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    学习与AI协作规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter01/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一篇｜AI 协同开发实战
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第一篇｜AI 协同开发实战
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 认识项目：体验系统与阅读文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/02-ai-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 准备工具：Trae 与 Superpowers-zh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/03-ai-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 建立规则：Rules、Skills 与 AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/04-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 分步开发：从模板到功能闭环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/05-deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 测试部署：验证并交付项目
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter02/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二篇｜项目选题与需求分析
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第二篇｜项目选题与需求分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/01-topic-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 选好项目：问题、调研与范围
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/02-proposal-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 项目立项：目标、计划与可行性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/03-user-needs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 梳理需求：用户、功能与业务规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/04-document-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成文档：需求说明书与检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter03/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三篇｜原型与系统设计
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第三篇｜原型与系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/01-design-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 明确方案：设计目标、约束与技术选型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 设计架构：系统架构与功能模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/03-prototype/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 设计原型：UI 原型与页面流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/04-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 设计数据：E-R 图与数据表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/05-api-permission-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完善规则：接口、权限与业务状态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/06-design-document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 编制文档：系统设计说明书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/07-design-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 评审优化：设计检查与迭代改进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter04/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四篇｜项目开发与业务实现
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第四篇｜项目开发与业务实现
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/01-project-scaffold/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 启动项目：选择并运行课程脚手架
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/02-project-customization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 改造工程：让脚手架匹配项目设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/03-first-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 开发基础：登录权限与第一个模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/04-core-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成业务：实现核心流程与异常处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/05-feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 增加特色：实现一个有价值的特色功能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/06-integration-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 集成验收：形成完整业务演示版本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五篇｜测试、部署与成果交付
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第五篇｜测试、部署与成果交付
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-test-plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 制定测试：范围、环境与优先级
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 执行测试：功能、接口与核心流程
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 执行测试：功能、接口与核心流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        让“我已经测试过了”变成可复现的事实
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、先把测试计划拆成测试用例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、先把测试计划拆成测试用例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 一条合格测试用例应包含什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 不合格与合格的对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#p0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、先写 P0 用例：启动、登录与核心流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、先写 P0 用例：启动、登录与核心流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 启动与冒烟测试用例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 身份认证与权限测试用例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 核心流程至少写一条端到端用例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、覆盖四类必测场景
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、覆盖四类必测场景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 正常场景：验证用户能完成任务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 业务失败场景：验证规则真正生效
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 权限场景：验证后端不能被绕过
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 边界与重复场景：验证系统不会被简单操作破坏
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、执行页面功能测试：从用户视角保存证据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、执行页面功能测试：从用户视角保存证据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 页面功能测试建议顺序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 页面测试记录表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 页面证据建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、执行接口测试：验证请求、响应与数据变化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、执行接口测试：验证请求、响应与数据变化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-apifox-postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用 Apifox 或 Postman 建立集合
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 每次接口调用至少检查五件事
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 示例：新增接口的测试用例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用接口直接验证越权
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、验证核心流程后的数据状态
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、验证核心流程后的数据状态">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 推荐的验证层次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 数据验证记录模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、记录实际结果：通过、失败、阻塞与不适用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、记录实际结果：通过、失败、阻塞与不适用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例：失败记录应怎样写
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、不要忽略测试证据和 Git 记录
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、不要忽略测试证据和 Git 记录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 建议的证据保存方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 测试中发现问题后不要直接堆改代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、填写测试用例与执行记录模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、提交前自查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本节小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-defect-regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 修复问题：缺陷管理与回归测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deployment-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 部署准备：配置、数据与启动清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-deployment-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 部署验证：本地 Docker 与可访问系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-project-delivery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 整理交付：README、测试报告与 v1.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../extension-ai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    扩展篇｜AI 特色功能开发（选学）
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    扩展篇｜AI 特色功能开发（选学）
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/01-llm-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 接入模型：大模型 API 调用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/02-streaming-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 改善体验：实现流式问答
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/03-rag-knowledge-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 连接知识：构建 RAG 知识库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/04-ai-business-features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 融入业务：智能生成、分类与推荐
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/05-tools-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 拓展能力：Tool Calling、MCP 与智能体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/06-testing-delivery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 测试交付：安全、成本、降级与演示
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter06/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六篇｜项目展示、答辩与成长复盘
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第六篇｜项目展示、答辩与成长复盘
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/01-demo-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 准备演示：视频、脚本与环境检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/02-defense-presentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 完成答辩：陈述、PPT 与 Q&A
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/03-personal-contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 展示贡献：个人职责与能力证明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/04-resume-portfolio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 整理简历：项目描述与面试表达
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/05-project-retrospective/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完成复盘：经验总结与后续行动
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目选题库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc-templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档与任务模板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/donate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💖 赞赏与支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        让“我已经测试过了”变成可复现的事实
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、先把测试计划拆成测试用例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、先把测试计划拆成测试用例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 一条合格测试用例应包含什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 不合格与合格的对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#p0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、先写 P0 用例：启动、登录与核心流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、先写 P0 用例：启动、登录与核心流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 启动与冒烟测试用例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 身份认证与权限测试用例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 核心流程至少写一条端到端用例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、覆盖四类必测场景
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、覆盖四类必测场景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 正常场景：验证用户能完成任务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 业务失败场景：验证规则真正生效
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 权限场景：验证后端不能被绕过
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 边界与重复场景：验证系统不会被简单操作破坏
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、执行页面功能测试：从用户视角保存证据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、执行页面功能测试：从用户视角保存证据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 页面功能测试建议顺序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 页面测试记录表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 页面证据建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、执行接口测试：验证请求、响应与数据变化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、执行接口测试：验证请求、响应与数据变化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-apifox-postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用 Apifox 或 Postman 建立集合
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 每次接口调用至少检查五件事
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 示例：新增接口的测试用例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用接口直接验证越权
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、验证核心流程后的数据状态
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、验证核心流程后的数据状态">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 推荐的验证层次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 数据验证记录模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、记录实际结果：通过、失败、阻塞与不适用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、记录实际结果：通过、失败、阻塞与不适用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例：失败记录应怎样写
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、不要忽略测试证据和 Git 记录
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、不要忽略测试证据和 Git 记录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 建议的证据保存方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 测试中发现问题后不要直接堆改代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、填写测试用例与执行记录模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、提交前自查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本节小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="52">5.2 编写并执行测试：功能、接口与核心流程<a class="headerlink" href="#52" title="Permanent link">&para;</a></h1>
+<h2 id="_1">让“我已经测试过了”变成可复现的事实<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">点过一次页面，不等于完成测试</p>
+<p>“登录成功了”“按钮能点”“列表能看到数据”只能说明你碰巧完成过一次操作，不能说明项目在错误输入、重复操作、角色切换、异常状态和重新部署后仍然正确。</p>
+<p>测试用例要把一次验证写清楚：<strong>在什么前提下，由谁操作，输入什么，按哪些步骤执行，预期发生什么，实际发生什么，用什么证据证明。</strong> 其他同学拿到用例后，应能复现相同结果。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">本节学习目标</p>
+<p>将 5.1 的测试计划拆成可执行的测试用例，围绕正常功能、业务失败、权限控制、状态边界和核心业务流程实际运行系统，保存页面、接口、日志和数据证据，形成测试执行记录。</p>
+</div>
+<p><a class="md-button" href="../01-test-plan/">返回上一节：制定测试计划</a>
+<a class="md-button" href="../../chapter04/">返回第四篇：项目开发与业务实现</a></p>
+<hr />
+<h2 id="_2">🎯 本节完成后，你要交付<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">成果</th>
+<th style="text-align: left;">要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">测试用例集</td>
+<td style="text-align: left;">每条 P0、P1 测试点都有前置条件、步骤和预期结果</td>
+</tr>
+<tr>
+<td style="text-align: left;">功能测试记录</td>
+<td style="text-align: left;">页面正常、失败和边界操作有实际结果与证据</td>
+</tr>
+<tr>
+<td style="text-align: left;">接口测试记录</td>
+<td style="text-align: left;">使用 Apifox、Postman 或等价工具验证请求、响应和权限</td>
+</tr>
+<tr>
+<td style="text-align: left;">核心流程追踪记录</td>
+<td style="text-align: left;">多角色连续操作到最终结果，记录每一步状态变化</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据验证记录</td>
+<td style="text-align: left;">关键操作后检查数据库或页面结果，证明数据正确保存</td>
+</tr>
+<tr>
+<td style="text-align: left;">问题清单</td>
+<td style="text-align: left;">所有失败、疑问和未完成项均已记录，不隐藏失败结果</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">本节的结果可以是“不通过”</p>
+<p>测试不是为了把表格全部填成“通过”。发现问题并准确记录，远比忽略问题或把失败写成通过更有价值。缺陷修复与回归测试将在下一节完成。</p>
+</div>
+<hr />
+<h2 id="_3">一、先把测试计划拆成测试用例<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>5.1 的测试计划说明“测什么”，本节的测试用例说明“具体怎样测”。</p>
+<h3 id="1">1. 一条合格测试用例应包含什么<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用例编号</td>
+<td style="text-align: left;">唯一编号，方便引用与追踪</td>
+<td style="text-align: left;">TC-AUTH-01</td>
+</tr>
+<tr>
+<td style="text-align: left;">所属需求</td>
+<td style="text-align: left;">对应需求编号、业务规则或接口</td>
+<td style="text-align: left;">FR-01 / PR-01</td>
+</tr>
+<tr>
+<td style="text-align: left;">测试目标</td>
+<td style="text-align: left;">本次要验证什么</td>
+<td style="text-align: left;">验证正确账号可以登录</td>
+</tr>
+<tr>
+<td style="text-align: left;">优先级</td>
+<td style="text-align: left;">P0 / P1 / P2</td>
+<td style="text-align: left;">P0</td>
+</tr>
+<tr>
+<td style="text-align: left;">前置条件</td>
+<td style="text-align: left;">账号、数据、登录状态、页面位置</td>
+<td style="text-align: left;">已初始化数据库；存在普通用户账号</td>
+</tr>
+<tr>
+<td style="text-align: left;">测试数据</td>
+<td style="text-align: left;">输入的账号、对象、状态或参数</td>
+<td style="text-align: left;">用户名 <code>student01</code>，正确密码</td>
+</tr>
+<tr>
+<td style="text-align: left;">操作步骤</td>
+<td style="text-align: left;">可以按顺序执行的具体动作</td>
+<td style="text-align: left;">打开登录页 → 输入账号密码 → 点击登录</td>
+</tr>
+<tr>
+<td style="text-align: left;">预期结果</td>
+<td style="text-align: left;">系统应该如何响应、数据应该如何变化</td>
+<td style="text-align: left;">跳转首页；显示当前用户；Session/JWT 生效</td>
+</tr>
+<tr>
+<td style="text-align: left;">实际结果</td>
+<td style="text-align: left;">实际观察到的结果</td>
+<td style="text-align: left;">通过 / 失败，并简述现象</td>
+</tr>
+<tr>
+<td style="text-align: left;">证据</td>
+<td style="text-align: left;">截图、接口响应、日志、数据库记录</td>
+<td style="text-align: left;"><code>TC-AUTH-01-login.png</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2">2. 不合格与合格的对比<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p><strong>不合格写法：</strong></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>测试登录功能。
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>结果：正常。
+</code></pre></div></td></tr></table></div>
+<p>问题是：不知道使用什么账号、操作了什么、什么叫“正常”、谁也无法复现。</p>
+<p><strong>合格写法：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用例编号</td>
+<td style="text-align: left;">TC-AUTH-01</td>
+</tr>
+<tr>
+<td style="text-align: left;">测试目标</td>
+<td style="text-align: left;">验证普通用户使用正确账号和密码可以登录</td>
+</tr>
+<tr>
+<td style="text-align: left;">前置条件</td>
+<td style="text-align: left;">已导入初始化数据；系统已启动；未登录</td>
+</tr>
+<tr>
+<td style="text-align: left;">测试数据</td>
+<td style="text-align: left;">用户名：<code>student01</code>；密码：<code>Test@123</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">步骤</td>
+<td style="text-align: left;">1. 打开登录页；2. 输入用户名与密码；3. 点击“登录”</td>
+</tr>
+<tr>
+<td style="text-align: left;">预期结果</td>
+<td style="text-align: left;">登录成功，跳转首页；页面显示当前用户；请求受限接口返回成功</td>
+</tr>
+<tr>
+<td style="text-align: left;">实际结果</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">证据</td>
+<td style="text-align: left;">【截图或接口响应文件名】</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">步骤写到同学能照着做</p>
+<p>不要只写“提交表单”“验证权限”。要说明从哪个页面、用哪个账号、输入什么数据、点哪个按钮、看到什么结果。</p>
+</div>
+<hr />
+<h2 id="p0">二、先写 P0 用例：启动、登录与核心流程<a class="headerlink" href="#p0" title="Permanent link">&para;</a></h2>
+<p>时间有限时，不要从样式和非核心页面开始。先完成最可能阻断项目交付的 P0 用例。</p>
+<h3 id="1_1">1. 启动与冒烟测试用例<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<p>项目测试的第一批用例应确认系统具备基本运行条件。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">编号</th>
+<th style="text-align: left;">测试目标</th>
+<th style="text-align: left;">关键步骤</th>
+<th style="text-align: left;">预期结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">TC-SMOKE-01</td>
+<td style="text-align: left;">验证数据库可初始化</td>
+<td style="text-align: left;">使用 SQL 或迁移脚本从空库初始化</td>
+<td style="text-align: left;">表、字段、约束和测试数据创建成功</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-SMOKE-02</td>
+<td style="text-align: left;">验证应用可启动</td>
+<td style="text-align: left;">按 README 启动后端、前端或 Tomcat</td>
+<td style="text-align: left;">无阻断报错；服务监听预期端口</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-SMOKE-03</td>
+<td style="text-align: left;">验证首页可访问</td>
+<td style="text-align: left;">浏览器打开项目地址</td>
+<td style="text-align: left;">首页或登录页正确显示，无持续控制台错误</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-SMOKE-04</td>
+<td style="text-align: left;">验证数据库连接</td>
+<td style="text-align: left;">访问一个读取真实数据的列表或接口</td>
+<td style="text-align: left;">返回实际数据，无连接异常</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-SMOKE-05</td>
+<td style="text-align: left;">验证部署说明可用</td>
+<td style="text-align: left;">由同学按 README 尝试启动</td>
+<td style="text-align: left;">不需要手改代码或临时口头补充关键步骤</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition failure">
+<p class="admonition-title">冒烟测试失败时，先不要测试更多功能</p>
+<p>项目无法启动、无法登录或无法连接数据库时，后面的功能测试没有可靠前提。记录问题，恢复基础环境后重新执行冒烟测试。</p>
+</div>
+<h3 id="2_1">2. 身份认证与权限测试用例<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p>无论采用 JWT 还是 Session，至少验证以下场景：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">编号</th>
+<th style="text-align: left;">场景</th>
+<th style="text-align: left;">测试数据</th>
+<th style="text-align: left;">预期结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">TC-AUTH-01</td>
+<td style="text-align: left;">正确密码登录</td>
+<td style="text-align: left;">已注册账号 + 正确密码</td>
+<td style="text-align: left;">登录成功，身份信息正确</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-AUTH-02</td>
+<td style="text-align: left;">错误密码登录</td>
+<td style="text-align: left;">已注册账号 + 错误密码</td>
+<td style="text-align: left;">登录失败，提示明确，不泄露敏感信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-AUTH-03</td>
+<td style="text-align: left;">不存在账号登录</td>
+<td style="text-align: left;">不存在的账号</td>
+<td style="text-align: left;">登录失败，不自动创建账号</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-AUTH-04</td>
+<td style="text-align: left;">退出登录</td>
+<td style="text-align: left;">已登录用户</td>
+<td style="text-align: left;">会话或 Token 失效，返回受限页被拒绝</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-AUTH-05</td>
+<td style="text-align: left;">未登录访问受限接口</td>
+<td style="text-align: left;">不携带登录凭据</td>
+<td style="text-align: left;">后端返回 401/未授权，不产生数据变化</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-AUTH-06</td>
+<td style="text-align: left;">普通用户访问管理操作</td>
+<td style="text-align: left;">普通用户账号</td>
+<td style="text-align: left;">页面入口受限，接口返回 403/权限不足</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-AUTH-07</td>
+<td style="text-align: left;">访问其他用户数据</td>
+<td style="text-align: left;">用户 A 修改请求中的对象 ID</td>
+<td style="text-align: left;">后端拒绝或只返回用户 A 有权限的数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3">3. 核心流程至少写一条端到端用例<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>假设项目是“宿舍报修”，核心流程可以写为：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">编号</th>
+<th style="text-align: left;">TC-WORKFLOW-01：报修处理闭环</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">前置条件</td>
+<td style="text-align: left;">学生 A、管理员、维修人员账号存在；报修初始数据可恢复</td>
+</tr>
+<tr>
+<td style="text-align: left;">目标</td>
+<td style="text-align: left;">验证学生提交报修后，管理员分配、维修人员处理、学生确认的完整流程</td>
+</tr>
+<tr>
+<td style="text-align: left;">优先级</td>
+<td style="text-align: left;">P0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">步骤</th>
+<th style="text-align: left;">操作角色</th>
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">预期结果</th>
+<th style="text-align: left;">证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">学生 A</td>
+<td style="text-align: left;">提交一条有效报修</td>
+<td style="text-align: left;">创建成功，状态为“待分配”</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">管理员</td>
+<td style="text-align: left;">查看待分配列表并分配维修人员</td>
+<td style="text-align: left;">状态变为“处理中”，维修人员可见任务</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">维修人员</td>
+<td style="text-align: left;">提交处理结果</td>
+<td style="text-align: left;">状态变为“待确认”，学生可见处理信息</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">学生 A</td>
+<td style="text-align: left;">确认维修完成</td>
+<td style="text-align: left;">状态变为“已完成”，流程结束</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">学生 A</td>
+<td style="text-align: left;">再次确认同一记录</td>
+<td style="text-align: left;">操作被拒绝，状态不再变化</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+</tbody>
+</table>
+<p>将“宿舍报修”替换为自己项目的核心流程即可，例如：活动报名、图书借阅、预约服务、订单处理、失物认领等。</p>
+<hr />
+<h2 id="_4">三、覆盖四类必测场景<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>每一个核心功能或核心流程，至少从下面四个角度设计用例。</p>
+<h3 id="1_2">1. 正常场景：验证用户能完成任务<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<p>正常场景不只是“接口返回 200”，还要验证最终用户能看到正确结果。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>输入合法数据
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>→ 页面提示成功
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>→ 接口响应正确
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>→ 数据库或列表数据正确变化
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>→ 刷新页面后结果仍存在
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>→ 下一角色可以继续操作
+</code></pre></div></td></tr></table></div>
+<p>例如“新增活动”：</p>
+<ul>
+<li>管理员输入完整名称、时间、地点、人数；</li>
+<li>点击提交后提示创建成功；</li>
+<li>活动列表出现新记录；</li>
+<li>刷新浏览器后记录仍存在；</li>
+<li>普通用户能够看到已发布的活动。</li>
+</ul>
+<h3 id="2_2">2. 业务失败场景：验证规则真正生效<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
+<p>业务失败不是系统崩溃，而是系统根据规则拒绝不允许的操作。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">业务类型</th>
+<th style="text-align: left;">应考虑的失败场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">报名/预约</td>
+<td style="text-align: left;">名额已满、重复报名、时间已截止</td>
+</tr>
+<tr>
+<td style="text-align: left;">借阅/归还</td>
+<td style="text-align: left;">无库存、超过借阅数量、已归还再次归还</td>
+</tr>
+<tr>
+<td style="text-align: left;">订单/购买</td>
+<td style="text-align: left;">库存不足、订单已取消、重复支付</td>
+</tr>
+<tr>
+<td style="text-align: left;">审核/处理</td>
+<td style="text-align: left;">当前状态不允许审核、任务未分配、已处理再次处理</td>
+</tr>
+<tr>
+<td style="text-align: left;">信息发布</td>
+<td style="text-align: left;">必填项缺失、时间范围错误、内容超过限制</td>
+</tr>
+</tbody>
+</table>
+<p>业务失败用例的预期结果应同时包含：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>请求被拒绝
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>→ 页面或接口提示具体原因
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>→ 数据库不产生错误数据
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>→ 原有状态和统计值不被破坏
+</code></pre></div></td></tr></table></div>
+<h3 id="3_1">3. 权限场景：验证后端不能被绕过<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<p>隐藏按钮不等于权限控制。测试时必须绕过页面，直接调用接口。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">页面权限验证</label><label for="__tabbed_1_2">接口权限验证</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>以普通用户身份登录，检查：</p>
+<ul>
+<li>是否看不到管理员菜单；</li>
+<li>是否不能进入管理员页面；</li>
+<li>是否没有“发布、删除、审核、分配”等管理按钮；</li>
+<li>页面提示是否清楚。</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>以普通用户身份，在 Apifox/Postman 或浏览器开发者工具中直接调用管理接口，检查：</p>
+<ul>
+<li>返回 401（未登录）或 403（无权限）；</li>
+<li>数据库没有新增、修改或删除记录；</li>
+<li>错误信息不暴露数据库、堆栈或敏感配置；</li>
+<li>换一个对象 ID 后，仍不能访问其他用户数据。</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">必须验证接口，不只验证菜单</p>
+<p>用户可以修改 URL、请求参数或对象 ID。只有后端检查登录身份、角色与数据归属，权限规则才真正成立。</p>
+</div>
+<h3 id="4">4. 边界与重复场景：验证系统不会被简单操作破坏<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>至少选择与项目相关的边界场景：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">空数据</td>
+<td style="text-align: left;">没有任何活动、订单、报修记录时，列表是否正常显示空状态</td>
+</tr>
+<tr>
+<td style="text-align: left;">分页边界</td>
+<td style="text-align: left;">第一页、最后一页、超过最大页码、每页大小改变</td>
+</tr>
+<tr>
+<td style="text-align: left;">文本边界</td>
+<td style="text-align: left;">必填项为空、超长文本、特殊字符、只有空格</td>
+</tr>
+<tr>
+<td style="text-align: left;">数值边界</td>
+<td style="text-align: left;">0、最小值、最大值、负数、超过库存或名额</td>
+</tr>
+<tr>
+<td style="text-align: left;">时间边界</td>
+<td style="text-align: left;">截止时间前后、开始时间晚于结束时间</td>
+</tr>
+<tr>
+<td style="text-align: left;">重复操作</td>
+<td style="text-align: left;">连续点击提交、重复报名、重复确认、重复删除</td>
+</tr>
+<tr>
+<td style="text-align: left;">状态边界</td>
+<td style="text-align: left;">已取消后继续处理、已完成后再次确认</td>
+</tr>
+<tr>
+<td style="text-align: left;">会话边界</td>
+<td style="text-align: left;">登录过期后提交、退出后浏览器后退访问受限页</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_5">四、执行页面功能测试：从用户视角保存证据<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>页面测试不仅验证“按钮有反应”，还要检查任务是否容易完成、提示是否足够清楚。</p>
+<h3 id="1_3">1. 页面功能测试建议顺序<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span>
+<span class="normal"><a href="#__codelineno-3-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>打开页面
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>→ 确认初始状态
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>→ 输入或选择测试数据
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>→ 执行操作
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>→ 检查页面提示
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>→ 刷新页面或跳转页面
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>→ 确认结果是否仍正确
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>→ 查看浏览器控制台是否有异常
+</code></pre></div></td></tr></table></div>
+<h3 id="2_3">2. 页面测试记录表<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">用例编号</th>
+<th style="text-align: left;">页面</th>
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">预期结果</th>
+<th style="text-align: left;">实际结果</th>
+<th style="text-align: left;">状态</th>
+<th style="text-align: left;">证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">TC-PAGE-01</td>
+<td style="text-align: left;">登录页</td>
+<td style="text-align: left;">输入正确账号密码并登录</td>
+<td style="text-align: left;">跳转首页，显示当前账号</td>
+<td style="text-align: left;">【填写】</td>
+<td style="text-align: left;">通过/失败</td>
+<td style="text-align: left;">【截图】</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-PAGE-02</td>
+<td style="text-align: left;">【列表页】</td>
+<td style="text-align: left;">输入查询条件并搜索</td>
+<td style="text-align: left;">返回符合条件的数据</td>
+<td style="text-align: left;">【填写】</td>
+<td style="text-align: left;">通过/失败</td>
+<td style="text-align: left;">【截图】</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-PAGE-03</td>
+<td style="text-align: left;">【表单页】</td>
+<td style="text-align: left;">空提交</td>
+<td style="text-align: left;">必填字段有明确提示，数据不保存</td>
+<td style="text-align: left;">【填写】</td>
+<td style="text-align: left;">通过/失败</td>
+<td style="text-align: left;">【截图】</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-PAGE-04</td>
+<td style="text-align: left;">【详情页】</td>
+<td style="text-align: left;">刷新页面</td>
+<td style="text-align: left;">数据仍正确显示</td>
+<td style="text-align: left;">【填写】</td>
+<td style="text-align: left;">通过/失败</td>
+<td style="text-align: left;">【截图】</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3_2">3. 页面证据建议<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h3>
+<p>为每个 P0/P1 用例至少保存一种可定位证据：</p>
+<ul>
+<li>成功或失败结果的页面截图；</li>
+<li>浏览器 Network 面板中的关键请求与响应；</li>
+<li>浏览器控制台错误信息（如存在）；</li>
+<li>操作前后的列表或详情截图；</li>
+<li>部署后相同页面的访问截图。</li>
+</ul>
+<p>文件命名建议：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>test-evidence/
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>├── TC-AUTH-01-login-success.png
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>├── TC-AUTH-05-unauthorized-response.png
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>├── TC-WORKFLOW-01-step-01-create.png
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>├── TC-WORKFLOW-01-step-04-complete.png
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>└── TC-WORKFLOW-01-step-05-repeat-rejected.png
+</code></pre></div></td></tr></table></div>
+<p>不要为了截图好看而修改测试结果。失败截图也是有效证据。</p>
+<hr />
+<h2 id="_6">五、执行接口测试：验证请求、响应与数据变化<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>页面测试无法替代接口测试。接口测试可以更直接地验证状态码、参数校验、权限和响应数据。</p>
+<h3 id="1-apifox-postman">1. 使用 Apifox 或 Postman 建立集合<a class="headerlink" href="#1-apifox-postman" title="Permanent link">&para;</a></h3>
+<p>建议按模块建立接口集合：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>项目接口测试集合/
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>├── 认证模块
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>│   ├── 登录
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>│   ├── 注册
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>│   ├── 获取当前用户
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>│   └── 退出登录
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>├── 【核心模块】
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>│   ├── 查询列表
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>│   ├── 查询详情
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a>│   ├── 新增
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>│   ├── 修改
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a>│   └── 删除或状态操作
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a>└── 【另一角色模块】
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a>    └── 【填写】
+</code></pre></div></td></tr></table></div>
+<p>为环境配置变量，避免把地址和账号写死在每个请求中：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>baseUrl = http://localhost:8080
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>adminUsername = 【填写】
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>adminPassword = 【填写】
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>userUsername = 【填写】
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>userPassword = 【填写】
+</code></pre></div></td></tr></table></div>
+<p>对于 JWT 项目，可在登录请求的后置脚本中保存 Token；对于 Session 项目，确认工具能够保持 Cookie，或在请求中携带返回的 Cookie。</p>
+<h3 id="2_4">2. 每次接口调用至少检查五件事<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">检查项</th>
+<th style="text-align: left;">问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">请求</td>
+<td style="text-align: left;">URL、方法、路径参数、查询参数、请求体是否符合接口设计？</td>
+</tr>
+<tr>
+<td style="text-align: left;">状态码</td>
+<td style="text-align: left;">成功、参数错误、未登录、无权限、资源不存在时状态码是否合理？</td>
+</tr>
+<tr>
+<td style="text-align: left;">响应结构</td>
+<td style="text-align: left;"><code>code</code>、<code>message</code>、<code>data</code> 等字段是否符合项目约定？</td>
+</tr>
+<tr>
+<td style="text-align: left;">业务数据</td>
+<td style="text-align: left;">返回数据是否与当前登录用户、查询条件和业务状态一致？</td>
+</tr>
+<tr>
+<td style="text-align: left;">持久化结果</td>
+<td style="text-align: left;">新增、修改、删除或状态变化是否真的写入数据库？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3_3">3. 示例：新增接口的测试用例<a class="headerlink" href="#3_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用例编号</td>
+<td style="text-align: left;">TC-API-ITEM-03</td>
+</tr>
+<tr>
+<td style="text-align: left;">接口</td>
+<td style="text-align: left;"><code>POST /api/demo-items</code>（替换为实际接口）</td>
+</tr>
+<tr>
+<td style="text-align: left;">测试目标</td>
+<td style="text-align: left;">验证管理员可创建有效业务对象</td>
+</tr>
+<tr>
+<td style="text-align: left;">前置条件</td>
+<td style="text-align: left;">管理员已登录；数据库可连接</td>
+</tr>
+<tr>
+<td style="text-align: left;">请求体</td>
+<td style="text-align: left;"><code>{"title":"测试数据","content":"用于接口测试","status":"active"}</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">预期状态码</td>
+<td style="text-align: left;">200 / 201（按项目约定）</td>
+</tr>
+<tr>
+<td style="text-align: left;">预期响应</td>
+<td style="text-align: left;">返回成功 code、对象 ID 和正确业务字段</td>
+</tr>
+<tr>
+<td style="text-align: left;">预期数据变化</td>
+<td style="text-align: left;">数据库新增一条记录，创建人和状态正确</td>
+</tr>
+<tr>
+<td style="text-align: left;">实际结果</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">证据</td>
+<td style="text-align: left;">【接口响应截图、数据库查询结果】</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4_1">4. 用接口直接验证越权<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h3>
+<p>例如普通用户不应删除活动：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>1. 用普通用户登录，获得 Session 或 Token；
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>2. 直接调用 DELETE /api/activities/{id}；
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>3. 检查响应是否为 401 或 403；
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>4. 再查询活动详情；
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>5. 确认活动仍存在，数据库没有发生删除。
+</code></pre></div></td></tr></table></div>
+<div class="admonition failure">
+<p class="admonition-title">不能只看响应消息</p>
+<p>即使接口返回“权限不足”，也要确认数据库没有发生修改。错误的代码可能先更新数据、后返回失败信息。</p>
+</div>
+<hr />
+<h2 id="_7">六、验证核心流程后的数据状态<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>核心流程测试结束后，至少从一个数据角度检查业务结果。可以是数据库查询，也可以是系统中不同角色看到的一致结果。</p>
+<h3 id="1_4">1. 推荐的验证层次<a class="headerlink" href="#1_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>页面提示正确
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>→ 接口响应正确
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>→ 列表 / 详情刷新后正确
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>→ 数据库记录正确
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>→ 下一角色看到正确任务或结果
+</code></pre></div></td></tr></table></div>
+<h3 id="2_5">2. 数据验证记录模板<a class="headerlink" href="#2_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">用例编号</th>
+<th style="text-align: left;">操作前状态</th>
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">操作后预期状态</th>
+<th style="text-align: left;">实际状态</th>
+<th style="text-align: left;">验证方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">TC-WORKFLOW-01-01</td>
+<td style="text-align: left;">报修状态：待提交</td>
+<td style="text-align: left;">学生提交报修</td>
+<td style="text-align: left;">状态：待分配；生成记录</td>
+<td style="text-align: left;">【填写】</td>
+<td style="text-align: left;">页面 / SQL / 接口</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-WORKFLOW-01-02</td>
+<td style="text-align: left;">状态：待分配</td>
+<td style="text-align: left;">管理员分配</td>
+<td style="text-align: left;">状态：处理中；维修人 ID 已写入</td>
+<td style="text-align: left;">【填写】</td>
+<td style="text-align: left;">页面 / SQL / 接口</td>
+</tr>
+<tr>
+<td style="text-align: left;">TC-WORKFLOW-01-03</td>
+<td style="text-align: left;">状态：处理中</td>
+<td style="text-align: left;">维修人员完成处理</td>
+<td style="text-align: left;">状态：待确认；处理说明已保存</td>
+<td style="text-align: left;">【填写】</td>
+<td style="text-align: left;">页面 / SQL / 接口</td>
+</tr>
+</tbody>
+</table>
+<p>如果需要执行 SQL，只查询测试数据，避免误删或误改生产数据：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1">-- 根据自己的项目表和测试对象替换条件</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">created_at</span><span class="p">,</span><span class="w"> </span><span class="n">updated_at</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">your_business_table</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">【测试对象</span><span class="w"> </span><span class="n">ID</span><span class="err">】</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title">数据库查询是验证手段，不是流程步骤</p>
+<p>可以用 SQL 检查结果，但不能通过手工 UPDATE 把测试对象改到下一状态，再宣称流程已经跑通。</p>
+</div>
+<hr />
+<h2 id="_8">七、记录实际结果：通过、失败、阻塞与不适用<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>不要只用“√”和“×”。建议使用下面四种状态：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">状态</th>
+<th style="text-align: left;">含义</th>
+<th style="text-align: left;">后续动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">通过</td>
+<td style="text-align: left;">实际结果与预期一致</td>
+<td style="text-align: left;">保存证据，继续下一条</td>
+</tr>
+<tr>
+<td style="text-align: left;">失败</td>
+<td style="text-align: left;">实际结果与预期不一致</td>
+<td style="text-align: left;">创建缺陷记录，标记影响与优先级</td>
+</tr>
+<tr>
+<td style="text-align: left;">阻塞</td>
+<td style="text-align: left;">环境、账号、依赖或前置功能导致无法执行</td>
+<td style="text-align: left;">记录阻塞原因，恢复后重新执行</td>
+</tr>
+<tr>
+<td style="text-align: left;">不适用</td>
+<td style="text-align: left;">当前项目或版本确实不涉及该用例</td>
+<td style="text-align: left;">说明原因，不要留空</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">示例：失败记录应怎样写<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><strong>不合格写法：</strong></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>报名功能有 bug。
+</code></pre></div></td></tr></table></div>
+<p><strong>合格写法：</strong></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>用例编号：TC-REGISTER-03
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>问题：学生 A 已报名活动 1001 后，再次报名接口仍返回成功。
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>复现步骤：
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>1. 以 student01 登录；
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>2. 调用 POST /api/activities/1001/register 两次；
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>3. 查询报名列表。
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a>预期：第二次操作被拒绝，报名记录数量保持 1。
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a>实际：第二次返回成功，生成两条报名记录，名额被扣减两次。
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a>影响：P0，导致名额统计错误。
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a>证据：接口响应截图、报名表查询结果。
+</code></pre></div></td></tr></table></div>
+<p>下一节会将这类记录整理为缺陷清单，完成修复与回归测试。</p>
+<hr />
+<h2 id="git">八、不要忽略测试证据和 Git 记录<a class="headerlink" href="#git" title="Permanent link">&para;</a></h2>
+<p>测试证据不一定要全部提交到代码仓库，但必须可以追溯到测试版本。</p>
+<h3 id="1_5">1. 建议的证据保存方式<a class="headerlink" href="#1_5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>docs/
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>├── testing/
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>│   ├── 测试用例.md
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>│   ├── 缺陷清单.md
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a>│   ├── test-evidence/
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a>│   │   ├── TC-AUTH-01-login.png
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a>│   │   ├── TC-API-ITEM-03-create.json
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a>│   │   └── TC-WORKFLOW-01-complete.png
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a>│   └── 接口测试集合.json
+<a id="__codelineno-12-10" name="__codelineno-12-10"></a>└── 测试报告.md
+</code></pre></div></td></tr></table></div>
+<p>如果截图过多、文件较大，可保留在课程平台、云盘或项目附件中，但在测试记录中写明访问位置和文件名。</p>
+<h3 id="2_6">2. 测试中发现问题后不要直接堆改代码<a class="headerlink" href="#2_6" title="Permanent link">&para;</a></h3>
+<p>推荐节奏：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span>
+<span class="normal"><a href="#__codelineno-13-7">7</a></span>
+<span class="normal"><a href="#__codelineno-13-8">8</a></span>
+<span class="normal"><a href="#__codelineno-13-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>执行用例
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>→ 发现失败
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>→ 保存证据
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a>→ 创建缺陷记录
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>→ 判断优先级
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a>→ 修复代码
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a>→ Git 提交
+<a id="__codelineno-13-8" name="__codelineno-13-8"></a>→ 重新执行原用例
+<a id="__codelineno-13-9" name="__codelineno-13-9"></a>→ 记录回归结果
+</code></pre></div></td></tr></table></div>
+<p>修复提交信息应体现问题，而不是只写“修改代码”：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fix: 阻止用户重复报名活动&quot;</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fix: 补充管理员删除活动的接口权限校验&quot;</span>
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="_10">九、填写测试用例与执行记录模板<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>将以下模板复制到项目的 <code>docs/testing/测试用例.md</code> 或《测试报告》的“测试执行记录”章节。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span>
+<span class="normal"><a href="#__codelineno-15-12">12</a></span>
+<span class="normal"><a href="#__codelineno-15-13">13</a></span>
+<span class="normal"><a href="#__codelineno-15-14">14</a></span>
+<span class="normal"><a href="#__codelineno-15-15">15</a></span>
+<span class="normal"><a href="#__codelineno-15-16">16</a></span>
+<span class="normal"><a href="#__codelineno-15-17">17</a></span>
+<span class="normal"><a href="#__codelineno-15-18">18</a></span>
+<span class="normal"><a href="#__codelineno-15-19">19</a></span>
+<span class="normal"><a href="#__codelineno-15-20">20</a></span>
+<span class="normal"><a href="#__codelineno-15-21">21</a></span>
+<span class="normal"><a href="#__codelineno-15-22">22</a></span>
+<span class="normal"><a href="#__codelineno-15-23">23</a></span>
+<span class="normal"><a href="#__codelineno-15-24">24</a></span>
+<span class="normal"><a href="#__codelineno-15-25">25</a></span>
+<span class="normal"><a href="#__codelineno-15-26">26</a></span>
+<span class="normal"><a href="#__codelineno-15-27">27</a></span>
+<span class="normal"><a href="#__codelineno-15-28">28</a></span>
+<span class="normal"><a href="#__codelineno-15-29">29</a></span>
+<span class="normal"><a href="#__codelineno-15-30">30</a></span>
+<span class="normal"><a href="#__codelineno-15-31">31</a></span>
+<span class="normal"><a href="#__codelineno-15-32">32</a></span>
+<span class="normal"><a href="#__codelineno-15-33">33</a></span>
+<span class="normal"><a href="#__codelineno-15-34">34</a></span>
+<span class="normal"><a href="#__codelineno-15-35">35</a></span>
+<span class="normal"><a href="#__codelineno-15-36">36</a></span>
+<span class="normal"><a href="#__codelineno-15-37">37</a></span>
+<span class="normal"><a href="#__codelineno-15-38">38</a></span>
+<span class="normal"><a href="#__codelineno-15-39">39</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="gh"># 【项目名称】测试用例与执行记录</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>测试版本：【分支 / 标签 / 提交编号】
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a>测试日期：【填写】
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a>测试人员：【填写】
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="gu">## 1. 冒烟测试</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8"></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9"></a>| 编号 | 测试目标 | 前置条件 | 步骤 | 预期结果 | 实际结果 | 状态 | 证据 |
+<a id="__codelineno-15-10" name="__codelineno-15-10"></a>| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+<a id="__codelineno-15-11" name="__codelineno-15-11"></a>| TC-SMOKE-01 | 【填写】 | 【填写】 | 【填写】 | 【填写】 | 【填写】 | 通过/失败/阻塞 | 【填写】 |
+<a id="__codelineno-15-12" name="__codelineno-15-12"></a>
+<a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="gu">## 2. 功能与接口测试</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14"></a>
+<a id="__codelineno-15-15" name="__codelineno-15-15"></a>| 编号 | 需求或接口 | 角色 | 测试数据 | 步骤 | 预期结果 | 实际结果 | 状态 | 证据 |
+<a id="__codelineno-15-16" name="__codelineno-15-16"></a>| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+<a id="__codelineno-15-17" name="__codelineno-15-17"></a>| TC-01 | 【填写】 | 【填写】 | 【填写】 | 【填写】 | 【填写】 | 【填写】 | 通过/失败/阻塞 | 【填写】 |
+<a id="__codelineno-15-18" name="__codelineno-15-18"></a>
+<a id="__codelineno-15-19" name="__codelineno-15-19"></a><span class="gu">## 3. 核心流程测试</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20"></a>
+<a id="__codelineno-15-21" name="__codelineno-15-21"></a>| 编号 | 步骤 | 操作角色 | 操作 | 预期状态或数据变化 | 实际结果 | 状态 | 证据 |
+<a id="__codelineno-15-22" name="__codelineno-15-22"></a>| :--- | :---: | :--- | :--- | :--- | :--- | :--- | :--- |
+<a id="__codelineno-15-23" name="__codelineno-15-23"></a>| TC-WORKFLOW-01 | 1 | 【填写】 | 【填写】 | 【填写】 | 【填写】 | 通过/失败/阻塞 | 【填写】 |
+<a id="__codelineno-15-24" name="__codelineno-15-24"></a>
+<a id="__codelineno-15-25" name="__codelineno-15-25"></a><span class="gu">## 4. 权限与异常测试</span>
+<a id="__codelineno-15-26" name="__codelineno-15-26"></a>
+<a id="__codelineno-15-27" name="__codelineno-15-27"></a>| 编号 | 场景 | 操作 | 预期结果 | 实际结果 | 状态 | 证据 |
+<a id="__codelineno-15-28" name="__codelineno-15-28"></a>| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+<a id="__codelineno-15-29" name="__codelineno-15-29"></a>| TC-PERM-01 | 未登录访问受限接口 | 【填写】 | 返回 401，数据不变 | 【填写】 | 通过/失败/阻塞 | 【填写】 |
+<a id="__codelineno-15-30" name="__codelineno-15-30"></a>| TC-PERM-02 | 普通用户访问管理员接口 | 【填写】 | 返回 403，数据不变 | 【填写】 | 通过/失败/阻塞 | 【填写】 |
+<a id="__codelineno-15-31" name="__codelineno-15-31"></a>
+<a id="__codelineno-15-32" name="__codelineno-15-32"></a><span class="gu">## 5. 执行结论</span>
+<a id="__codelineno-15-33" name="__codelineno-15-33"></a>
+<a id="__codelineno-15-34" name="__codelineno-15-34"></a><span class="k">-</span><span class="w"> </span>总用例数：【填写】
+<a id="__codelineno-15-35" name="__codelineno-15-35"></a><span class="k">-</span><span class="w"> </span>通过：【填写】
+<a id="__codelineno-15-36" name="__codelineno-15-36"></a><span class="k">-</span><span class="w"> </span>失败：【填写】
+<a id="__codelineno-15-37" name="__codelineno-15-37"></a><span class="k">-</span><span class="w"> </span>阻塞：【填写】
+<a id="__codelineno-15-38" name="__codelineno-15-38"></a><span class="k">-</span><span class="w"> </span>不适用：【填写】
+<a id="__codelineno-15-39" name="__codelineno-15-39"></a><span class="k">-</span><span class="w"> </span>需要进入缺陷修复的问题：【填写】
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="_11">十、提交前自查<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已先执行并记录冒烟测试；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> P0、P1 测试点均已拆成可执行测试用例；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 每条用例都有前置条件、步骤、预期结果和实际结果；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已覆盖至少一条完整核心业务流程；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已覆盖正常、失败、权限和边界四类场景；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已直接调用接口验证未登录和越权，而非只看页面按钮；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已验证关键操作后的页面、接口和数据状态；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 失败、阻塞和不适用都有真实说明；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> P0/P1 用例保存了可定位证据；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 没有把未执行的用例写成“通过”；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 发现的问题已进入缺陷清单或待修复列表。</li>
+</ul>
+<hr />
+<h2 id="_12">本节小结<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>编写并执行测试的重点是让项目质量有证据可查：</p>
+<blockquote>
+<p>从测试计划提取用例 → 先验证启动与登录 → 测核心流程正常路径 → 测业务失败、权限与边界 → 保存页面、接口和数据证据 → 如实记录通过或失败。</p>
+</blockquote>
+<p>完成本节后，你应该清楚知道哪些功能真正可靠、哪些问题阻断交付、哪些需要修复。下一节将学习如何管理缺陷、定位影响范围、修复问题并进行回归测试。</p>
+<p><a class="md-button md-button--primary" href="../03-defect-regression/">下一节：5.3 修复问题：缺陷管理与回归测试</a>
+<a class="md-button" href="../01-test-plan/">返回上一节：制定测试计划</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 陈德
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

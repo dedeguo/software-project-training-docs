@@ -1,0 +1,3063 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="《软件开发综合项目实训——AI辅助的软件项目开发》电子教程">
+      
+      
+      
+        <link rel="canonical" href="https://project-ai.chende.top/chapter04/">
+      
+      
+        <link rel="prev" href="../chapter03/07-design-review/">
+      
+      
+        <link rel="next" href="01-project-scaffold/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>本篇导读：从脚手架到完整业务 - 🚀 Project AI 软件工程实践</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="🚀 Project AI 软件工程实践" class="md-header__button md-logo" aria-label="🚀 Project AI 软件工程实践" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            🚀 Project AI 软件工程实践
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              本篇导读：从脚手架到完整业务
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="🚀 Project AI 软件工程实践" class="md-nav__button md-logo" aria-label="🚀 Project AI 软件工程实践" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    🚀 Project AI 软件工程实践
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程介绍
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程介绍
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程导学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程导学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/learning-method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    学习与AI协作规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../chapter01/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一篇｜AI 协同开发实战
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第一篇｜AI 协同开发实战
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 认识项目：体验系统与阅读文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/02-ai-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 准备工具：Trae 与 Superpowers-zh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/03-ai-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 建立规则：Rules、Skills 与 AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/04-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 分步开发：从模板到功能闭环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter01/05-deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 测试部署：验证并交付项目
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../chapter02/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二篇｜项目选题与需求分析
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第二篇｜项目选题与需求分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/01-topic-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 选好项目：问题、调研与范围
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/02-proposal-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 项目立项：目标、计划与可行性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/03-user-needs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 梳理需求：用户、功能与业务规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/04-document-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成文档：需求说明书与检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../chapter03/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三篇｜原型与系统设计
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第三篇｜原型与系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/01-design-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 明确方案：设计目标、约束与技术选型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 设计架构：系统架构与功能模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/03-prototype/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 设计原型：UI 原型与页面流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/04-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 设计数据：E-R 图与数据表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/05-api-permission-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完善规则：接口、权限与业务状态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/06-design-document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 编制文档：系统设计说明书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/07-design-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 评审优化：设计检查与迭代改进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四篇｜项目开发与业务实现
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第四篇｜项目开发与业务实现
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-project-scaffold/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 启动项目：选择并运行课程脚手架
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-project-customization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 改造工程：让脚手架匹配项目设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-first-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 开发基础：登录权限与第一个模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-core-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成业务：实现核心流程与异常处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 增加特色：实现一个有价值的特色功能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-integration-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 集成验收：形成完整业务演示版本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../chapter05/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五篇｜测试、部署与成果交付
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第五篇｜测试、部署与成果交付
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/01-test-plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 制定测试：范围、环境与优先级
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/02-test-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 执行测试：功能、接口与核心流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/03-defect-regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 修复问题：缺陷管理与回归测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/04-deployment-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 部署准备：配置、数据与启动清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/05-deployment-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 部署验证：本地 Docker 与可访问系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/06-project-delivery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 整理交付：README、测试报告与 v1.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../extension-ai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    扩展篇｜AI 特色功能开发（选学）
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    扩展篇｜AI 特色功能开发（选学）
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extension-ai/01-llm-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 接入模型：大模型 API 调用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extension-ai/02-streaming-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 改善体验：实现流式问答
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extension-ai/03-rag-knowledge-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 连接知识：构建 RAG 知识库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extension-ai/04-ai-business-features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 融入业务：智能生成、分类与推荐
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extension-ai/05-tools-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 拓展能力：Tool Calling、MCP 与智能体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extension-ai/06-testing-delivery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 测试交付：安全、成本、降级与演示
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../chapter06/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六篇｜项目展示、答辩与成长复盘
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第六篇｜项目展示、答辩与成长复盘
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/01-demo-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 准备演示：视频、脚本与环境检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/02-defense-presentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 完成答辩：陈述、PPT 与 Q&A
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/03-personal-contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 展示贡献：个人职责与能力证明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/04-resume-portfolio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 整理简历：项目描述与面试表达
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/05-project-retrospective/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完成复盘：经验总结与后续行动
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目选题库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../doc-templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档与任务模板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/donate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💖 赞赏与支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从课程脚手架出发，把系统设计变成可运行的软件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 这一篇要帮你做到
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 从系统设计进入项目开发
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧰 两套课程脚手架，只选择一套
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧰 两套课程脚手架，只选择一套">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spring-boot-vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spring Boot + Vue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servlet-html-css-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servlet + HTML + CSS + JavaScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗺️ 你将完成的 6 个小节
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 用一个纵向切片完成模块
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 用一条核心流程连接整个项目
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 开始第四篇前，准备什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 第四篇的主要交付成果
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧗 根据自己的基础选择目标
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 本篇持续遵守的开发原则
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 本篇持续遵守的开发原则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先运行，再修改
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 一次只做一个小任务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 优先复用脚手架
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 权限以后端判断为准
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 每次完成都要有证据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 每个成果对应 Git 提交
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤝 在项目开发中怎样使用 AI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🤝 在项目开发中怎样使用 AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一个通用任务提示词
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        人必须完成的工作
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 本篇要持续进行的一致性检查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 本篇结束时，你要能够回答
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">💻 第四篇：项目开发与业务实现<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">从课程脚手架出发，把系统设计变成可运行的软件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">开发不是让 AI 一次生成整个项目</p>
+<p>前三篇已经明确了为谁做、做什么和准备怎样实现。接下来要把需求、页面、接口、权限和数据逐步落到代码中。</p>
+<p>本篇从一个已经能够运行的课程脚手架开始，先建立自己的项目骨架，再完成登录权限、第一个业务模块和一条完整核心流程。核心业务稳定后，可以增加一个有价值的特色功能，最后形成能够连续演示的 <code>v0.5</code> 阶段版本。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">完成第四篇后，你将拥有</p>
+<p>一个能够从数据库初始化到页面访问、从用户操作到业务结果连续运行的项目；一条经过正常、失败和越权验证的核心业务流程；一个可选的特色功能；以及 README、接口、测试记录和连续 Git 提交。</p>
+</div>
+<p><a class="md-button md-button--primary" href="01-project-scaffold/">开始 4.1：启动项目</a>
+<a class="md-button" href="../chapter03/">返回第三篇：原型与系统设计</a></p>
+<hr />
+<h2 id="_3">🎯 这一篇要帮你做到<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">跑得起来</th>
+<th style="text-align: center;">改得明白</th>
+<th style="text-align: center;">做得完整</th>
+<th style="text-align: center;">守得住规则</th>
+<th style="text-align: center;">有一个亮点</th>
+<th style="text-align: center;">能够演示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">从脚手架成功启动项目</td>
+<td style="text-align: center;">让工程与自己的设计对应</td>
+<td style="text-align: center;">完成页面、接口和数据库闭环</td>
+<td style="text-align: center;">实现登录、权限、状态和异常处理</td>
+<td style="text-align: center;">增加一个有业务价值的特色功能</td>
+<td style="text-align: center;">形成可复现的阶段版本</td>
+</tr>
+</tbody>
+</table>
+<p>本篇遵循一条清楚的开发路径：</p>
+<blockquote>
+<p>运行脚手架 → 改造成自己的项目 → 完成第一个模块 → 打通核心业务流程 → 增加一个特色功能 → 集成验收并保存阶段版本</p>
+</blockquote>
+<p>每一步都要保持：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>小任务
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>→ 先读现状
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>→ 制定计划
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>→ 修改少量文件
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>→ 运行验证
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>→ 检查差异
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>→ Git 提交
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="_4">🔄 从系统设计进入项目开发<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>第三篇和第四篇解决的问题不同：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">阶段</th>
+<th style="text-align: left;">主要问题</th>
+<th style="text-align: left;">典型成果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">需求分析</td>
+<td style="text-align: left;">系统必须做什么，怎样算完成？</td>
+<td style="text-align: left;">《需求分析说明书》</td>
+</tr>
+<tr>
+<td style="text-align: left;">系统设计</td>
+<td style="text-align: left;">准备怎样实现，各部分怎样协作？</td>
+<td style="text-align: left;">《系统设计说明书》、原型、数据库和接口设计</td>
+</tr>
+<tr>
+<td style="text-align: left;">项目开发</td>
+<td style="text-align: left;">怎样把设计变成可以运行和验证的软件？</td>
+<td style="text-align: left;">代码、数据库脚本、测试证据和阶段版本</td>
+</tr>
+</tbody>
+</table>
+<p>开发不是机械照抄设计。实现过程中可能发现字段缺失、状态冲突或接口无法落地。这时应记录问题，判断需要修改代码还是返回需求与设计，而不是在不同页面中各自使用一套规则。</p>
+<pre class="mermaid"><code>flowchart LR
+    Design["系统设计基线"] --&gt; Scaffold["可运行脚手架"]
+    Scaffold --&gt; Module["第一个业务模块"]
+    Module --&gt; Workflow["核心业务闭环"]
+    Workflow --&gt; Feature["一个特色功能"]
+    Feature --&gt; Review["集成验收"]
+    Review -. "发现偏差" .-&gt; Design</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">不能运行的代码，不算完成设计</p>
+<p>文档中的架构、接口和数据库最终都要通过代码运行验证。如果实际实现与设计发生变化，要说明原因并同步更新相关材料。</p>
+</div>
+<hr />
+<h2 id="_5">🧰 两套课程脚手架，只选择一套<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>本篇提供两条技术路线。它们的交付要求相同，不需要同时学习。</p>
+<h3 id="spring-boot-vue">Spring Boot + Vue<a class="headerlink" href="#spring-boot-vue" title="Permanent link">&para;</a></h3>
+<ul>
+<li>远程仓库：<a href="https://gitee.com/javaweb-dev-tech/scaffold-springboot">scaffold-springboot</a></li>
+<li>适合已有 Spring Boot 或 Vue 基础、准备使用前后端分离结构的项目；</li>
+<li>提供 Spring Boot、MyBatis-Plus、Vue 3、JWT、分页、统一响应和示例模块。</li>
+</ul>
+<h3 id="servlet-html-css-javascript">Servlet + HTML + CSS + JavaScript<a class="headerlink" href="#servlet-html-css-javascript" title="Permanent link">&para;</a></h3>
+<ul>
+<li>远程仓库：<a href="https://gitee.com/javaweb-dev-tech/scaffold-servlet">scaffold-servlet</a></li>
+<li>适合正在学习 Java Web、希望理解 Servlet、Session、Filter 和 JDBC 的项目；</li>
+<li>提供 Jakarta Servlet、原生 JDBC、Session、过滤器、原生前端和示例模块。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选择依据</th>
+<th style="text-align: left;">Spring Boot + Vue</th>
+<th style="text-align: left;">Servlet + 原生前端</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">项目形态</td>
+<td style="text-align: left;">前后端分离</td>
+<td style="text-align: left;">单个 Web 工程</td>
+</tr>
+<tr>
+<td style="text-align: left;">身份认证</td>
+<td style="text-align: left;">JWT</td>
+<td style="text-align: left;">Session + Cookie</td>
+</tr>
+<tr>
+<td style="text-align: left;">页面开发</td>
+<td style="text-align: left;">Vue 组件</td>
+<td style="text-align: left;">HTML + JavaScript</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据访问</td>
+<td style="text-align: left;">MyBatis-Plus</td>
+<td style="text-align: left;">JDBC</td>
+</tr>
+<tr>
+<td style="text-align: left;">适合重点</td>
+<td style="text-align: left;">工程协作和组件化</td>
+<td style="text-align: left;">Web 请求流程和基础原理</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">脚手架提供工程底座，不提供最终业务</p>
+<p>脚手架已经解决登录、统一响应、异常处理和示例 CRUD。学生仍需根据自己的需求完成业务数据表、页面、接口、权限、状态、测试和文档。</p>
+</div>
+<hr />
+<h2 id="6">🗺️ 你将完成的 6 个小节<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">小节</th>
+<th style="text-align: left;">主要任务</th>
+<th style="text-align: left;">本节成果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="01-project-scaffold/">4.1 启动项目</a></td>
+<td style="text-align: left;">选择一套脚手架，配置数据库并完成启动验证</td>
+<td style="text-align: left;">可运行初始工程 + 启动记录 + 首次提交</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="02-project-customization/">4.2 改造工程</a></td>
+<td style="text-align: left;">建立设计到代码的对应关系，更新项目身份、文档和数据库</td>
+<td style="text-align: left;">项目开发骨架 + 项目级 <code>AGENTS.md</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="03-first-module/">4.3 开发基础</a></td>
+<td style="text-align: left;">理解登录权限，仿照示例完成第一个业务模块</td>
+<td style="text-align: left;">登录权限验证 + 第一个纵向模块</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="04-core-workflow/">4.4 完成业务</a></td>
+<td style="text-align: left;">连接多角色操作，处理状态、异常和数据一致性</td>
+<td style="text-align: left;">完整核心业务流程 + 异常测试</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="05-feature/">4.5 增加特色</a></td>
+<td style="text-align: left;">选择并实现一个与业务相关的特色能力</td>
+<td style="text-align: left;">可演示特色功能 + 效果和降级记录</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="06-integration-review/">4.6 集成验收</a></td>
+<td style="text-align: left;">从干净环境启动、验收流程、整理问题和演示</td>
+<td style="text-align: left;">集成验收记录 + <code>v0.5</code> 阶段版本</td>
+</tr>
+</tbody>
+</table>
+<p>每一节只增加一个主要成果。上一节没有运行和验证通过时，不要急着进入下一节。</p>
+<hr />
+<h2 id="_6">🧩 用一个纵向切片完成模块<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>开发第一个模块时，不要先写完全部数据库，再写全部后端，最后才做全部页面。选择一个小功能，从数据一直做到用户可见结果。</p>
+<pre class="mermaid"><code>flowchart LR
+    Requirement["需求与验收条件"] --&gt; Table["数据表"]
+    Table --&gt; Data["Mapper / DAO"]
+    Data --&gt; Service["业务逻辑"]
+    Service --&gt; API["接口"]
+    API --&gt; Permission["登录与权限"]
+    Permission --&gt; Page["页面"]
+    Page --&gt; Verify["运行与测试"]</code></pre>
+<p>例如“图书查询”模块：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>图书表
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>→ 查询数据
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>→ 分页业务
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>→ 查询接口
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>→ 图书列表页面
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>→ 登录或公开访问规则
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>→ 查询、空数据和错误验证
+</code></pre></div></td></tr></table></div>
+<p>只有页面、接口和数据库真实连接，刷新后数据仍然正确，才能认定该模块完成。</p>
+<hr />
+<h2 id="_7">🔗 用一条核心流程连接整个项目<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>完成第一个模块后，继续实现项目最重要的一条跨角色流程。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>宿舍报修：
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>学生提交
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>→ 管理员分配
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>→ 维修人员处理
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>→ 学生确认
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>活动报名：
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>管理员发布
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>→ 学生报名
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>→ 系统校验状态和名额
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>→ 学生查看结果
+</code></pre></div></td></tr></table></div>
+<p>核心流程的每一步都要回答：</p>
+<ul>
+<li>谁在操作？</li>
+<li>当前状态是否允许？</li>
+<li>用户能操作哪些数据？</li>
+<li>调用哪个接口？</li>
+<li>修改哪些表或字段？</li>
+<li>成功后进入什么状态？</li>
+<li>失败时页面和数据怎样处理？</li>
+</ul>
+<div class="admonition failure">
+<p class="admonition-title">需要手工修改数据库才能继续，不算业务闭环</p>
+<p>状态变化和角色协作必须通过页面和接口完成。初始化测试数据可以使用脚本，但演示过程中不能手工把记录改成下一状态。</p>
+</div>
+<hr />
+<h2 id="_8">📦 开始第四篇前，准备什么<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">准备内容</th>
+<th style="text-align: left;">建议要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">《需求分析说明书》</td>
+<td style="text-align: left;">核心角色、功能、规则和验收条件已经确认</td>
+</tr>
+<tr>
+<td style="text-align: left;">《系统设计说明书》</td>
+<td style="text-align: left;">技术、模块、页面、数据、接口、权限和状态基本可实现</td>
+</tr>
+<tr>
+<td style="text-align: left;">设计评审记录</td>
+<td style="text-align: left;">阻断开发的问题已经处理</td>
+</tr>
+<tr>
+<td style="text-align: left;">页面原型</td>
+<td style="text-align: left;">至少能够走通核心任务</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库脚本</td>
+<td style="text-align: left;">可以创建核心表和必要初始化数据</td>
+</tr>
+<tr>
+<td style="text-align: left;">开发环境</td>
+<td style="text-align: left;">JDK、MySQL、Git 以及对应路线工具已经准备</td>
+</tr>
+<tr>
+<td style="text-align: left;">代码仓库</td>
+<td style="text-align: left;">学生拥有可以提交和查看历史的项目仓库</td>
+</tr>
+<tr>
+<td style="text-align: left;">AI 编程工具</td>
+<td style="text-align: left;">能够读取项目文档、代码和 <code>AGENTS.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>如果需求范围、核心流程或技术路线仍不明确，请先返回<a href="../chapter03/">第三篇</a>完成系统设计和评审。</p>
+<hr />
+<h2 id="_9">📋 第四篇的主要交付成果<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>项目开发成果/
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>├── 可运行的项目源代码
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>├── 数据库初始化与迁移脚本
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>├── 登录、角色与数据权限
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>├── 第一个完整业务模块
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>├── 一条跨角色核心业务流程
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>├── 一个可选的特色功能
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>├── 接口与测试记录
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>├── 集成问题清单
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a>├── 项目 README 与启动说明
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>├── 连续 Git 提交记录
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>└── v0.5 完整业务演示版本
+</code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">特色功能不是所有项目的强制复杂任务</p>
+<p>基础较弱或进度较慢时，可以选择统计、搜索、提醒等轻量特色，也可以先把核心业务做好。AI、推荐和第三方服务只在基础流程稳定且有真实需要时加入。</p>
+</div>
+<hr />
+<h2 id="_10">🧗 根据自己的基础选择目标<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">学习层次</th>
+<th style="text-align: left;">本篇目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">保底目标</td>
+<td style="text-align: left;">项目能够运行，完成登录、一个业务模块、数据库和基本验证</td>
+</tr>
+<tr>
+<td style="text-align: left;">标准目标</td>
+<td style="text-align: left;">完成多角色核心流程、状态、异常、权限和集成验收</td>
+</tr>
+<tr>
+<td style="text-align: left;">进阶目标</td>
+<td style="text-align: left;">在核心流程稳定后加入 AI、推荐、知识问答或其他创新能力</td>
+</tr>
+</tbody>
+</table>
+<p>基础目标不是“低质量项目”。一个范围小、真实运行、权限正确、能够解释的项目，比功能很多但无法连续演示的项目更有价值。</p>
+<hr />
+<h2 id="_11">🛠️ 本篇持续遵守的开发原则<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 先运行，再修改<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>保存一个确认可运行的脚手架初始版本。每完成一个小任务都重新启动和验证。</p>
+<h3 id="2">2. 一次只做一个小任务<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>不要让 AI 一次完成整个项目。任务应具体到一个数据表、一个接口、一个页面或一个状态转换。</p>
+<h3 id="3">3. 优先复用脚手架<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>复用登录、统一响应、异常处理、请求封装、分页和示例分层。未经确认不要修改基础设施和公共规则。</p>
+<h3 id="4">4. 权限以后端判断为准<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>前端隐藏按钮不能阻止越权请求。后端必须检查登录身份、角色和具体数据范围。</p>
+<h3 id="5">5. 每次完成都要有证据<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p>至少检查代码构建、接口响应、页面操作和数据库结果。失败场景与成功场景同样需要记录。</p>
+<h3 id="6-git">6. 每个成果对应 Git 提交<a class="headerlink" href="#6-git" title="Permanent link">&para;</a></h3>
+<p>提交前查看 <code>git status</code> 和 <code>git diff</code>。不提交真实密钥、密码、本机配置、依赖缓存和构建产物。</p>
+<hr />
+<h2 id="ai">🤝 在项目开发中怎样使用 AI<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h2>
+<p>本篇推荐的协作过程：</p>
+<blockquote>
+<p>提供文档和代码上下文 → AI 阅读现状 → 输出小步计划 → 人工审核 → 一次实现一个任务 → 运行验证 → 审查差异 → Git 提交</p>
+</blockquote>
+<h3 id="_12">一个通用任务提示词<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>请先阅读项目根目录的 AGENTS.md、README、
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>需求分析说明书、系统设计说明书，
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>以及与本次任务直接相关的代码和数据库脚本。
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>本次任务：【填写一个具体的小任务】
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>对应需求：【FR-*】
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>使用角色：【填写】
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>完成标准：【页面、接口和数据怎样算正确】
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>明确不做：【本次范围之外的内容】
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>不要立即修改代码。请先输出：
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a>1. 当前实现和可以复用的能力；
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a>2. 准备修改的文件及原因；
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a>3. 分步实施计划；
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a>4. 正常、失败和权限验证方式；
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a>5. 需要人工确认的问题。
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a>不要修改无关文件，不要增加未确认功能和依赖。
+</code></pre></div></td></tr></table></div>
+<h3 id="_13">人必须完成的工作<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li>确认需求、角色、状态和业务规则；</li>
+<li>判断 AI 的方案是否符合项目结构；</li>
+<li>阅读主要改动和数据库脚本；</li>
+<li>亲自启动并操作页面；</li>
+<li>检查接口、日志和数据库结果；</li>
+<li>处理密钥和隐私配置；</li>
+<li>决定是否接受、修改或回退 AI 代码；</li>
+<li>对 Git 提交和最终成果负责。</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">AI 说“已经完成”，不等于功能真的完成</p>
+<p>没有执行命令、页面操作、接口响应和数据证据的结论不能作为验收结果。发现错误时提供复现步骤和完整日志，让 AI 先定位原因，不要连续尝试无依据修改。</p>
+</div>
+<hr />
+<h2 id="_14">🔍 本篇要持续进行的一致性检查<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">检查方向</th>
+<th style="text-align: left;">要回答的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">需求 → 代码</td>
+<td style="text-align: left;">当前功能是否有已确认需求依据？</td>
+</tr>
+<tr>
+<td style="text-align: left;">页面 → 接口</td>
+<td style="text-align: left;">页面调用的路径、参数和字段是否正确？</td>
+</tr>
+<tr>
+<td style="text-align: left;">接口 → 权限</td>
+<td style="text-align: left;">谁能调用，后端是否真实校验？</td>
+</tr>
+<tr>
+<td style="text-align: left;">接口 → Service</td>
+<td style="text-align: left;">业务规则和状态判断是否集中处理？</td>
+</tr>
+<tr>
+<td style="text-align: left;">Service → 数据</td>
+<td style="text-align: left;">读取和修改哪些表，失败时是否保持一致？</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据 → 页面</td>
+<td style="text-align: left;">页面显示是否来自真实数据库结果？</td>
+</tr>
+<tr>
+<td style="text-align: left;">设计 → 实现</td>
+<td style="text-align: left;">状态、字段、接口和权限是否仍与设计一致？</td>
+</tr>
+<tr>
+<td style="text-align: left;">实现 → 测试</td>
+<td style="text-align: left;">正常、失败、越权和边界情况怎样证明？</td>
+</tr>
+</tbody>
+</table>
+<p>发现不一致时不要只修改最容易的一处。先判断哪个是当前确认的基线，再同步修改代码、数据库、页面、接口文档和测试。</p>
+<hr />
+<h2 id="_15">✅ 本篇结束时，你要能够回答<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<p>完成第四篇后，你应该能够用 5～8 分钟说明并演示：</p>
+<blockquote>
+<p><strong>项目怎样启动？使用了哪套技术路线？登录身份怎样传递？第一个业务模块怎样从数据库到达页面？核心流程由哪些角色完成？状态、权限和异常怎样处理？特色功能解决什么问题？怎样证明当前版本可以运行？</strong></p>
+</blockquote>
+<p>并且能够提供以下证据：</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 新环境能够按照 README 初始化和启动；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 数据库脚本能够创建项目所需数据；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 登录、退出和当前用户查询正常；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 未登录和越权请求被后端拒绝；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第一个业务模块真实读写数据库；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 核心流程能够跨角色连续完成；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 页面、接口和数据库状态一致；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 失败和重复操作不会产生错误数据；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 特色功能与业务相关并具有失败处理，或明确标记不适用；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 测试和验收记录来自真实运行；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 文档和接口材料与代码一致；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 仓库不包含真实密钥和隐私数据；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Git 提交能够说明开发过程；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已形成 <code>v0.5</code> 完整业务演示版本。</li>
+</ul>
+<hr />
+<h2 id="_16">📝 总结<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>脚手架让你更快进入业务</strong>：复用工程基础，把时间用在自己的项目上；</li>
+<li><strong>纵向模块证明真实连接</strong>：数据库、后端、接口、页面和权限一起完成；</li>
+<li><strong>核心流程体现项目价值</strong>：跨角色连续操作，成功和失败都能解释；</li>
+<li><strong>特色功能重在有用</strong>：只增加一个与业务相关、能够验证的亮点；</li>
+<li><strong>集成验收形成阶段版本</strong>：从干净环境复现项目，记录问题并保存 <code>v0.5</code>。</li>
+</ul>
+<p><a class="md-button md-button--primary" href="01-project-scaffold/">开始 4.1：启动项目</a>
+<a class="md-button" href="../chapter03/">返回第三篇：原型与系统设计</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 陈德
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "content.code.copy", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

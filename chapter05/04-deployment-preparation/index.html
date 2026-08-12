@@ -1,0 +1,4097 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="《软件开发综合项目实训——AI辅助的软件项目开发》电子教程">
+      
+      
+      
+        <link rel="canonical" href="https://project-ai.chende.top/chapter05/04-deployment-preparation/">
+      
+      
+        <link rel="prev" href="../03-defect-regression/">
+      
+      
+        <link rel="next" href="../05-deployment-verification/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>04 部署准备：配置、数据与启动清单 - 🚀 Project AI 软件工程实践</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#54" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="🚀 Project AI 软件工程实践" class="md-header__button md-logo" aria-label="🚀 Project AI 软件工程实践" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            🚀 Project AI 软件工程实践
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04 部署准备：配置、数据与启动清单
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="🚀 Project AI 软件工程实践" class="md-nav__button md-logo" aria-label="🚀 Project AI 软件工程实践" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    🚀 Project AI 软件工程实践
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程介绍
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程介绍
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程导学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程导学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/learning-method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    学习与AI协作规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter01/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一篇｜AI 协同开发实战
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第一篇｜AI 协同开发实战
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 认识项目：体验系统与阅读文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/02-ai-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 准备工具：Trae 与 Superpowers-zh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/03-ai-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 建立规则：Rules、Skills 与 AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/04-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 分步开发：从模板到功能闭环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter01/05-deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 测试部署：验证并交付项目
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter02/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二篇｜项目选题与需求分析
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第二篇｜项目选题与需求分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/01-topic-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 选好项目：问题、调研与范围
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/02-proposal-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 项目立项：目标、计划与可行性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/03-user-needs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 梳理需求：用户、功能与业务规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter02/04-document-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成文档：需求说明书与检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter03/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三篇｜原型与系统设计
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第三篇｜原型与系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/01-design-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 明确方案：设计目标、约束与技术选型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 设计架构：系统架构与功能模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/03-prototype/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 设计原型：UI 原型与页面流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/04-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 设计数据：E-R 图与数据表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/05-api-permission-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完善规则：接口、权限与业务状态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/06-design-document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 编制文档：系统设计说明书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter03/07-design-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 评审优化：设计检查与迭代改进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter04/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四篇｜项目开发与业务实现
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第四篇｜项目开发与业务实现
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/01-project-scaffold/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 启动项目：选择并运行课程脚手架
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/02-project-customization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 改造工程：让脚手架匹配项目设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/03-first-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 开发基础：登录权限与第一个模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/04-core-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 完成业务：实现核心流程与异常处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/05-feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 增加特色：实现一个有价值的特色功能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter04/06-integration-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 集成验收：形成完整业务演示版本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五篇｜测试、部署与成果交付
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第五篇｜测试、部署与成果交付
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-test-plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 制定测试：范围、环境与优先级
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-test-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 执行测试：功能、接口与核心流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-defect-regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 修复问题：缺陷管理与回归测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 部署准备：配置、数据与启动清单
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 部署准备：配置、数据与启动清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        让项目离开开发电脑后，仍然能够启动
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、先明确：开发配置和部署配置为什么要分开
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、第一步：盘点项目真正依赖什么
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、第一步：盘点项目真正依赖什么">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 部署依赖清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 检查隐藏在代码中的环境依赖
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、第二步：整理配置与环境变量
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、第二步：整理配置与环境变量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 推荐的配置文件结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-spring-boot-vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Spring Boot + Vue 路线示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-servlet-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Servlet + HTML 路线示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 环境变量模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、第三步：让数据库可以从空库初始化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、第三步：让数据库可以从空库初始化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 两种初始化方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 初始化脚本至少应包含
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MySQL 初始化示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、第四步：准备数据备份与恢复方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、第四步：准备数据备份与恢复方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 最低恢复方案：重新导入初始化脚本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 备份当前数据库
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 测试数据重置清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、第五步：检查端口、网络与访问路径
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、第五步：检查端口、网络与访问路径">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 端口规划表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 推荐使用 Nginx 同源代理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 检查常见网络问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、第六步：检查文件、日志与上传目录
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、第六步：检查文件、日志与上传目录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 文件目录规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Docker 挂载示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、第七步：构建并检查部署产物
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、第七步：构建并检查部署产物">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        构建产物不要提交到 Git
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、第八步：填写部署前检查清单
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、第八步：填写部署前检查清单">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置与安全
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据库与数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        构建与网络
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件与交付
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、填写部署准备记录模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本节小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-deployment-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 部署验证：本地 Docker 与可访问系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-project-delivery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 整理交付：README、测试报告与 v1.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../extension-ai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    扩展篇｜AI 特色功能开发（选学）
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    扩展篇｜AI 特色功能开发（选学）
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/01-llm-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 接入模型：大模型 API 调用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/02-streaming-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 改善体验：实现流式问答
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/03-rag-knowledge-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 连接知识：构建 RAG 知识库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/04-ai-business-features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 融入业务：智能生成、分类与推荐
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/05-tools-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 拓展能力：Tool Calling、MCP 与智能体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extension-ai/06-testing-delivery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 测试交付：安全、成本、降级与演示
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../chapter06/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六篇｜项目展示、答辩与成长复盘
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第六篇｜项目展示、答辩与成长复盘
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/01-demo-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 准备演示：视频、脚本与环境检查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/02-defense-presentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 完成答辩：陈述、PPT 与 Q&A
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/03-personal-contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 展示贡献：个人职责与能力证明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/04-resume-portfolio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 整理简历：项目描述与面试表达
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter06/05-project-retrospective/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 完成复盘：经验总结与后续行动
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目选题库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc-templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档与任务模板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/donate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💖 赞赏与支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        让项目离开开发电脑后，仍然能够启动
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 本节完成后，你要交付
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、先明确：开发配置和部署配置为什么要分开
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、第一步：盘点项目真正依赖什么
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、第一步：盘点项目真正依赖什么">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 部署依赖清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 检查隐藏在代码中的环境依赖
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、第二步：整理配置与环境变量
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、第二步：整理配置与环境变量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 推荐的配置文件结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-spring-boot-vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Spring Boot + Vue 路线示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-servlet-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Servlet + HTML 路线示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 环境变量模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、第三步：让数据库可以从空库初始化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、第三步：让数据库可以从空库初始化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 两种初始化方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 初始化脚本至少应包含
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MySQL 初始化示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、第四步：准备数据备份与恢复方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、第四步：准备数据备份与恢复方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 最低恢复方案：重新导入初始化脚本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 备份当前数据库
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 测试数据重置清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、第五步：检查端口、网络与访问路径
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、第五步：检查端口、网络与访问路径">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 端口规划表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 推荐使用 Nginx 同源代理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 检查常见网络问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、第六步：检查文件、日志与上传目录
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、第六步：检查文件、日志与上传目录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 文件目录规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Docker 挂载示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、第七步：构建并检查部署产物
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、第七步：构建并检查部署产物">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        构建产物不要提交到 Git
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、第八步：填写部署前检查清单
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、第八步：填写部署前检查清单">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置与安全
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据库与数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        构建与网络
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件与交付
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、填写部署准备记录模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本节小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="54">5.4 完成部署准备：配置、数据与启动清单<a class="headerlink" href="#54" title="Permanent link">&para;</a></h1>
+<h2 id="_1">让项目离开开发电脑后，仍然能够启动<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">本机能运行，不等于可以部署</p>
+<p>开发过程中，数据库地址、账号密码、端口、上传目录和测试数据可能已经保存在你的 IDE、本机配置或记忆中。换一台电脑、换一个数据库，项目就可能无法启动。</p>
+<p>部署准备的目标不是立刻把项目放到公网，而是把这些隐含条件整理为<strong>可配置、可初始化、可说明、可恢复</strong>的交付环境。最低要求是：不依赖 IDE、不手工修改代码，按 README 和脚本可以在本机或局域网重新启动项目。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">本节学习目标</p>
+<p>整理开发与部署配置，准备数据库初始化、备份与恢复方案，检查端口、环境变量、文件目录和启动命令，形成一份部署前清单，为下一节本地 Docker 部署与验证做好准备。</p>
+</div>
+<p><a class="md-button" href="../03-defect-regression/">返回上一节：管理缺陷并回归</a>
+<a class="md-button" href="../../chapter04/">返回第四篇：项目开发与业务实现</a></p>
+<hr />
+<h2 id="_2">🎯 本节完成后，你要交付<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">成果</th>
+<th style="text-align: left;">要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">部署配置说明</td>
+<td style="text-align: left;">写清数据库、端口、环境变量、文件目录和服务地址</td>
+</tr>
+<tr>
+<td style="text-align: left;">环境变量模板</td>
+<td style="text-align: left;">提供 <code>.env.example</code>、配置模板或等价说明；不提交真实密码和密钥</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库初始化材料</td>
+<td style="text-align: left;">从空库创建表、基础账号和必要测试数据的 SQL 或迁移脚本</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据备份与恢复说明</td>
+<td style="text-align: left;">知道测试数据被破坏后如何恢复到可测试状态</td>
+</tr>
+<tr>
+<td style="text-align: left;">启动说明</td>
+<td style="text-align: left;">从构建、配置到访问地址的完整步骤</td>
+</tr>
+<tr>
+<td style="text-align: left;">部署前检查清单</td>
+<td style="text-align: left;">在部署前逐项确认配置、数据、构建产物和安全项</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">部署准备不是复制本机配置</p>
+<p>不要把本机绝对路径、个人账号、真实密码、Token、数据库备份文件或 IDE 私有配置直接提交到仓库。项目需要的是可替换的配置模板与明确说明。</p>
+</div>
+<hr />
+<h2 id="_3">一、先明确：开发配置和部署配置为什么要分开<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>开发环境通常追求方便：本机数据库、固定端口、调试日志、测试账号、热更新。部署环境更关注稳定、可配置和安全：不同地址、不同账号、最少暴露、可重复启动。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">配置项</th>
+<th style="text-align: left;">开发环境特点</th>
+<th style="text-align: left;">部署环境特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">数据库地址</td>
+<td style="text-align: left;">常为 <code>localhost</code></td>
+<td style="text-align: left;">可能是 Docker 服务名、局域网 IP 或云数据库地址</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库密码</td>
+<td style="text-align: left;">可使用本机测试密码</td>
+<td style="text-align: left;">通过环境变量或本地私有文件提供，不提交仓库</td>
+</tr>
+<tr>
+<td style="text-align: left;">日志级别</td>
+<td style="text-align: left;">可开启 DEBUG，便于排查</td>
+<td style="text-align: left;">使用 INFO/WARN，避免输出敏感信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">跨域配置</td>
+<td style="text-align: left;">允许本地前端开发端口</td>
+<td style="text-align: left;">只允许实际前端地址或由 Nginx 同源代理</td>
+</tr>
+<tr>
+<td style="text-align: left;">文件上传路径</td>
+<td style="text-align: left;">可存本机临时目录</td>
+<td style="text-align: left;">需要可写目录、挂载卷或对象存储方案</td>
+</tr>
+<tr>
+<td style="text-align: left;">前端接口地址</td>
+<td style="text-align: left;">Vite 代理或 <code>localhost</code></td>
+<td style="text-align: left;">由 Nginx 代理 <code>/api</code> 或使用实际服务地址</td>
+</tr>
+<tr>
+<td style="text-align: left;">初始化数据</td>
+<td style="text-align: left;">便于测试，可随时重置</td>
+<td style="text-align: left;">仅保留演示所需数据，不使用真实隐私数据</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">配置可变，代码不应随环境改变</p>
+<p>切换数据库、端口或部署方式时，优先修改环境变量和配置文件；不要为了部署把 Java、JavaScript 或 SQL 中的地址硬编码后再提交。</p>
+</div>
+<hr />
+<h2 id="_4">二、第一步：盘点项目真正依赖什么<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>部署前先列出项目运行所依赖的外部条件。不要只看代码目录，也要检查 README、配置文件、Docker 配置、数据库脚本和第三方服务。</p>
+<h3 id="1">1. 部署依赖清单<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">类别</th>
+<th style="text-align: left;">要确认的内容</th>
+<th style="text-align: left;">项目实际值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">运行时</td>
+<td style="text-align: left;">JDK、Node、Tomcat、Docker、Docker Compose 版本</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">后端服务</td>
+<td style="text-align: left;">应用端口、启动命令、JAR/WAR 文件名</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">前端服务</td>
+<td style="text-align: left;">构建命令、静态文件目录、接口代理规则</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库</td>
+<td style="text-align: left;">类型、版本、主机、端口、库名、账号、初始化方式</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">文件存储</td>
+<td style="text-align: left;">上传目录、日志目录、是否需要挂载卷</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">身份认证</td>
+<td style="text-align: left;">JWT 密钥或 Session 配置、Cookie 规则、有效期</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">网络</td>
+<td style="text-align: left;">浏览器访问地址、后端地址、Nginx 端口、CORS 规则</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">第三方服务</td>
+<td style="text-align: left;">AI、短信、邮件、支付、地图等依赖与降级方案</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2">2. 检查隐藏在代码中的环境依赖<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>重点搜索以下风险：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>localhost
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>127.0.0.1
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>192.168.x.x
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>/root/
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>/Users/
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>C:\Users\
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>数据库密码
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>JWT 密钥
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>API Key
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>固定端口
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>固定上传路径
+</code></pre></div></td></tr></table></div>
+<p>例如：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># 在项目根目录执行；根据项目语言与文件类型调整</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="c1"># macOS / Linux</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>grep<span class="w"> </span>-R<span class="w"> </span><span class="s2">&quot;localhost\|127\.0\.0\.1\|password\|secret\|apiKey&quot;</span><span class="w"> </span>.<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span>--exclude-dir<span class="o">=</span>node_modules<span class="w"> </span>--exclude-dir<span class="o">=</span>.git
+</code></pre></div></td></tr></table></div>
+<p>发现后逐项判断：</p>
+<ul>
+<li>这是开发环境默认值，还是必须改为配置项？</li>
+<li>是否包含敏感信息？</li>
+<li>是否会导致换机器或 Docker 环境无法启动？</li>
+<li>README 是否已说明如何替换？</li>
+</ul>
+<div class="admonition failure">
+<p class="admonition-title">不要提交真实密钥</p>
+<p>数据库密码、JWT 私钥、第三方 API Key、支付密钥、云服务器密码等一旦提交到 Git 历史中，即使后续删除也可能已泄露。应立即更换已泄露的密钥，而不是只删除文件。</p>
+</div>
+<hr />
+<h2 id="_5">三、第二步：整理配置与环境变量<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>不同技术路线的具体文件不同，但原则相同：<strong>仓库中保留模板，实际值在环境变量或本机私有文件中提供。</strong></p>
+<h3 id="1_1">1. 推荐的配置文件结构<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>project/
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>├── backend/
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>│   ├── src/main/resources/
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>│   │   ├── application.yml              # 公共配置，可提交
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>│   │   ├── application-dev.yml          # 开发默认配置，可提交
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>│   │   ├── application-prod.yml         # 部署配置模板，可提交
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>│   │   └── application-local.yml        # 本机私有配置，不提交
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>│   └── .env.example                     # 环境变量示例，可提交
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>│
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>├── frontend/
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>│   ├── .env.development                 # 开发接口地址，可提交
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>│   ├── .env.production                  # 部署接口地址模板，可提交
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>│   └── .env.local                       # 本机私有覆盖，不提交
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a>│
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a>├── deploy/
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>│   ├── docker-compose.yml
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a>│   └── .env.example
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a>└── .gitignore
+</code></pre></div></td></tr></table></div>
+<p>不要求所有项目完全采用上述结构，但至少应满足：</p>
+<ul>
+<li>公共配置可以提交；</li>
+<li>私有配置被 <code>.gitignore</code> 忽略；</li>
+<li>新同学能从示例配置知道每个变量含义；</li>
+<li>Docker 或启动命令可以读取实际配置；</li>
+<li>README 写清配置文件放在哪里、怎样创建。</li>
+</ul>
+<h3 id="2-spring-boot-vue">2. Spring Boot + Vue 路线示例<a class="headerlink" href="#2-spring-boot-vue" title="Permanent link">&para;</a></h3>
+<p>后端 <code>application-prod.yml</code> 可使用环境变量提供实际值：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nt">spring</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">  </span><span class="nt">datasource</span><span class="p">:</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:project_db}?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DB_USER:root}</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DB_PASSWORD:}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="nt">server</span><span class="p">:</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${SERVER_PORT:8080}</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="nt">jwt</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">  </span><span class="nt">secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${JWT_SECRET:请在部署环境中设置安全密钥}</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">  </span><span class="nt">expire-hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${JWT_EXPIRE_HOURS:24}</span>
+</code></pre></div></td></tr></table></div>
+<p>前端 <code>.env.production</code>：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a># 推荐使用 Nginx 将 /api 代理到后端，前端无需写死主机地址
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>VITE_API_BASE_URL=/api
+</code></pre></div></td></tr></table></div>
+<h3 id="3-servlet-html">3. Servlet + HTML 路线示例<a class="headerlink" href="#3-servlet-html" title="Permanent link">&para;</a></h3>
+<p><code>druid.properties</code> 可以保留开发默认值，但部署时建议由外部文件或环境变量覆盖。至少在 README 中明确：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="na">driverClassName</span><span class="o">=</span><span class="s">com.mysql.cj.jdbc.Driver</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="na">url</span><span class="o">=</span><span class="s">jdbc:mysql://localhost:3306/project_db?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="na">username</span><span class="o">=</span><span class="s">root</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="na">password</span><span class="o">=</span><span class="s">请替换为部署数据库密码</span>
+</code></pre></div></td></tr></table></div>
+<p>如果项目通过 Docker 部署，可由容器环境变量生成或覆盖该文件；不要把真实密码直接写入 Git 仓库。</p>
+<h3 id="4">4. 环境变量模板<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>可创建 <code>deploy/.env.example</code>：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a># 数据库
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>DB_HOST=mysql
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>DB_PORT=3306
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>DB_NAME=project_db
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>DB_USER=project_user
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>DB_PASSWORD=请替换
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>MYSQL_ROOT_PASSWORD=请替换
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a># 应用
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a>SERVER_PORT=8080
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a>JWT_SECRET=请使用至少32位随机字符串
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a># 可选：文件上传目录
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a>UPLOAD_DIR=/app/uploads
+</code></pre></div></td></tr></table></div>
+<p>使用时复制为不提交的 <code>.env</code>：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>cp<span class="w"> </span>deploy/.env.example<span class="w"> </span>deploy/.env
+</code></pre></div></td></tr></table></div>
+<p>然后填写真实值，并确认 <code>.gitignore</code> 中包含：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>.env
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>.env.local
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>*.local
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>application-local.yml
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>application-local.yaml
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="_6">四、第三步：让数据库可以从空库初始化<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>部署失败最常见的原因之一，是“代码启动了，但表不存在、字段不一致、没有测试账号或基础数据”。</p>
+<h3 id="1_2">1. 两种初始化方式<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">方式</th>
+<th style="text-align: left;">适用情况</th>
+<th style="text-align: left;">优点</th>
+<th style="text-align: left;">注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">SQL 初始化脚本</td>
+<td style="text-align: left;">Servlet 项目、小型课程项目、首次部署</td>
+<td style="text-align: left;">直观、容易检查</td>
+<td style="text-align: left;">每次变更后要同步维护脚本</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库迁移脚本</td>
+<td style="text-align: left;">Spring Boot + Flyway 等项目</td>
+<td style="text-align: left;">可记录版本、自动按顺序执行</td>
+<td style="text-align: left;">不能随意修改已发布迁移文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2_1">2. 初始化脚本至少应包含<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span>
+<span class="normal"><a href="#__codelineno-9-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>创建数据库（如需要）
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>→ 创建表
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>→ 主键、外键、唯一约束和索引
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>→ 必要字典数据
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>→ 测试角色与测试账号
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a>→ 支撑核心流程的演示数据（按需）
+</code></pre></div></td></tr></table></div>
+<p>检查：</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 在空数据库中可以完整执行；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 不依赖手工补字段、改约束或导入未知文件；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 与当前实体类、DAO/Mapper 和接口字段一致；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 初始化账号密码有明确说明；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 不使用真实学生、手机号、身份证、订单或支付数据；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 脚本执行两次时有清晰处理方式（报错可接受，但必须说明）；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 部署后核心流程有足够的数据可演示。</li>
+</ul>
+<h3 id="3-mysql">3. MySQL 初始化示例<a class="headerlink" href="#3-mysql" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span>
+<span class="normal"><a href="#__codelineno-10-16">16</a></span>
+<span class="normal"><a href="#__codelineno-10-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">project_db</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">  </span><span class="k">DEFAULT</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">  </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="n">USE</span><span class="w"> </span><span class="n">project_db</span><span class="p">;</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">BIGINT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">,</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">    </span><span class="n">password</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">    </span><span class="k">role</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="p">,</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="p">);</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a>
+<a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="c1">-- 仅用于课程测试；真实项目必须使用安全密码策略</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">,</span><span class="w"> </span><span class="k">role</span><span class="p">)</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;请替换为加密后的测试密码&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title">脚本中的测试密码也要说明用途</p>
+<p>课程脚手架可以提供测试账号，但 README 必须写明“仅用于本地测试”。不要将课程测试账号误用于真实线上服务。</p>
+</div>
+<hr />
+<h2 id="_7">五、第四步：准备数据备份与恢复方案<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>测试和演示会不断改变业务状态。没有恢复方案，就会出现“上次已经报名”“库存已经扣完”“流程走到终态不能重测”等问题。</p>
+<h3 id="1_3">1. 最低恢复方案：重新导入初始化脚本<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
+<p>适用于数据量小、课程项目：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># 删除并重新创建数据库后导入脚本</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>&lt;<span class="w"> </span>sql/init.sql
+</code></pre></div></td></tr></table></div>
+<p>实际命令应按自己的库名、脚本路径和账号调整，并写入 README。</p>
+<h3 id="2_2">2. 备份当前数据库<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
+<p>在执行大范围测试或部署前，建议备份：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c1"># 导出结构与数据；替换数据库名</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>mysqldump<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>project_db<span class="w"> </span>&gt;<span class="w"> </span>backup/project_db_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>.sql
+</code></pre></div></td></tr></table></div>
+<p>恢复：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>project_db<span class="w"> </span>&lt;<span class="w"> </span>backup/project_db_20260101_120000.sql
+</code></pre></div></td></tr></table></div>
+<p>Windows 用户可以使用 MySQL Workbench、Navicat 或图形化工具完成等价操作，但仍需记录工具、文件位置和恢复步骤。</p>
+<h3 id="3">3. 测试数据重置清单<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">测试对象</th>
+<th style="text-align: left;">重置方式</th>
+<th style="text-align: left;">验证结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用户账号</td>
+<td style="text-align: left;">重新导入初始化数据 / 删除临时账号</td>
+<td style="text-align: left;">能用测试账号登录</td>
+</tr>
+<tr>
+<td style="text-align: left;">核心业务记录</td>
+<td style="text-align: left;">清空测试记录 / 导入初始 SQL</td>
+<td style="text-align: left;">流程回到起始状态</td>
+</tr>
+<tr>
+<td style="text-align: left;">文件上传</td>
+<td style="text-align: left;">清空测试目录或恢复挂载卷</td>
+<td style="text-align: left;">页面不显示无效文件</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据库统计值</td>
+<td style="text-align: left;">重新计算或重新导入</td>
+<td style="text-align: left;">名额、库存、数量与记录一致</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">优先使用可重复脚本</p>
+<p>如果需要每次测试前手工改十几条记录，说明初始化或重置脚本还不完整。把重复操作写进 SQL 或脚本，后续测试和答辩会更稳定。</p>
+</div>
+<hr />
+<h2 id="_8">六、第五步：检查端口、网络与访问路径<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>部署前要明确“服务在哪里运行、浏览器通过哪个地址访问、前后端怎样通信”。</p>
+<h3 id="1_4">1. 端口规划表<a class="headerlink" href="#1_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">服务</th>
+<th style="text-align: center;">容器内端口</th>
+<th style="text-align: center;">本机映射端口</th>
+<th style="text-align: left;">访问者</th>
+<th style="text-align: left;">实际配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">MySQL</td>
+<td style="text-align: center;">3306</td>
+<td style="text-align: center;">3306（可选）</td>
+<td style="text-align: left;">后端、数据库工具</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">Spring Boot 后端</td>
+<td style="text-align: center;">8080</td>
+<td style="text-align: center;">8080</td>
+<td style="text-align: left;">前端 / Nginx</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">Servlet / Tomcat</td>
+<td style="text-align: center;">8080</td>
+<td style="text-align: center;">8080</td>
+<td style="text-align: left;">浏览器 / Nginx</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">Vue 开发服务</td>
+<td style="text-align: center;">5173</td>
+<td style="text-align: center;">5173</td>
+<td style="text-align: left;">开发浏览器</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+<tr>
+<td style="text-align: left;">Nginx</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">80 或 8088</td>
+<td style="text-align: left;">浏览器</td>
+<td style="text-align: left;">【填写】</td>
+</tr>
+</tbody>
+</table>
+<p>并非所有服务都必须暴露到宿主机。例如 Docker Compose 中 MySQL 只供后端使用时，可以不映射 <code>3306:3306</code>，减少端口冲突与误访问。</p>
+<h3 id="2-nginx">2. 推荐使用 Nginx 同源代理<a class="headerlink" href="#2-nginx" title="Permanent link">&para;</a></h3>
+<p>前后端分离项目可让浏览器始终访问同一个地址：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span>
+<span class="normal"><a href="#__codelineno-14-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>浏览器
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>→ http://localhost:8088/
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a>→ Nginx 静态前端页面
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a>→ /api/*
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a>→ Nginx 代理到后端服务
+</code></pre></div></td></tr></table></div>
+<p>Nginx 示例：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span>
+<span class="normal"><a href="#__codelineno-15-12">12</a></span>
+<span class="normal"><a href="#__codelineno-15-13">13</a></span>
+<span class="normal"><a href="#__codelineno-15-14">14</a></span>
+<span class="normal"><a href="#__codelineno-15-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">_</span><span class="p">;</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="w">        </span><span class="kn">root</span><span class="w"> </span><span class="s">/usr/share/nginx/html</span><span class="p">;</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="w">        </span><span class="kn">try_files</span><span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri/</span><span class="w"> </span><span class="s">/index.html</span><span class="p">;</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9"></a>
+<a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/api/</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://backend:8080</span><span class="p">;</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>这样前端可以使用 <code>/api</code>，减少 CORS 配置与环境地址切换问题。</p>
+<h3 id="3_1">3. 检查常见网络问题<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">现象</th>
+<th style="text-align: left;">常见原因</th>
+<th style="text-align: left;">检查方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">页面打不开</td>
+<td style="text-align: left;">端口未监听、容器未启动、端口冲突</td>
+<td style="text-align: left;">查看服务日志与端口映射</td>
+</tr>
+<tr>
+<td style="text-align: left;">页面打开但接口 404</td>
+<td style="text-align: left;">Nginx 路径、前端 baseURL、后端 context path 不一致</td>
+<td style="text-align: left;">检查 Network 请求地址</td>
+</tr>
+<tr>
+<td style="text-align: left;">浏览器提示跨域</td>
+<td style="text-align: left;">前端地址和后端地址不同且 CORS 未配置</td>
+<td style="text-align: left;">优先改用 Nginx <code>/api</code> 代理</td>
+</tr>
+<tr>
+<td style="text-align: left;">容器内连不上数据库</td>
+<td style="text-align: left;">DB_HOST 写成 localhost</td>
+<td style="text-align: left;">Docker 内应使用服务名，例如 <code>mysql</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">局域网无法访问</td>
+<td style="text-align: left;">只监听 127.0.0.1、防火墙或端口未映射</td>
+<td style="text-align: left;">检查绑定地址、防火墙和实际 IP</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">容器里的 localhost 不是你的电脑</p>
+<p>在 Docker 容器中，<code>localhost</code> 指向当前容器自身。后端连接 Docker Compose 中的数据库时，应使用服务名，如 <code>mysql</code>，而不是 <code>localhost</code>。</p>
+</div>
+<hr />
+<h2 id="_9">七、第六步：检查文件、日志与上传目录<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>不是所有项目都需要文件上传，但只要项目有头像、图片、附件、导入导出或日志，就必须明确文件保存位置。</p>
+<h3 id="1_5">1. 文件目录规划<a class="headerlink" href="#1_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">目录</th>
+<th style="text-align: left;">用途</th>
+<th style="text-align: left;">是否提交 Git</th>
+<th style="text-align: left;">部署处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>uploads/</code></td>
+<td style="text-align: left;">用户上传文件</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">Docker Volume 或宿主机挂载目录</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>logs/</code></td>
+<td style="text-align: left;">运行日志</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">容器日志或挂载目录</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>backup/</code></td>
+<td style="text-align: left;">数据库导出文件</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">本机/服务器受控目录</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sql/</code></td>
+<td style="text-align: left;">初始化和迁移脚本</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">随项目交付</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docs/</code></td>
+<td style="text-align: left;">项目文档、测试记录</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">随项目交付</td>
+</tr>
+</tbody>
+</table>
+<p><code>.gitignore</code> 示例：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">3</a></span>
+<span class="normal"><a href="#__codelineno-16-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>uploads/
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>logs/
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a>backup/
+<a id="__codelineno-16-4" name="__codelineno-16-4"></a>*.log
+</code></pre></div></td></tr></table></div>
+<h3 id="2-docker">2. Docker 挂载示例<a class="headerlink" href="#2-docker" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nt">services</span><span class="p">:</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="w">  </span><span class="nt">backend</span><span class="p">:</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data/uploads:/app/uploads</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data/logs:/app/logs</span>
+</code></pre></div></td></tr></table></div>
+<p>确认：</p>
+<ul>
+<li>应用有写入目录的权限；</li>
+<li>容器重启后重要文件不会丢失；</li>
+<li>上传文件名和类型有基本校验；</li>
+<li>不将上传目录直接暴露为可执行文件目录；</li>
+<li>日志不记录密码、Token、身份证号等敏感内容。</li>
+</ul>
+<hr />
+<h2 id="_10">八、第七步：构建并检查部署产物<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>在部署前，先在本机完成一次构建，确认产物与配置匹配。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Spring Boot + Vue</label><label for="__tabbed_1_2">Servlet + HTML + CSS + JavaScript</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>后端：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="nb">cd</span><span class="w"> </span>backend
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a>mvn<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a>mvn<span class="w"> </span>clean<span class="w"> </span>package
+</code></pre></div></td></tr></table></div>
+<p>检查：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>target/*.jar 是否生成
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>application-prod.yml 或环境变量是否可读取
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a>数据库迁移或初始化脚本是否存在
+</code></pre></div></td></tr></table></div>
+<p>前端：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="nb">cd</span><span class="w"> </span>frontend
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a>npm<span class="w"> </span>install
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a>npm<span class="w"> </span>run<span class="w"> </span>build
+</code></pre></div></td></tr></table></div>
+<p>检查：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span>
+<span class="normal"><a href="#__codelineno-21-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>dist/ 是否生成
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>生产环境 API 地址是否为 /api 或实际服务地址
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a>不包含本机开发地址和调试密钥
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<p>使用 IDEA + smart-tomcat 插件确认本地 Tomcat 11 可运行后，再执行：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>mvn<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a>mvn<span class="w"> </span>clean<span class="w"> </span>package
+</code></pre></div></td></tr></table></div>
+<p>检查：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>target/scaffold-servlet.war 或项目实际 WAR 文件是否生成
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>web.xml、静态 HTML/CSS/JS 和资源是否已打包
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a>druid.properties 或外部数据库配置是否可替换
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<h3 id="git">构建产物不要提交到 Git<a class="headerlink" href="#git" title="Permanent link">&para;</a></h3>
+<p>以下通常由构建自动生成，应被 <code>.gitignore</code> 忽略：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span>
+<span class="normal"><a href="#__codelineno-24-3">3</a></span>
+<span class="normal"><a href="#__codelineno-24-4">4</a></span>
+<span class="normal"><a href="#__codelineno-24-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>target/
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a>dist/
+<a id="__codelineno-24-3" name="__codelineno-24-3"></a>node_modules/
+<a id="__codelineno-24-4" name="__codelineno-24-4"></a>*.jar
+<a id="__codelineno-24-5" name="__codelineno-24-5"></a>*.war
+</code></pre></div></td></tr></table></div>
+<p>交付的是<strong>源代码、配置模板、脚本和构建说明</strong>，而不是只交一个无法解释来源的二进制文件。</p>
+<hr />
+<h2 id="_11">九、第八步：填写部署前检查清单<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>部署前可按下表逐项确认。</p>
+<h3 id="_12">配置与安全<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 开发和部署配置已分开；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 真实密码、密钥、Token 和个人配置没有提交 Git；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>.env.example</code> 或配置模板已说明全部必要变量；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> JWT 密钥、数据库密码等部署环境值已替换；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 日志级别和错误响应不暴露敏感信息；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 前端没有硬编码开发机 IP、账号或密钥。</li>
+</ul>
+<h3 id="_13">数据库与数据<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 可从空库执行初始化或迁移；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 表、字段、约束、索引和基础数据完整；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 测试账号与密码说明清楚；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已准备正常、中间、完成等状态的演示数据；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 已验证数据库备份与恢复方式；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 没有真实用户隐私或敏感生产数据。</li>
+</ul>
+<h3 id="_14">构建与网络<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 后端或 WAR 构建成功；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 前端构建成功（如适用）；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Dockerfile、docker-compose.yml、Nginx 配置路径正确；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 服务端口没有冲突；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 前端接口地址、Nginx 代理和后端路径一致；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Docker 服务之间使用服务名访问，不使用错误的 <code>localhost</code>；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> README 中的命令已在相对干净环境验证。</li>
+</ul>
+<h3 id="_15">文件与交付<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 上传、日志、备份目录有明确处理方式；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 构建产物、日志、数据库备份和私有配置已加入 <code>.gitignore</code>；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 项目 README 包含启动、配置、测试账号和已知限制；</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 当前 Git 工作区干净，部署版本可通过提交号或标签定位。</li>
+</ul>
+<hr />
+<h2 id="_16">十、填写部署准备记录模板<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<p>将以下内容复制到项目的 <code>docs/部署说明.md</code> 或 <code>docs/testing/部署准备记录.md</code>，按实际项目填写。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-25-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-25-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-25-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-25-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-25-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-25-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-25-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-25-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-25-10">10</a></span>
+<span class="normal"><a href="#__codelineno-25-11">11</a></span>
+<span class="normal"><a href="#__codelineno-25-12">12</a></span>
+<span class="normal"><a href="#__codelineno-25-13">13</a></span>
+<span class="normal"><a href="#__codelineno-25-14">14</a></span>
+<span class="normal"><a href="#__codelineno-25-15">15</a></span>
+<span class="normal"><a href="#__codelineno-25-16">16</a></span>
+<span class="normal"><a href="#__codelineno-25-17">17</a></span>
+<span class="normal"><a href="#__codelineno-25-18">18</a></span>
+<span class="normal"><a href="#__codelineno-25-19">19</a></span>
+<span class="normal"><a href="#__codelineno-25-20">20</a></span>
+<span class="normal"><a href="#__codelineno-25-21">21</a></span>
+<span class="normal"><a href="#__codelineno-25-22">22</a></span>
+<span class="normal"><a href="#__codelineno-25-23">23</a></span>
+<span class="normal"><a href="#__codelineno-25-24">24</a></span>
+<span class="normal"><a href="#__codelineno-25-25">25</a></span>
+<span class="normal"><a href="#__codelineno-25-26">26</a></span>
+<span class="normal"><a href="#__codelineno-25-27">27</a></span>
+<span class="normal"><a href="#__codelineno-25-28">28</a></span>
+<span class="normal"><a href="#__codelineno-25-29">29</a></span>
+<span class="normal"><a href="#__codelineno-25-30">30</a></span>
+<span class="normal"><a href="#__codelineno-25-31">31</a></span>
+<span class="normal"><a href="#__codelineno-25-32">32</a></span>
+<span class="normal"><a href="#__codelineno-25-33">33</a></span>
+<span class="normal"><a href="#__codelineno-25-34">34</a></span>
+<span class="normal"><a href="#__codelineno-25-35">35</a></span>
+<span class="normal"><a href="#__codelineno-25-36">36</a></span>
+<span class="normal"><a href="#__codelineno-25-37">37</a></span>
+<span class="normal"><a href="#__codelineno-25-38">38</a></span>
+<span class="normal"><a href="#__codelineno-25-39">39</a></span>
+<span class="normal"><a href="#__codelineno-25-40">40</a></span>
+<span class="normal"><a href="#__codelineno-25-41">41</a></span>
+<span class="normal"><a href="#__codelineno-25-42">42</a></span>
+<span class="normal"><a href="#__codelineno-25-43">43</a></span>
+<span class="normal"><a href="#__codelineno-25-44">44</a></span>
+<span class="normal"><a href="#__codelineno-25-45">45</a></span>
+<span class="normal"><a href="#__codelineno-25-46">46</a></span>
+<span class="normal"><a href="#__codelineno-25-47">47</a></span>
+<span class="normal"><a href="#__codelineno-25-48">48</a></span>
+<span class="normal"><a href="#__codelineno-25-49">49</a></span>
+<span class="normal"><a href="#__codelineno-25-50">50</a></span>
+<span class="normal"><a href="#__codelineno-25-51">51</a></span>
+<span class="normal"><a href="#__codelineno-25-52">52</a></span>
+<span class="normal"><a href="#__codelineno-25-53">53</a></span>
+<span class="normal"><a href="#__codelineno-25-54">54</a></span>
+<span class="normal"><a href="#__codelineno-25-55">55</a></span>
+<span class="normal"><a href="#__codelineno-25-56">56</a></span>
+<span class="normal"><a href="#__codelineno-25-57">57</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="gh"># 【项目名称】部署准备记录</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a>
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="gu">## 1. 部署版本</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a>
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a>| 项目 | 内容 |
+<a id="__codelineno-25-6" name="__codelineno-25-6"></a>| :--- | :--- |
+<a id="__codelineno-25-7" name="__codelineno-25-7"></a>| 代码版本 | 【分支 / 标签 / 提交编号】 |
+<a id="__codelineno-25-8" name="__codelineno-25-8"></a>| 准备日期 | 【填写】 |
+<a id="__codelineno-25-9" name="__codelineno-25-9"></a>| 技术路线 | 【填写】 |
+<a id="__codelineno-25-10" name="__codelineno-25-10"></a>| 部署目标 | 【本机 / Docker / 局域网 / 云服务器】 |
+<a id="__codelineno-25-11" name="__codelineno-25-11"></a>
+<a id="__codelineno-25-12" name="__codelineno-25-12"></a><span class="gu">## 2. 运行环境</span>
+<a id="__codelineno-25-13" name="__codelineno-25-13"></a>
+<a id="__codelineno-25-14" name="__codelineno-25-14"></a>| 项目 | 实际值 |
+<a id="__codelineno-25-15" name="__codelineno-25-15"></a>| :--- | :--- |
+<a id="__codelineno-25-16" name="__codelineno-25-16"></a>| 操作系统 | 【填写】 |
+<a id="__codelineno-25-17" name="__codelineno-25-17"></a>| JDK / Node / Tomcat / Docker 版本 | 【填写】 |
+<a id="__codelineno-25-18" name="__codelineno-25-18"></a>| 数据库类型与版本 | 【填写】 |
+<a id="__codelineno-25-19" name="__codelineno-25-19"></a>| 浏览器 | 【填写】 |
+<a id="__codelineno-25-20" name="__codelineno-25-20"></a>
+<a id="__codelineno-25-21" name="__codelineno-25-21"></a><span class="gu">## 3. 配置项</span>
+<a id="__codelineno-25-22" name="__codelineno-25-22"></a>
+<a id="__codelineno-25-23" name="__codelineno-25-23"></a>| 配置项 | 获取方式 | 是否提交 Git | 说明 |
+<a id="__codelineno-25-24" name="__codelineno-25-24"></a>| :--- | :--- | :--- | :--- |
+<a id="__codelineno-25-25" name="__codelineno-25-25"></a>| 数据库地址 | 环境变量 / 配置文件 | 否 | 【填写】 |
+<a id="__codelineno-25-26" name="__codelineno-25-26"></a>| 数据库账号 | 环境变量 / 配置文件 | 否 | 【填写】 |
+<a id="__codelineno-25-27" name="__codelineno-25-27"></a>| 数据库密码 | 环境变量 / 私有文件 | 否 | 【填写】 |
+<a id="__codelineno-25-28" name="__codelineno-25-28"></a>| JWT 密钥 / Session 配置 | 环境变量 / 私有文件 | 否 | 【填写】 |
+<a id="__codelineno-25-29" name="__codelineno-25-29"></a>| 前端 API 地址 | 构建配置 / Nginx | 是 / 否 | 【填写】 |
+<a id="__codelineno-25-30" name="__codelineno-25-30"></a>| 文件上传目录 | 环境变量 / Volume | 否 | 【填写】 |
+<a id="__codelineno-25-31" name="__codelineno-25-31"></a>
+<a id="__codelineno-25-32" name="__codelineno-25-32"></a><span class="gu">## 4. 数据库初始化与恢复</span>
+<a id="__codelineno-25-33" name="__codelineno-25-33"></a>
+<a id="__codelineno-25-34" name="__codelineno-25-34"></a><span class="k">-</span><span class="w"> </span>初始化脚本或迁移位置：【填写】
+<a id="__codelineno-25-35" name="__codelineno-25-35"></a><span class="k">-</span><span class="w"> </span>初始化命令：【填写】
+<a id="__codelineno-25-36" name="__codelineno-25-36"></a><span class="k">-</span><span class="w"> </span>测试账号：【填写】
+<a id="__codelineno-25-37" name="__codelineno-25-37"></a><span class="k">-</span><span class="w"> </span>备份命令或工具：【填写】
+<a id="__codelineno-25-38" name="__codelineno-25-38"></a><span class="k">-</span><span class="w"> </span>恢复命令或步骤：【填写】
+<a id="__codelineno-25-39" name="__codelineno-25-39"></a>
+<a id="__codelineno-25-40" name="__codelineno-25-40"></a><span class="gu">## 5. 端口与访问地址</span>
+<a id="__codelineno-25-41" name="__codelineno-25-41"></a>
+<a id="__codelineno-25-42" name="__codelineno-25-42"></a>| 服务 | 端口 | 访问地址 | 说明 |
+<a id="__codelineno-25-43" name="__codelineno-25-43"></a>| :--- | :--- | :--- | :--- |
+<a id="__codelineno-25-44" name="__codelineno-25-44"></a>| 数据库 | 【填写】 | 【填写】 | 【填写】 |
+<a id="__codelineno-25-45" name="__codelineno-25-45"></a>| 后端 / Tomcat | 【填写】 | 【填写】 | 【填写】 |
+<a id="__codelineno-25-46" name="__codelineno-25-46"></a>| 前端 / Nginx | 【填写】 | 【填写】 | 【填写】 |
+<a id="__codelineno-25-47" name="__codelineno-25-47"></a>
+<a id="__codelineno-25-48" name="__codelineno-25-48"></a><span class="gu">## 6. 部署前检查结论</span>
+<a id="__codelineno-25-49" name="__codelineno-25-49"></a>
+<a id="__codelineno-25-50" name="__codelineno-25-50"></a><span class="k">- [ ]</span> 配置模板完整且敏感信息未提交
+<a id="__codelineno-25-51" name="__codelineno-25-51"></a><span class="k">- [ ]</span> 数据库可从空库初始化
+<a id="__codelineno-25-52" name="__codelineno-25-52"></a><span class="k">- [ ]</span> 构建产物已生成
+<a id="__codelineno-25-53" name="__codelineno-25-53"></a><span class="k">- [ ]</span> 端口、代理和服务地址已核对
+<a id="__codelineno-25-54" name="__codelineno-25-54"></a><span class="k">- [ ]</span> 测试数据可恢复
+<a id="__codelineno-25-55" name="__codelineno-25-55"></a><span class="k">- [ ]</span> README 启动说明已验证
+<a id="__codelineno-25-56" name="__codelineno-25-56"></a>
+<a id="__codelineno-25-57" name="__codelineno-25-57"></a>当前阻塞问题或风险：【填写；没有则写无】
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="_17">本节小结<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<p>部署准备的本质，是把“只有开发者知道怎样运行”的项目变成“其他人按说明也能运行”的项目：</p>
+<blockquote>
+<p>盘点依赖 → 分离配置 → 准备环境变量模板 → 初始化并可恢复数据库 → 核对端口与代理 → 检查文件目录 → 构建产物 → 用清单确认。</p>
+</blockquote>
+<p>完成本节后，你已经具备进入部署验证的条件。下一节将使用本地或局域网环境实际启动服务，验证部署后的系统仍能完成核心流程。</p>
+<p><a class="md-button md-button--primary" href="../05-deployment-verification/">下一节：5.5 部署验证：本地 Docker 与可访问系统</a>
+<a class="md-button" href="../03-defect-regression/">返回上一节：管理缺陷并回归</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 陈德
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
