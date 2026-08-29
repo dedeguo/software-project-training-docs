@@ -21,3 +21,5 @@ myplan/
 
 # IDE 预览/工作产物
 *.inspect.ndjson
+
+.workbuddy/
