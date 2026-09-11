@@ -22,6 +22,7 @@ theme:
 nav:
   - 课程介绍: 
      - 课程介绍: index.md
+  - 课堂笔记与资源: wps/index.md
   - 课程导学:
     - 课程导学: guide/index.md
     - 学习与AI协作规范: guide/learning-method.md
