@@ -582,6 +582,10 @@ ${skillSequence}
 使用 requirements-review Skill 检查立项书和需求分析说明书。
 \`\`\`
 
+\`\`\`text
+使用 course-report Skill 根据项目材料整理课程设计报告。
+\`\`\`
+
 ## 更新说明
 
 当课程技能包升级后，可在项目根目录重新运行：

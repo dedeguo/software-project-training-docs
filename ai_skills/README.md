@@ -29,6 +29,7 @@
 | `requirements-review`   | 对照检查《项目选题立项书》和《需求分析说明书》中的矛盾、遗漏和超范围内容 |
 | `system-design`         | 完成技术选型、架构、模块、页面、数据、接口、权限和状态设计并编制设计说明书 |
 | `system-design-review`  | 评审系统设计的需求覆盖、可行性、一致性、安全风险和进入开发条件 |
+| `course-report` | 根据项目成果和测试证据整理课程设计任务书与报告 |
 
 后续可继续增加：
 
@@ -128,9 +129,12 @@ student-project/
 │   │   │   ├── agents/
 │   │   │   └── references/
 │   │   │
-│   │   └── system-design-review/
+│   │   ├── system-design-review/
 │   │       ├── SKILL.md
 │   │       ├── agents/
+│   │       └── references/
+│   │   └── course-report/
+│   │       ├── SKILL.md
 │   │       └── references/
 │   │
 │   └── rules/
@@ -217,6 +221,14 @@ TRAE 可以根据 Skill 的 `description` 自动判断何时调用对应技能�
 
 ```text
 使用 system-design-review Skill，复核评审问题的修改结果并判断能否形成设计基线。
+```
+
+---
+
+### 6. 课程报告
+
+```text
+使用 course-report Skill，根据项目代码、设计文档和测试记录整理课程设计报告，并标出缺少的证据。
 ```
 
 ---
@@ -329,13 +341,19 @@ course_design/
     │       ├── system-design-spec-template.md
     │       └── design-consistency-checklist.md
     │
-    └── system-design-review/
+    ├── system-design-review/
         ├── SKILL.md
         ├── agents/
         │   └── openai.yaml
         └── references/
             ├── system-design-review-checklist.md
             └── design-review-record-template.md
+    └── course-report/
+        ├── SKILL.md
+        └── references/
+            ├── task-sheet-template.md
+            ├── course-report-template.md
+            └── report-checklist.md
 ```
 
 ---
@@ -740,6 +758,7 @@ requirements-analysis
 requirements-review
 system-design
 system-design-review
+course-report
 ```
 
 不会清空整个：
@@ -821,6 +840,10 @@ system-design
 系统设计评审
     ↓
 system-design-review
+    ↓
+项目完成与测试
+    ↓
+course-report
 ```
 
 建议学生在使用 AI 时遵循以下原则：
