@@ -271,6 +271,14 @@ npx @dedeguo/software-project-training-skills@latest
 
 重新安装时，只会覆盖当前技能包中的同名 Skill，不会删除用户自己创建的其他 Skill。
 
+也可以指定版本安装：
+
+```bash
+npx @dedeguo/software-project-training-skills@0.2.0
+```
+
+如果镜像源上还没有该版本，可参考[十一、发布到 npm](#十一发布到-npm)中的"同步到 npmmirror 镜像站"手动触发一次同步。
+
 ### 卸载技能包
 
 ```bash
@@ -656,6 +664,46 @@ npm publish --access public
 npx @dedeguo/software-project-training-skills
 ```
 
+### 6. 同步到 npmmirror 镜像站（可选）
+
+npmmirror 不是按固定周期对所有包做全量复制，而是“定时 + 按需”同步，所以无法给出确切同步时间：
+
+* **热门包**：后台定时任务同步，通常几分钟到 1 小时内完成。
+* **冷门包或个人 scope 包**（本包属于这种情况）：如果没人访问过新版本，可能一直停在旧版，直到有人请求或手动触发。
+
+因此，源站发布新版本 ≠ 镜像立刻可见。可以手动触发一次同步：
+
+```bash
+# 触发同步（把包名中的 / 编码为 %2f）
+curl -X PUT "https://registry.npmmirror.com/-/package/@dedeguo%2fsoftware-project-training-skills/syncs"
+```
+
+Windows PowerShell 写法：
+
+```powershell
+Invoke-RestMethod -Method Put -Uri "https://registry.npmmirror.com/-/package/@dedeguo%2fsoftware-project-training-skills/syncs"
+```
+
+也可以在网页上手动同步：
+
+```text
+https://npmmirror.com/sync/@dedeguo/software-project-training-skills
+```
+
+触发后可以查询镜像上的版本确认是否同步完成：
+
+```bash
+npm view @dedeguo/software-project-training-skills versions
+```
+
+实测一次手动同步的返回状态为 `state: success`，耗时约 20 秒，之后镜像上 `0.1.0`、`0.2.0` 均已存在，此时无需指定 registry 即可安装指定版本：
+
+```bash
+npx @dedeguo/software-project-training-skills@0.2.0
+```
+
+原理一句话：镜像站只在“有人要”的时候才去源站拉取最新元数据，所以要么等定时任务，要么自己推一下。
+
 ---
 
 ## 十二、版本更新
@@ -807,6 +855,34 @@ npx @dedeguo/software-project-training-skills@latest
 * 学生提交项目时可以保留项目规则
 * 教师能够检查项目中使用了哪些 Skills
 * 技能版本可以随项目保持一致
+
+### 7. 镜像源上找不到刚发布的版本
+
+国内使用 npmmirror 时可能出现"源站已发布新版本，但镜像上仍是旧版"的情况。
+
+原因：npmmirror 采用“定时 + 按需”同步，冷门包和个人 scope 包如果没有被访问过，新版本不会被自动拉取。
+
+处理方式：
+
+1. 手动触发一次同步：
+
+   ```bash
+   curl -X PUT "https://registry.npmmirror.com/-/package/@dedeguo%2fsoftware-project-training-skills/syncs"
+   ```
+
+2. 或在网页同步：<https://npmmirror.com/sync/@dedeguo/software-project-training-skills>
+
+3. 查询镜像上的版本确认：
+
+   ```bash
+   npm view @dedeguo/software-project-training-skills versions
+   ```
+
+4. 也可以直接指定 npm 官方源安装指定版本，绕过镜像：
+
+   ```bash
+   npx --registry=https://registry.npmjs.org @dedeguo/software-project-training-skills@0.2.0
+   ```
 
 ---
 
