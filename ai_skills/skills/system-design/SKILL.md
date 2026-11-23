@@ -1,6 +1,6 @@
 ---
 name: system-design
-description: "Guide students from an approved project proposal and requirements specification to a feasible, traceable, and internally consistent course-project system design. Use when a student needs to compare or select technical solutions; design architecture, functional modules, UI page flows, databases, APIs, permissions, business states, deployment, quality, or security; connect requirements to implementation; revise incomplete design materials; or draft and complete a Chinese 《系统设计说明书》 before coding."
+description: "Guide students from an approved project proposal and requirements specification to a feasible, traceable, and internally consistent course-project system design. Use when a student needs to compare or select technical solutions; design architecture, functional modules, UI page flows, databases, APIs, permissions, business states, deployment, quality, or security; connect requirements to implementation; revise incomplete design materials; draft and complete a Chinese 《系统设计说明书》; or build an interactive local HTML UI prototype (ui-prototype/index.html) from the completed specification, before coding."
 ---
 
 # 系统设计助手（System Design）
@@ -184,6 +184,13 @@ description: "Guide students from an approved project proposal and requirements 
 - 记录版本、变更内容、负责人和确认状态；
 - 初稿完成后说明尚未验证的内容，不直接宣称已经定稿。
 
+### 第十一步：输出系统 UI 原型设计稿
+
+- 完整设计流程中，先完成《系统设计说明书》，再按[系统 UI 原型交付指南](references/ui-prototype-guide.md)制作可交互的本地 HTML 原型；已有合格说明书、用户仅需要原型时，可直接读取说明书进入本步骤，不重跑全部设计流程。
+- 默认使用 HTML、CSS 和原生 JavaScript；当前客户端已启用的 UI 设计或预览能力可用于辅助制作和核验。默认交付可直接打开的 `ui-prototype/index.html`，用模拟数据演示主流程和关键异常。
+- 说明书与原型沿用同一套页面编号、角色和业务状态，并在说明书中补充原型入口与主要页面的对应关系。
+- 交付时说明 HTML 入口、打开方式、可演示的流程与状态以及未验证事项。完成后，可使用 `system-development` 技能划分项目开发里程碑，或根据里程碑文档完成单个里程碑（如 M1）的开发测试。
+
 ## 输出方式
 
 根据学生所处阶段控制输出范围：
@@ -194,6 +201,7 @@ description: "Guide students from an approved project proposal and requirements 
 - 从头设计：按核心闭环分阶段推进，不在一次回复中生成所有通用内容；
 - 已有草稿：输出“必须修改 / 待确认 / 可选优化”的问题表，并尽量引用编号或位置；
 - 编制说明书：按模板生成可复制的初稿，保留待确认标记和追踪表；
+- 制作 UI 原型：输出原型入口、打开方式、可演示的主流程与异常状态、未验证事项，以及与说明书的编号对应关系；
 - 设计完成：输出一致性检查结果、尚未验证事项和进入编码前清单。
 
 语言保持适合初学者，先给结论和当前阶段，再给图表、依据和下一步。解释关键决定为什么适合当前项目，以及它会影响哪些页面、接口或数据。

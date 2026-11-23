@@ -1,16 +1,22 @@
-# 软件开发综合项目实训 TRAE AI Skills
+# 软件开发综合项目实训 AI Skills
 
 面向软件工程项目实践的 AI Agent Skills 技能包
 
-本技能包将课程中的项目选题、需求分析、文档评审等方法整理为可复用的 AI 技能，帮助学生在 TRAE 中按照规范的软件工程流程完成课程项目。
+本技能包将课程中的项目选题、需求分析、系统设计、开发测试、文档评审等方法整理为可复用的 AI 技能，帮助学生在 TRAE、Claude Code、Codex 等 AI 编程工具中按照规范的软件工程流程完成课程项目。
 
-安装后，Skills 会被复制到当前项目的：
+未指定工具时，Skills 会被复制到当前项目的：
+
+```text
+.agents/skills/
+```
+
+通过 `--tool` 参数可以安装到指定工具的项目内目录，例如 `--tool trae` 安装到：
 
 ```text
 .trae/skills/
 ```
 
-同时生成课程技能调用规则：
+并同时生成课程技能调用规则（仅 TRAE 生成）：
 
 ```text
 .trae/rules/software-project-training-skills.md
@@ -29,11 +35,11 @@
 | `requirements-review`   | 对照检查《项目选题立项书》和《需求分析说明书》中的矛盾、遗漏和超范围内容 |
 | `system-design`         | 完成技术选型、架构、模块、页面、数据、接口、权限和状态设计并编制设计说明书 |
 | `system-design-review`  | 评审系统设计的需求覆盖、可行性、一致性、安全风险和进入开发条件 |
+| `system-development`    | 划分开发里程碑，按单个里程碑完成编码与单元、接口、浏览器界面测试并留痕 |
 | `course-report` | 根据项目成果和测试证据整理课程设计任务书与报告 |
 
 后续可继续增加：
 
-* 项目开发
 * 系统测试
 * 项目部署
 
@@ -44,7 +50,7 @@
 本技能包主要面向：
 
 * 《软件开发综合项目实训》课程学生
-* 使用 TRAE 完成课程项目的学生
+* 使用 TRAE、Claude Code 等 AI 编程工具完成课程项目的学生
 * 使用 AI 辅助进行需求分析、系统设计和项目开发的学习者
 * 希望规范 AI 编程流程的教师和项目指导人员
 
@@ -64,7 +70,7 @@
 
 * Node.js 18 或更高版本
 * npm 或兼容的 Node.js 包管理工具
-* TRAE IDE
+* 任一支持的 AI 编程工具（TRAE、Claude Code、Codex 等，按需选择）
 
 检查 Node.js 和 npm 版本：
 
@@ -77,7 +83,7 @@ npm -v
 
 ## 四、安装方法
 
-### 1. 进入 TRAE 项目目录
+### 1. 进入项目目录
 
 请先进入需要安装 Skills 的具体项目根目录。
 
@@ -92,64 +98,75 @@ cd /path/to/student-project
 ### 2. 使用 npx 安装
 
 ```bash
+# 默认安装到当前项目的 .agents/skills/
 npx @dedeguo/software-project-training-skills
+
+# 安装到指定工具的项目内目录
+npx @dedeguo/software-project-training-skills --tool claude
 ```
+
+`--tool` 支持的工具：
+
+| 工具 | `--tool` 参数值 | 项目内安装目录 |
+| --- | --- | --- |
+| TRAE | `trae` | `.trae/skills/` |
+| Claude Code | `claude`（也可用 `claude-code`） | `.claude/skills/` |
+| WorkBuddy | `workbuddy` | `.workbuddy/skills/` |
+| CodeBuddy | `codebuddy` | `.codebuddy/skills/` |
+| Codex | `codex` | `.agents/skills/` |
+| OpenCode | `opencode` | `.opencode/skills/` |
 
 安装器会自动完成以下操作：
 
 1. 检查 npm 包中的所有 Skill。
 2. 校验每个 `SKILL.md` 的 `name` 和 `description`。
-3. 将 Skills 复制到当前项目的 `.trae/skills/`。
-4. 生成 `.trae/rules/software-project-training-skills.md`。
+3. 将 Skills 复制到目标工具对应的项目内目录（默认 `.agents/skills/`）。
+4. 仅当目标工具为 TRAE 时，生成 `.trae/rules/software-project-training-skills.md`；其他工具通过 Skills 目录原生发现 Skill，不需要额外的规则文件。
 5. 保留用户已经创建的其他 Skills 和 Rules。
 
-安装完成后的目录结构如下：
+默认安装完成后的目录结构如下：
 
 ```text
 student-project/
-├── .trae/
-│   ├── skills/
-│   │   ├── topic-selection/
-│   │   │   ├── SKILL.md
-│   │   │   ├── agents/
-│   │   │   └── references/
-│   │   │
-│   │   ├── requirements-analysis/
-│   │   │   ├── SKILL.md
-│   │   │   ├── agents/
-│   │   │   └── references/
-│   │   │
-│   │   ├── requirements-review/
-│   │   │   ├── SKILL.md
-│   │   │   ├── agents/
-│   │   │   └── references/
-│   │   │
-│   │   ├── system-design/
-│   │   │   ├── SKILL.md
-│   │   │   ├── agents/
-│   │   │   └── references/
-│   │   │
-│   │   ├── system-design-review/
-│   │       ├── SKILL.md
-│   │       ├── agents/
-│   │       └── references/
-│   │   └── course-report/
-│   │       ├── SKILL.md
-│   │       └── references/
-│   │
-│   └── rules/
-│       └── software-project-training-skills.md
-│
-└── ...
+└── .agents/
+    └── skills/
+        ├── topic-selection/
+        │   ├── SKILL.md
+        │   ├── agents/
+        │   └── references/
+        │
+        ├── requirements-analysis/
+        │   └── …
+        ├── requirements-review/
+        │   └── …
+        ├── system-design/
+        │   └── …
+        ├── system-design-review/
+        │   └── …
+        ├── system-development/
+        │   └── …
+        └── course-report/
+            └── …
 ```
 
-安装后建议重新打开 TRAE 项目，或者新建一个对话会话。
+指定 `--tool trae` 时，Skills 安装到 `.trae/skills/`，并额外生成规则文件：
+
+```text
+student-project/
+└── .trae/
+    ├── skills/
+    │   └── …
+    └── rules/
+        └── software-project-training-skills.md
+```
+
+安装后建议重新打开项目，或者新建一个对话会话。
 
 ---
 
 ## 五、使用方法
 
-TRAE 可以根据 Skill 的 `description` 自动判断何时调用对应技能。
+TRAE、Claude Code 等工具会根据 Skill 的 `description` 自动判断何时调用对应技能。
 
 也可以在对话中明确指定 Skill。
 
@@ -225,7 +242,19 @@ TRAE 可以根据 Skill 的 `description` 自动判断何时调用对应技能�
 
 ---
 
-### 6. 课程报告
+### 6. 系统开发
+
+```text
+使用 system-development Skill，根据《需求分析说明书》《系统设计说明书》和 HTML UI 原型划分项目开发里程碑。
+```
+
+```text
+使用 system-development Skill，根据里程碑文档完成 M1 的开发和测试。
+```
+
+---
+
+### 7. 课程报告
 
 ```text
 使用 course-report Skill，根据项目代码、设计文档和测试记录整理课程设计报告，并标出缺少的证据。
@@ -234,6 +263,14 @@ TRAE 可以根据 Skill 的 `description` 自动判断何时调用对应技能�
 ---
 
 ## 六、命令参数
+
+### 指定安装工具（--tool）
+
+```bash
+npx @dedeguo/software-project-training-skills --tool trae
+```
+
+也可使用 `--tool=trae` 形式。支持的工具与安装目录见[安装方法](#四安装方法)；不指定 `--tool` 时，默认安装到 `.agents/skills/`。
 
 ### 查看帮助
 
@@ -285,10 +322,16 @@ npx @dedeguo/software-project-training-skills@0.2.0
 npx @dedeguo/software-project-training-skills --uninstall
 ```
 
+卸载时 `--tool` 参数需与安装时一致，例如卸载安装到 Claude Code 目录的 Skills：
+
+```bash
+npx @dedeguo/software-project-training-skills --uninstall --tool claude
+```
+
 卸载器只会删除：
 
 * 本技能包中包含的同名 Skill
-* 本安装器生成的课程 Rule 文件
+* 本安装器生成的课程 Rule 文件（仅 TRAE 安装时生成）
 
 不会删除用户自己创建的其他 Skills 和 Rules。
 
@@ -556,25 +599,42 @@ node bin/install.js --list
 cd /path/to/test-project
 ```
 
-运行：
+运行（默认安装到 `.agents/skills/`）：
 
 ```bash
 node /path/to/software-project-training-docs/ai_skills/bin/install.js --dry-run
+```
+
+也可以模拟安装到指定工具：
+
+```bash
+node /path/to/software-project-training-docs/ai_skills/bin/install.js --tool trae --dry-run
 ```
 
 ### 5. 执行本地安装
 
 ```bash
 node /path/to/software-project-training-docs/ai_skills/bin/install.js
+
+# 或安装到指定工具
+node /path/to/software-project-training-docs/ai_skills/bin/install.js --tool trae
 ```
 
 ### 6. 检查安装结果
+
+默认安装时检查：
+
+```bash
+find .agents/skills -name SKILL.md
+```
+
+指定 `--tool trae` 安装时检查：
 
 ```bash
 find .trae/skills -name SKILL.md
 ```
 
-还可以检查生成的规则：
+还可以检查生成的规则（仅 `--tool trae` 时生成）：
 
 ```bash
 cat .trae/rules/software-project-training-skills.md
@@ -584,6 +644,9 @@ cat .trae/rules/software-project-training-skills.md
 
 ```bash
 node /path/to/software-project-training-docs/ai_skills/bin/install.js --uninstall
+
+# 卸载指定工具目录中的 Skills（--tool 与安装时一致）
+node /path/to/software-project-training-docs/ai_skills/bin/install.js --uninstall --tool trae
 ```
 
 ---
@@ -610,7 +673,7 @@ npm whoami
 {
   "name": "@dedeguo/software-project-training-skills",
   "version": "0.1.0",
-  "description": "《软件开发综合项目实训》课程 TRAE Skills 技能包",
+  "description": "《软件开发综合项目实训》课程 AI 编程工具 Skills 技能包",
   "type": "module",
   "bin": {
     "software-project-training-skills": "bin/install.js"
@@ -626,6 +689,8 @@ npm whoami
   },
   "keywords": [
     "trae",
+    "claude-code",
+    "codex",
     "skills",
     "software-project-training",
     "ai-coding",
@@ -756,29 +821,31 @@ npm publish --access public
 
 ## 十三、常见问题
 
-### 1. 安装后 TRAE 没有识别 Skill
+### 1. 安装后工具没有识别 Skill
 
-请检查：
+请检查（以默认安装为例）：
 
 ```text
-.trae/skills/<skill-name>/SKILL.md
+.agents/skills/<skill-name>/SKILL.md
 ```
+
+指定 `--tool` 安装时，检查对应工具的目录，例如 `.trae/skills/<skill-name>/SKILL.md`。
 
 确认 `SKILL.md` 直接位于技能目录下，而不是多嵌套了一层。
 
 正确结构：
 
 ```text
-.trae/skills/topic-selection/SKILL.md
+.agents/skills/topic-selection/SKILL.md
 ```
 
 错误结构：
 
 ```text
-.trae/skills/software-project-training-skills/topic-selection/SKILL.md
+.agents/skills/software-project-training-skills/topic-selection/SKILL.md
 ```
 
-完成检查后，重新打开 TRAE 项目或创建新会话。
+完成检查后，重新打开项目或创建新会话。
 
 ### 2. 提示 name 与目录名不一致
 
@@ -806,13 +873,14 @@ requirements-analysis
 requirements-review
 system-design
 system-design-review
+system-development
 course-report
 ```
 
 不会清空整个：
 
 ```text
-.trae/skills/
+目标工具的 Skills 目录（如 .agents/skills/）
 ```
 
 ### 4. 如何恢复某个被修改的课程 Skill
@@ -841,12 +909,13 @@ npx @dedeguo/software-project-training-skills@latest
 --only topic-selection,requirements-analysis
 ```
 
-### 6. 可以安装到全局 TRAE Skills 目录吗
+### 6. 可以安装到全局 Skills 目录吗
 
-当前安装器定位为课程项目级安装，只安装到：
+当前安装器定位为课程项目级安装，只安装到当前项目内的对应目录：
 
 ```text
-当前项目/.trae/skills/
+当前项目/.agents/skills/    # 默认
+当前项目/.trae/skills/      # --tool trae
 ```
 
 这样可以保证：
@@ -891,7 +960,11 @@ npx @dedeguo/software-project-training-skills@latest
 教师可以要求学生在项目开始时执行：
 
 ```bash
+# 默认安装到当前项目/.agents/skills/
 npx @dedeguo/software-project-training-skills
+
+# 或指定安装工具（以 TRAE 为例）
+npx @dedeguo/software-project-training-skills --tool trae
 ```
 
 之后按照课程阶段使用对应 Skill：
@@ -916,6 +989,10 @@ system-design
 系统设计评审
     ↓
 system-design-review
+    ↓
+项目开发
+    ↓
+system-development
     ↓
 项目完成与测试
     ↓

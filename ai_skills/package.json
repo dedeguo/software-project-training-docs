@@ -1,7 +1,7 @@
 {
   "name": "@dedeguo/software-project-training-skills",
-  "version": "0.2.0",
-  "description": "《软件开发综合项目实训》课程 TRAE Skills 技能包",
+  "version": "0.3.0",
+  "description": "《软件开发综合项目实训》课程 AI 编程工具 Skills 技能包",
   "type": "module",
   "bin": {
     "software-project-training-skills": "bin/install.js"
@@ -16,6 +16,8 @@
   },
   "keywords": [
     "trae",
+    "claude-code",
+    "codex",
     "skills",
     "software-project-training",
     "ai-coding",

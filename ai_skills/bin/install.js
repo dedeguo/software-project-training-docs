@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 
 /**
- * 《软件开发综合项目实训》TRAE Skills 安装器
+ * 《软件开发综合项目实训》Skills 安装器
  *
  * 默认行为：
  * 1. 从 npm 包内的 skills/ 目录查找所有合法 Skill。
- * 2. 将 Skill 安装到当前项目的 .trae/skills/。
- * 3. 生成 .trae/rules/software-project-training-skills.md。
+ * 2. 未指定 --tool 时，将 Skill 安装到当前项目的 .agents/skills/。
+ * 3. 指定 --tool 时，将 Skill 安装到对应工具的项目内目录。
+ * 4. 仅当目标工具为 TRAE 时，额外生成 .trae/rules/software-project-training-skills.md。
  *
  * 支持命令：
  *   npx @dedeguo/software-project-training-skills
+ *   npx @dedeguo/software-project-training-skills --tool trae
  *   npx @dedeguo/software-project-training-skills --list
  *   npx @dedeguo/software-project-training-skills --dry-run
  *   npx @dedeguo/software-project-training-skills --uninstall
@@ -62,24 +64,97 @@ const sourceSkillsDir = join(packageRoot, "skills");
 const projectRoot = resolve(process.cwd());
 
 /**
- * TRAE 项目级目录。
+ * 支持的 --tool 参数值与项目内安装目录。
  */
-const traeRootDir = join(projectRoot, ".trae");
-const targetSkillsDir = join(traeRootDir, "skills");
-const targetRulesDir = join(traeRootDir, "rules");
+const TOOL_TARGETS = {
+  trae: {
+    label: "TRAE",
+    skillsDir: ".trae/skills",
+    ruleDir: ".trae/rules"
+  },
+  claude: {
+    label: "Claude Code",
+    skillsDir: ".claude/skills"
+  },
+  workbuddy: {
+    label: "WorkBuddy",
+    skillsDir: ".workbuddy/skills"
+  },
+  codebuddy: {
+    label: "CodeBuddy",
+    skillsDir: ".codebuddy/skills"
+  },
+  codex: {
+    label: "Codex",
+    skillsDir: ".agents/skills"
+  },
+  opencode: {
+    label: "OpenCode",
+    skillsDir: ".opencode/skills"
+  }
+};
 
 /**
- * 本安装器生成的规则文件。
+ * --tool 参数别名。
+ */
+const TOOL_ALIASES = {
+  "claude-code": "claude"
+};
+
+/**
+ * 未指定 --tool 时的默认安装目录。
+ */
+const DEFAULT_TARGET = {
+  label: "默认",
+  skillsDir: ".agents/skills"
+};
+
+/**
+ * 目标工具信息。
+ *
+ * 由 main() 根据解析结果赋值后再执行安装或卸载。
+ */
+let targetToolLabel = DEFAULT_TARGET.label;
+let targetSkillsDir = toProjectPath(
+  DEFAULT_TARGET.skillsDir
+);
+let targetRuleDir = null;
+
+/**
+ * 本安装器生成的规则文件名。
  *
  * 卸载时只删除该文件，不影响用户自己的其他 Rules。
  */
 const bootstrapRuleFilename =
   "software-project-training-skills.md";
 
-const bootstrapRulePath = join(
-  targetRulesDir,
-  bootstrapRuleFilename
-);
+/**
+ * 将 "/" 分隔的项目内相对目录转换为绝对路径。
+ *
+ * @param {string} relativeDir
+ * @returns {string}
+ */
+function toProjectPath(relativeDir) {
+  return join(
+    projectRoot,
+    ...relativeDir.split("/")
+  );
+}
+
+/**
+ * 获取 Rule 文件路径。
+ *
+ * 仅 TRAE 使用 Rule 文件，其余工具返回 null。
+ *
+ * @returns {string|null}
+ */
+function getBootstrapRulePath() {
+  if (!targetRuleDir) {
+    return null;
+  }
+
+  return join(targetRuleDir, bootstrapRuleFilename);
+}
 
 const packageJsonPath = join(packageRoot, "package.json");
 
@@ -87,7 +162,33 @@ const packageJsonPath = join(packageRoot, "package.json");
 /* 命令行参数                                                                  */
 /* -------------------------------------------------------------------------- */
 
-const args = new Set(process.argv.slice(2));
+const rawArgs = process.argv.slice(2);
+const args = new Set();
+
+let requestedTool = null;
+let toolArgError = null;
+
+for (let i = 0; i < rawArgs.length; i += 1) {
+  const arg = rawArgs[i];
+
+  if (arg === "--tool") {
+    const value = rawArgs[i + 1];
+
+    if (value && !value.startsWith("-")) {
+      requestedTool = removeWrappingQuotes(value);
+      i += 1;
+    } else {
+      toolArgError =
+        "--tool 需要指定工具名，例如：--tool claude";
+    }
+  } else if (arg.startsWith("--tool=")) {
+    requestedTool = removeWrappingQuotes(
+      arg.slice("--tool=".length)
+    );
+  } else {
+    args.add(arg);
+  }
+}
 
 const options = {
   help: args.has("--help") || args.has("-h"),
@@ -96,6 +197,59 @@ const options = {
   dryRun: args.has("--dry-run"),
   force: args.has("--force")
 };
+
+/**
+ * 解析 --tool 参数，得到目标工具与安装目录。
+ *
+ * @returns {{key: string|null, label: string, skillsDir: string, ruleDir: string|null}}
+ */
+function resolveToolTarget() {
+  if (toolArgError) {
+    throw new Error(toolArgError);
+  }
+
+  if (!requestedTool) {
+    return {
+      key: null,
+      label: DEFAULT_TARGET.label,
+      skillsDir: DEFAULT_TARGET.skillsDir,
+      ruleDir: null
+    };
+  }
+
+  const normalizedInput =
+    requestedTool.toLowerCase();
+
+  const key =
+    TOOL_ALIASES[normalizedInput] ??
+    normalizedInput;
+
+  const target = TOOL_TARGETS[key];
+
+  if (!target) {
+    throw new Error(
+      [
+        `不支持的 --tool 参数值："${requestedTool}"。`,
+        "",
+        "支持的工具：",
+        "",
+        ...Object.entries(TOOL_TARGETS).map(
+          ([toolKey, value]) =>
+            `- ${value.label}：--tool ${toolKey}（安装到 ${value.skillsDir}/）`
+        ),
+        "",
+        "不指定 --tool 时，默认安装到 .agents/skills/。"
+      ].join("\n")
+    );
+  }
+
+  return {
+    key,
+    label: target.label,
+    skillsDir: target.skillsDir,
+    ruleDir: target.ruleDir ?? null
+  };
+}
 
 /* -------------------------------------------------------------------------- */
 /* 控制台输出                                                                  */
@@ -255,7 +409,7 @@ function validateProjectRoot() {
     throw new Error(
       [
         "当前命令在用户主目录中执行。",
-        "为避免把 .trae/skills 安装到错误位置，安装已停止。",
+        `为避免把 Skills 安装到错误位置（${targetSkillsDir}），安装已停止。`,
         "",
         "请先进入具体项目目录：",
         "",
@@ -639,7 +793,16 @@ function installBootstrapRule(
   skills,
   packageInfo
 ) {
-  ensureDirectory(targetRulesDir);
+  const rulePath = getBootstrapRulePath();
+
+  if (!rulePath) {
+    logInfo(
+      `目标工具 ${targetToolLabel} 通过 Skills 目录原生发现 Skill，不生成 Rule 文件。`
+    );
+    return;
+  }
+
+  ensureDirectory(targetRuleDir);
 
   const ruleContent = generateBootstrapRule(
     skills,
@@ -647,13 +810,13 @@ function installBootstrapRule(
   );
 
   writeTextFile(
-    bootstrapRulePath,
+    rulePath,
     ruleContent
   );
 
   if (!options.dryRun) {
     logSuccess(
-      `已生成 TRAE Rule：${bootstrapRulePath}`
+      `已生成 Rule 文件：${rulePath}`
     );
   }
 }
@@ -667,9 +830,10 @@ function installBootstrapRule(
 function install(skills, packageInfo) {
   logInfo("");
   logInfo(
-    `准备向项目安装 ${skills.length} 个 TRAE Skills。`
+    `准备向项目安装 ${skills.length} 个 Skills（目标工具：${targetToolLabel}）。`
   );
   logInfo(`项目目录：${projectRoot}`);
+  logInfo(`安装目录：${targetSkillsDir}`);
   logInfo("");
 
   installSkills(skills);
@@ -687,10 +851,16 @@ function install(skills, packageInfo) {
   logSuccess("全部 Skills 安装完成");
   logInfo("");
   logInfo(`Skills 目录：${targetSkillsDir}`);
-  logInfo(`Rule 文件：${bootstrapRulePath}`);
+
+  const rulePath = getBootstrapRulePath();
+
+  if (rulePath) {
+    logInfo(`Rule 文件：${rulePath}`);
+  }
+
   logInfo("");
   logInfo(
-    "建议重新打开 TRAE 项目，或新建一个对话会话后使用。"
+    "建议重新打开项目，或新建一个对话会话后使用。"
   );
 }
 
@@ -712,7 +882,7 @@ function install(skills, packageInfo) {
 function uninstall(skills) {
   logInfo("");
   logInfo(
-    `准备从项目中卸载 ${skills.length} 个 TRAE Skills。`
+    `准备从项目中卸载 ${skills.length} 个 Skills（目标工具：${targetToolLabel}）。`
   );
   logInfo(`项目目录：${projectRoot}`);
   logInfo("");
@@ -740,12 +910,18 @@ function uninstall(skills) {
     }
   }
 
-  if (existsSync(bootstrapRulePath)) {
-    removePath(bootstrapRulePath);
+  const rulePath = getBootstrapRulePath();
+
+  if (!rulePath) {
+    logInfo(
+      `目标工具 ${targetToolLabel} 不使用 Rule 文件，跳过 Rule 卸载。`
+    );
+  } else if (existsSync(rulePath)) {
+    removePath(rulePath);
 
     if (!options.dryRun) {
       logSuccess(
-        `已删除 TRAE Rule：${bootstrapRuleFilename}`
+        `已删除 Rule 文件：${bootstrapRuleFilename}`
       );
     }
   } else {
@@ -780,15 +956,26 @@ function printHelp() {
     "@dedeguo/software-project-training-skills";
 
   logInfo(`
-《软件开发综合项目实训》TRAE Skills 安装器
+《软件开发综合项目实训》Skills 安装器
 
 用法：
 
-  npx ${packageName}
+  npx ${packageName}                      安装到当前项目/.agents/skills/（默认）
+  npx ${packageName} --tool <工具>        安装到对应工具的项目内目录
   npx ${packageName} [选项]
+
+--tool 支持的工具：
+
+  trae         TRAE         .trae/skills/（并生成 .trae/rules/ 规则文件）
+  claude       Claude Code  .claude/skills/（别名：claude-code）
+  workbuddy    WorkBuddy    .workbuddy/skills/
+  codebuddy    CodeBuddy    .codebuddy/skills/
+  codex        Codex        .agents/skills/
+  opencode     OpenCode     .opencode/skills/
 
 选项：
 
+  --tool <工具>  指定安装目标工具
   --list        显示 npm 包中包含的 Skills
   --dry-run     模拟执行，不修改任何文件
   --uninstall   卸载本技能包安装的 Skills
@@ -797,13 +984,20 @@ function printHelp() {
 
 安装位置：
 
-  当前项目/.trae/skills/
-  当前项目/.trae/rules/${bootstrapRuleFilename}
+  未指定 --tool：  当前项目/.agents/skills/
+  --tool trae：    当前项目/.trae/skills/ 和 当前项目/.trae/rules/${bootstrapRuleFilename}
+  其他工具：       当前项目/<对应工具目录>/skills/
 
 示例：
 
-  # 安装
+  # 安装到默认目录
   npx ${packageName}
+
+  # 安装到 TRAE
+  npx ${packageName} --tool trae
+
+  # 安装到 Claude Code
+  npx ${packageName} --tool claude
 
   # 查看包含哪些 Skills
   npx ${packageName} --list
@@ -814,8 +1008,8 @@ function printHelp() {
   # 更新到最新版
   npx ${packageName}@latest
 
-  # 卸载
-  npx ${packageName} --uninstall
+  # 卸载（--tool 需与安装时一致）
+  npx ${packageName} --uninstall --tool trae
 `);
 }
 
@@ -828,6 +1022,14 @@ function main() {
     printHelp();
     return;
   }
+
+  const target = resolveToolTarget();
+
+  targetToolLabel = target.label;
+  targetSkillsDir = toProjectPath(target.skillsDir);
+  targetRuleDir = target.ruleDir
+    ? toProjectPath(target.ruleDir)
+    : null;
 
   validateProjectRoot();
 
